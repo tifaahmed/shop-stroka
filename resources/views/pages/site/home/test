@@ -1,0 +1,248 @@
+ @extends('layout')
+
+{{-- @section('title')
+<title>{{$meta->title}}</title>
+@endsection --}}
+
+
+{{-- @section('meta')
+    @include('pages.partials.meta', [
+        'og_title'              => $meta_facebook->og_title ,
+        'og_image_alt'          => $meta_facebook->og_image_alt ,
+        'twitter_title'         => $meta_twitter->twitter_title ,
+        'title'                 => $meta->title ,
+        'name'                  => $meta->title ,
+
+        'og_type'               => $meta_facebook->og_type ,
+        'keywords'              => $meta->keywords ,
+
+        'twitter_description'   => $meta_twitter->twitter_description ,
+        'og_description'        => $meta_facebook->og_description ,
+        'description'           => $meta->description ,
+
+        'og_image'             => asset($meta_facebook->og_image) ,
+        'twitter_image'        => asset($meta_twitter->twitter_image) ,
+        'image'                => asset($meta->og_title) ,
+
+     ])
+@endsection  --}}
+
+
+
+{{-- @section('css')
+
+@endsection --}}
+
+
+@section('content')  
+    {{-- @include('pages.partials.header')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- site__body -->
+    <div class="site__body">
+        <!-- .block-slideshow -->
+        <div class="block-slideshow block-slideshow--layout--full block">
+            @if($video->file)
+                @include('pages.component.video')
+            @else
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="block-slideshow__body">
+                            <div class="owl-carousel">
+                              @if($slider)
+                                @foreach($slider as $key => $val)
+                                    @include('pages.component.slider')
+                                @endforeach
+                              @endif
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+            @endif
+        </div>
+        <!-- .block-slideshow / end -->
+
+         <!-- .block-banner -->
+         <style type="text/css">
+            .block-banner{
+               height: 300px;
+            }
+             @media (max-width: 767px){
+                 .block-banner__text {
+                     width: 100%;
+                     padding-left: 18px;
+                     margin-right: 10px;
+                 }
+                 .block-banner{
+                    height: 600px;
+                 }
+             }
+         </style>
+         <div class="block block-banner" >
+            <div class="container">
+                <a href="{{$about_home->url1}}" class="block-banner__body">
+                    <div class="block-banner__image block-banner__image--desktop" style="
+                    background-image: url({{asset($about_home->home_image_one)}}) ;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-attachment: fixed;
+                    background-size: cover;
+                    height: 300px;
+                    "></div>
+
+                    <div class="block-banner__image block-banner__image--mobile" style="
+                    background-image: url({{asset($about_home->home_image_two)}});
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-attachment: fixed;
+                    background-size: cover;
+                    height: 600px;
+
+                    "></div>
+                    <div class="block-banner__title">
+                     <br class="block-banner__mobile-br">{!!$about_home->home_title1!!}
+                    </div>
+                    <div class="block-banner__text">
+                    {!! $about_home->home_subject1 !!}
+                    </div>
+                    <div class="block-banner__button">
+                        <span class="btn btn-sm btn-primary"> {{$about_home->button1}}  </span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!-- .block-banner / end -->
+
+
+
+        <br><br><br>
+        
+        @foreach(json_decode($store_details->home_slider_sort) as $key => $subject)
+            @include('pages.component.products.modal.links')
+
+
+            @if($subject->slider_type == 'moving_one_row_with_tabs_5')
+            <?php $product_in_row = 5 ;?>
+                @include('pages.component.products.moving_one_row_with_tabs.index', [
+                    'order_type'     => $subject->order_type,
+                    'product_in_row' => $product_in_row, 
+                    'limit'          => $subject->limit, 
+                    'title'          => $subject->title, 
+                    'rand'            => rand(),
+                ])
+
+            @elseif($subject->slider_type == 'moving_one_row_with_tabs_4')
+            <?php $product_in_row = 4 ;?>
+                @include('pages.component.products.moving_one_row_with_tabs.index', [
+                    'order_type'     => $subject->order_type,
+                    'product_in_row' => $product_in_row, 
+                    'limit'          => $subject->limit, 
+                    'title'          => $subject->title, 
+                    'rand'            => rand() 
+                ])
+
+            @elseif($subject->slider_type == 'moving_one_row_with_tabs_2')
+            <?php $product_in_row = 2 ;?>
+                @include('pages.component.products.moving_one_row_with_tabs.index', [
+                    'order_type'     => $subject->order_type,
+                    'product_in_row' => $product_in_row, 
+                    'limit'          => $subject->limit, 
+                    'title'          => $subject->title, 
+                    'rand'            => rand()
+                ])
+
+            @elseif($subject->slider_type == 'fixed_seven_product_7')
+                @include('pages.component.products.fixed_seven.index', [
+                    'order_type'     => $subject->order_type,
+                    'limit'          => $subject->limit, 
+                    'title'          => $subject->title, 
+                    'rand'            => rand()
+                ])
+
+            @elseif($subject->slider_type == 'category_fixed_blocks_3')
+                @include('pages.component.products.fixed_blocks.index', [
+                    'order_type'     => $subject->order_type,
+                    'limit'          => $subject->limit, 
+                    'items'          => 3, 
+                    'title'          => $subject->title, 
+                    'rand'            => rand()
+                ])
+
+            @elseif($subject->slider_type == 'category_fixed_blocks_6')
+                @include('pages.component.products.fixed_blocks.index', [
+                    'order_type'     => $subject->order_type,
+                    'limit'          => $subject->limit, 
+                    'items'          => 6, 
+                    'title'          => $subject->title, 
+                    'rand'            => rand()
+                ])
+
+            @elseif($subject->slider_type == 'category_fixed_blocks_9')
+                @include('pages.component.products.fixed_blocks.index', [
+                    'order_type'     => $subject->order_type,
+                    'limit'          => $subject->limit, 
+                    'items'          => 9, 
+                    'title'          => $subject->title, 
+                    'rand'            => rand()
+                ])
+ 
+            @elseif($subject->slider_type == 'moving_two_row_with_tabs_6')
+            <?php $product_in_row = 6 ;?>
+                @include('pages.component.products.moving_two_row_with_tabs.index', [
+                    'order_type'     => $subject->order_type,
+                    'product_in_row' => $product_in_row, 
+                    'limit'          => $subject->limit, 
+                    'title'          => $subject->title, 
+                    'rand'            => rand()
+                ])
+
+          @endif 
+        @endforeach
+ 
+
+
+
+
+ 
+
+        <!-- include('pages.component.products.moving_one_row_two_product', [
+          'categories_latest' => $categories_latest,
+        ]) -->
+
+
+        <!-- include('pages.component.products.moving_one_row_sex_product') -->
+        @if($store_details->home_column_sort)
+            @foreach(json_decode($store_details->home_column_sort) as $key => $subject)
+     
+                @include('pages.component.products.fixed_three_columns.index', [
+                        'column_one_order'          => $subject->column_one_order,
+                        'column_one_limit'          => $subject->column_one_limit, 
+                        'column_one_title'          => $subject->column_one_title, 
+                 
+                        'column_two_order'          => $subject->column_two_order,
+                        'column_two_limit'          => $subject->column_two_limit, 
+                        'column_two_title'          => $subject->column_two_title, 
+
+                        'column_three_order'          => $subject->column_three_order,
+                        'column_three_limit'          => $subject->column_three_limit, 
+                        'column_three_title'          => $subject->column_three_title, 
+
+                        'rand'            => $key+10 
+                ])
+            @endforeach    
+        @endif 
+
+    </div> --}}
+    <!-- site__body / end -->
+
+    {{-- @include('pages.partials.footer') --}}
+
+
+
+
+
+
+@endsection
