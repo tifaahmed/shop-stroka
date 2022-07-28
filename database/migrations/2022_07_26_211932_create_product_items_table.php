@@ -17,17 +17,17 @@ return new class extends Migration
             $table->increments('id');
             $table->string('title')->nullable();
 
-            $table->integer('product_sub_category_id')->nullable()->unsigned();
+            $table->integer('product_sub_category_id')->unsigned();
             $table->foreign('product_sub_category_id')->references('id')->on('product_sub_categories')->onDelete('cascade');
 
 
             // $table->integer('code')->default(0);
 
-            $table->string('visit_count')->default(0);
-            $table->string('order_count')->default(0);
-            $table->string('wishlisted_count')->default(0);
-            $table->float('rating_count')->default(0);
-            $table->float('comment_count')->default(0);
+            $table->integer('visit_count')->default(0);
+            $table->integer('order_count')->default(0);
+            $table->integer('wishlisted_count')->default(0);
+            $table->integer('rating_count')->default(0);
+            $table->integer('comment_count')->default(0);
 
             $table->float('rating')->default(0)->nullable();//rating_persent
 
