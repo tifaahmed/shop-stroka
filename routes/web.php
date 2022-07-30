@@ -28,14 +28,14 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return redirect(app()->getLocale());
+    return redirect(app()->getLocale().'/home');
 });
 
 
 // Route::get('/close_page', 'MainController@close')->name('close_page');
 
 Route::group([
-	'prefix' => '{locale}', 
+	'prefix' => '{locale}/home', 
 	'where' => ['locale' => '[a-zA-Z]{2}'], 
 	// 'middleware' => 'App\Http\Middleware\status'
 ], function () {
@@ -54,6 +54,10 @@ Route::group([
 	Route::get('/about-us', 'MainController@about_us')->name('about_us');
 	Route::get('/about-us/{url}', 'MainController@about_us') ;
 
+	Route::get('/cart', 'MainController@cart')->name('cart');
+	Route::get('/cart/{url}', 'MainController@cart') ;
+
+	
 	// // search
 		Route::get('products_search', [ShopController::class, 'index'])->name('products_search');
 	// 	Route::get('suggestions', 'App\Http\Controllers\ShopController@suggestions');

@@ -1,4 +1,18 @@
 <div class="nav-panel__indicators">
+    
+
+
+ 
+
+
+
+
+
+
+
+
+
+
     <div class="indicator">
         <a href="compare.php" class="indicator__button">
             <span class="indicator__area">
@@ -22,10 +36,11 @@
     </div>
 
     <div class="indicator indicator--trigger--click">
-        <a href="{{asset(Request::segment(1).'/cart/'.$cart_details->url)}}" class="indicator__button">
+        <a href="{{asset(Request::segment(1).'/cart/'.$cart_details->url)}}" 
+            class="indicator__button">
             <span class="indicator__area">
                 <svg width="20px" height="20px">
-                    <use xlink:href="images/sprite.svg#cart-20"></use>
+                    <use xlink:href="{{asset('images/sprite.svg#cart-20')}}"></use>
                 </svg>
                 <span class="indicator__value">3</span>
             </span>

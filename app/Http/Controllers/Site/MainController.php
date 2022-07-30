@@ -161,13 +161,16 @@ class MainController extends Controller
   }
   public function contact_us()
   {
-    return view('pages.site.contact-us.index') ;
+    return view('pages.site.contact-us.contact-us-index') ;
   }
   public function about_us()
   {
-    return view('pages.site.about-us.index') ;
+    return view('pages.site.about-us.about-us-index') ;
   }
-  
+  public function cart()
+  {
+    return view('pages.site.cart.cart-index') ;
+  }
 
 // // +++++++++++++++++++++++++++++++++++++  products  +++++++++++++++++++++++++++++++++++ 
 //   public function product_modal($url)

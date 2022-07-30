@@ -1,5 +1,8 @@
 <?php 
 return [
+    
+	"profile"=>"حساب الشخصي",
+
 
 	"About Us"=>"نبذة عنا   ",
 	"services"=>"خدماتنا  ",
@@ -341,7 +344,7 @@ return [
     "Categories"=>"الاقسام",
     "Sub Categories"=>"الاقسام الفرعية",
     "Items"=>"العناصر",
-    "dashboard"=>"الرئيسية",
+    "dashboard"=>"لوحة التحكم",
     "Message Archive"=>"ارشيف الرسائل",
     "Mail Sender"=>"بريد الارسال",
     "Mails Receiving"=>"استقبال الرسائل",

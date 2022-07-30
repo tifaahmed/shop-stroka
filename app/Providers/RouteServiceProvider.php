@@ -20,6 +20,7 @@ class RouteServiceProvider extends ServiceProvider
     public const HOME = '/home';
     protected $name_space_site = 'App\\Http\\Controllers\\Site';
     protected $name_space_admin = 'App\\Http\\Controllers\\Admin';
+    protected $name_space_profile = 'App\\Http\\Controllers\\Profile';
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
@@ -39,6 +40,10 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace($this->name_space_site)
                 ->group(base_path('routes/web.php'));
+            
+            Route::middleware('web')
+                ->namespace($this->name_space_profile)
+                ->group(base_path('routes/profile.php'));    
         });
     }
 

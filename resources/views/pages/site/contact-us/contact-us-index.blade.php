@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-<title>contact-us </title>
+<title> {{trans('static.Contact Us')}} </title>
 @endsection
 
 @section('content')  
@@ -13,7 +13,7 @@
     </div>
 
     <div class="page-header">
-        @include('pages.site.contact-us.breadcrumb')
+        @include('pages.partials.breadcrumb',['last_page_name' => trans('static.Contact Us')])
     </div>
 
     <div class="block">

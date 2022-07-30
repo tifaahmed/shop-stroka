@@ -29,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
                 // $page_details =DB::table('page_details')->get();
 
         $product_categories =DB::table('product_categories')->get();
+        
         $store_details  = DB::table('page_details')->find(1);
         $about_details  = DB::table('page_details')->find(2);
         $contact_details  = DB::table('page_details')->find(3);

@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-
- 
-
-<!--  -->
 <html class="no-js"   dir="rtl">
 
   <head>
@@ -38,7 +34,6 @@
          <link rel="stylesheet" href="{{asset('asset_ar/fonts/stroyka/stroyka.css')}}">
 
   </head>
-
 
   <body>
 
