@@ -1,0 +1,38 @@
+.demo-section-box{
+  width: 100%;
+}
+.section-container{
+  width: 100%;
+  /*margin: 0 auto;*/
+  /*max-width: 1000px;*/
+  /*padding: 50px 10px;*/
+
+}
+.demo-box{
+  /*margin: 20px 0;*/
+}
+.demo-align-right{
+  text-align: right;
+}
+.demo-button{
+  display: inline-block;
+  padding: 7px 20px;
+  background: #FFF;
+  border:solid 1px #2eb872;
+  border-radius: 3px;
+  color: #2eb872;
+  text-decoration: none;
+}
+.demo-button:hover{
+  color: #FFF;
+  background: #2eb872;
+}
+.breaking-news-ticker
+{
+  height: 50px !important;
+  line-height: 48px !important;
+}
+.demo-section-box
+{
+  margin-top: 7px;
+}

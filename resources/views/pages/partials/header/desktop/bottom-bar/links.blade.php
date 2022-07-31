@@ -1,7 +1,7 @@
 <div class="nav-panel__nav-links nav-links">
     <ul class="nav-links__list">
         <li class="nav-links__item ">
-            <a class="nav-links__item-link" href="{{asset(Request::segment(1).'home/'.'/contact-us/'.$contact_details->url)}}">
+            <a class="nav-links__item-link" href="{{asset(Request::segment(1).'/home/'.'contact-us/'.$contact_details->url)}}">
                 <div class="nav-links__item-body">
                    {{trans('static.Contact Us')}}
                 </div>
