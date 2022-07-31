@@ -1,8 +1,9 @@
 
 
-<link rel="stylesheet" type="text/css" href="{{asset('news/css/demo-page-styles.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('news/css/breaking-news-ticker.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('uploads/news/css/demo-page-styles.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('uploads/news/css/breaking-news-ticker.css')}}">
 <?php 
+$news  = App\Models\News::where('lang_id',$languages->id)->get();
 
 ?>
 
@@ -24,33 +25,38 @@
 
                 <div class="bn-news"   >
                     <ul  >
-                    <?php $x =' <li> <a style="color:red;font-size:25px" href="">  ذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص</a> </li>' ?>
-                        {!! $x  !!}
-                   
-                    <li>&nbsp;<img width="20px" src="{{asset('images\logo.png')}}">&nbsp;</li>
-                    <?php $x =' <li> <a style="color:red;font-size:25px" href="">  ذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص</a> </li>' ?>
-                        {!! $x  !!}
-                   
-                    <li>&nbsp;<img width="20px" src="{{asset('images\logo.png')}}">&nbsp;</li>
+
+                        @foreach($news as $key => $val)
+
+                            @if($val->url)
+                            <?php $x =' <li> <a style="color:'.$val->color.';font-size:'.$val->font_size.'px" href="'.$val->url.'">  '.$val->title .'</a> </li>' ?>
+                                {!! $x  !!}
+                            @else
+                            <?php $y =' <li style="color:'.$val->color.';font-size:'.$val->font_size.'px" >   '.$val->title .' </li>' ?>
+                            {!! $y  !!}
+
+                             @endif 
+                            <li>&nbsp;<img width="20px" src="{{asset($meta->site_icon)}}">&nbsp;</li>
+                        @endforeach
                    
                     </ul>
                 </div>
-                <div class="bn-controls">
+               <!--  <div class="bn-controls">
                     <button><span class="bn-arrow bn-prev"></span></button>
                     <button><span class="bn-action"></span></button>
                     <button><span class="bn-arrow bn-next"></span></button>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!--<script src="js-n/jquery-2.2.4.min.js"></script>-->
-<script src="{{asset('news/js/breaking-news-ticker.min.js')}}"></script>
+<script src="{{asset('uploads/news/js/breaking-news-ticker.min.js')}}"></script>
 
 <!--<script src="js-n/popper.min.js" type="text/javascript"></script>-->
 <!--<script src="js-n/bootstrap.min.js" type="text/javascript"></script>-->
-<script src="{{asset('news/js/breaking-news-ticker.min.js')}}"></script>
+<script src="{{asset('uploads/news/js/breaking-news-ticker.min.js')}}"></script>
 <!-- <script type="text/javascript" src="slick/js/slick.min.js"></script> -->
 @if( Session::get('locale') == 'ar')
         <script type="text/javascript">

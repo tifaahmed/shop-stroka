@@ -2,4 +2,4 @@
 
 @include('pages.partials.header.desktop.index')
 
-{{-- include('pages.partials.news') --}}
+@include('pages.partials.header.news')
