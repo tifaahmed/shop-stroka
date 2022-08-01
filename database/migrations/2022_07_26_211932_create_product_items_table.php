@@ -46,7 +46,7 @@ return new class extends Migration
             $table->string('image_one')->nullable();
 
 
-            $table->string('url');
+            $table->string('page_url');
 
 
             $table->timestamps();

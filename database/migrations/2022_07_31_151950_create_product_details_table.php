@@ -25,10 +25,10 @@ return new class extends Migration
 
             $table->longText('multy_images')->nullable();
 
-            $table->string('tab_title')->nullable();
+            $table->string('page_tab_title')->nullable();
             $table->string('page_title')->nullable();
-            $table->longText('description')->nullable(); 
-            $table->longText('keywords')->nullable(); 
+            $table->string('page_description')->nullable();
+            $table->string('page_keywords')->nullable();
             
             $table->timestamps();
 
