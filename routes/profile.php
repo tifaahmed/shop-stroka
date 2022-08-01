@@ -3,13 +3,14 @@
 use Illuminate\Support\Facades\Route;
 
 
+
 Route::group([
-	'prefix' => '{locale}/profile', 
+	'prefix' => '{locale}/profile/custumer', 
 	'where' => ['locale' => '[a-zA-Z]{2}'], 
+    'namespace' => 'Customer', 
 	// 'middleware' => 'App\Http\Middleware\status'
 ], function () {
-    Route::get('/', 'ProfileController@index');
-
+    Route::get('/', 'AcountController@dashboard');
 
     Route::name('address.')->prefix('/address')->group( fn ( ) : array => [
         Route::get('/'                          ,   'AddressController@all'                 )->name('all'),
@@ -24,6 +25,14 @@ Route::group([
         Route::get('/{code}/show'               ,   'ReceivedOrderController@show'          )->name('show'),
 
     ]);
-    Route::get('/edit', 'ProfileController@edit');
-    Route::get('/edit-password', 'ProfileController@edit_password');
+    Route::get('/edit', 'AcountController@edit');
+    Route::get('/edit-password', 'AcountController@edit_password');
+});
+Route::group([
+	'prefix' => '{locale}/profile/shop', 
+	'where' => ['locale' => '[a-zA-Z]{2}'], 
+	// 'middleware' => 'App\Http\Middleware\status'
+    'namespace' => 'Shop', 
+], function () {
+    Route::get('/', 'AcountController@dashboard');
 });

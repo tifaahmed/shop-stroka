@@ -1,31 +1,16 @@
-@extends('layout')
+@extends('pages.profile.customer.customer-index')
 
-@section('title')
-<title> address  @yield('address-title')</title>
+@section('customer-title')
+ {{trans('static.received-order')}}  
 @endsection
 
-@section('css')
+@section('customer-css')
 @endsection
 
-@section('content') 
-<div class="site__body">
-    <div class="page-header">
-        @include('pages.partials.breadcrumb',['last_page_name' => trans('static.received order')])
-    </div> 
+@section('customer-breadcrumb')
+    @include('pages.partials.breadcrumb',['last_page_name' =>   trans('static.received-order')])
+@endsection
 
-    <div class="block">
-        <div class="container">
-            <div class="row">
-                
-                <div class="col-12 col-lg-3 d-flex">
-                    @include('pages.profile.navigation')
-                </div>
-
-                <div class="col-12 col-lg-9 mt-4 mt-lg-0">
-                    @yield('received-order-content')
-                </div>
-            </div>
-        </div>
-    </div>
-</div> 
+@section('customer-content') 
+    @yield('received-order-content')
 @endsection

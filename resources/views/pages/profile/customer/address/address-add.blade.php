@@ -1,9 +1,5 @@
 @extends('pages.profile.address.address-index')
 
-@section('address-title')
-    add 
-@endsection
-
 @section('address-content') 
 
 <div class="card">

@@ -1,8 +1,4 @@
-@extends('pages.profile.received-order.received-order-index')
-
-@section('address-title')
-    show
-@endsection
+@extends('pages.profile.customer.received-order.received-order-index')
 
 @section('received-order-content') 
 

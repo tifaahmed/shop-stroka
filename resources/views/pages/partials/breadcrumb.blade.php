@@ -19,6 +19,10 @@
         </nav>
     </div>
     <div class="page-header__title">
-        <h1>{{$last_page_name}}</h1>
+        <h3> 
+            <span>{{$last_page_name}}</span> 
+            <span style="float: left;" >الرصيد : 0.00</span>
+
+        </h3>
     </div>
 </div>

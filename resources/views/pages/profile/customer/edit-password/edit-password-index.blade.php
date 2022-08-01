@@ -1,34 +1,16 @@
-@extends('layout')
+@extends('pages.profile.customer.customer-index')
 
-@section('title')
-<title>  {{trans('static.dashboard')}} </title>
+@section('customer-title')
+ {{trans('static.edit-password')}} 
 @endsection
 
-@section('css')
+@section('customer-css')
 @endsection
 
-@section('content')  
-<div class="site__body">
-    <div class="page-header">
-        @include('pages.partials.breadcrumb',['last_page_name' => trans('static.My Account')])
-    </div>
-    <div class="block">
-        <div class="container">
-            <div class="row">
-                
-                <div class="col-12 col-lg-3 d-flex">
-                    @include('pages.profile.navigation')
-                </div>
-
-                <div class="col-12 col-lg-9 mt-4 mt-lg-0">
-                    @include('pages.profile.edit-password.edit-password-form')
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-</div>
+@section('customer-breadcrumb')
+        @include('pages.partials.breadcrumb',['last_page_name' => trans('static.edit-password')])
 @endsection
 
-
+@section('customer-content') 
+    @include('pages.profile.edit-password.edit-password-form')
+@endsection
