@@ -1,8 +1,4 @@
-@extends('pages.profile.address.address-index')
-
-@section('address-title')
-    list 
-@endsection
+@extends('pages.profile.customer.address.address-index')
 
 @section('address-content') 
     <div class="addresses-list">

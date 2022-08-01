@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Profile;
+namespace App\Http\Controllers\Profile\Customer;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
@@ -9,7 +9,7 @@ class AddressController extends Controller
 {
     public function all()
     {
-      return view('pages.profile.address.address-list') ;
+      return view('pages.profile.customer.address.address-list') ;
     }
     public function add()
     {
