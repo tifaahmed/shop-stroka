@@ -23,11 +23,11 @@ return new class extends Migration
 
             $table->string('image')->nullable();
 
-            $table->string('url')->nullable();
-            $table->string('tab_title')->nullable();
+            $table->string('page_url')->nullable();
+            $table->string('page_tab_title')->nullable();
             $table->string('page_title')->nullable();
-            $table->string('description')->nullable();
-            $table->string('keywords')->nullable();
+            $table->string('page_description')->nullable();
+            $table->string('page_keywords')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

@@ -14,6 +14,36 @@
         'sliders'              => $sliders ,
         'video'              => $video ,
     ])
-    
+
+
+
+    @include('pages.site.home.block-banner')
+
+
+
+
+
+        @foreach(json_decode($store_details->home_slider_sort) as $key => $subject)
+            @include('pages.component.products.modal.links')
+
+
+            @if($subject->slider_type == 'moving_one_row_with_tabs_5')
+            <?php $product_in_row = 5 ;?>
+                @include('pages.component.products.moving_one_row_with_tabs.index', [
+                    'order_type'     => $subject->order_type,
+                    'product_in_row' => $product_in_row, 
+                    'limit'          => $subject->limit, 
+                    'title'          => $subject->title, 
+                    'rand'            => rand(),
+                ])
+          @endif 
+        @endforeach
+ 
+
+
+
+
+
+
 </div>
 @endsection

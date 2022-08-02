@@ -15,11 +15,13 @@ class product_items extends Model
     protected $fillable = [
         'title', // string
         'product_sub_category_id',  // integer , unsigned
+
         'visit_count',      // integer , default(0)
         'order_count',      // integer , default(0)
         'wishlisted_count', // integer , default(0)
         'rating_count',     // integer , default(0)
         'comment_count',    // integer , default(0)
+        
         'rating',  // float , default(0)
         'price',   // float , default(0)
         'tag',      // string , nullable
