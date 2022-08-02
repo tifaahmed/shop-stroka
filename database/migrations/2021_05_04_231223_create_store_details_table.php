@@ -22,14 +22,11 @@ class CreateStoreDetailsTable extends Migration
             $table->longText('store_widget_sort')->nullable();
             $table->string('currency')->default('جنية');
 
-            $table->string('lang_id')->default('1');
-
             $table->timestamps();
         });
 
 
         DB::table('store_details')->insert(array('id' => '1', 'lang_id' => '1',));
-        // DB::table('infos')->insert(array('id'       => '2', 'lang_id' => '2',));
     }
 
     /**

@@ -20,8 +20,7 @@
     @include('pages.site.home.block-banner')
 
 
-
-
+ 
 
         @foreach(json_decode($store_details->home_slider_sort) as $key => $subject)
             @include('pages.component.products.modal.links')
@@ -31,14 +30,14 @@
             <?php $product_in_row = 5 ;?>
                 @include('pages.component.products.moving_one_row_with_tabs.index', [
                     'order_type'     => $subject->order_type,
-                    'product_in_row' => $product_in_row, 
-                    'limit'          => $subject->limit, 
-                    'title'          => $subject->title, 
+                    'product_in_row' => 6, 
+                    'limit'          => 20, 
+                    'title'          => "منتجات عشوائية", 
                     'rand'            => rand(),
                 ])
           @endif 
         @endforeach
- 
+
 
 
 

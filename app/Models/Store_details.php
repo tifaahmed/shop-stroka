@@ -17,8 +17,6 @@ class Store_details extends Model
         'home_slider_sort','home_column_sort',
         'store_slider_sort','store_widget_sort',
     ];
-    // protected $hidden = [];
-    // protected $dates = [];
  
     /*
     |--------------------------------------------------------------------------

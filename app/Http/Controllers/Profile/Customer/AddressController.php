@@ -13,11 +13,11 @@ class AddressController extends Controller
     }
     public function add()
     {
-      return view('pages.profile.address.address-add') ;
+      return view('pages.profile.customer.address.address-add') ;
     }
     public function edit()
     {
-      return view('pages.profile.address.address-edit') ;
+      return view('pages.profile.customer.address.address-edit') ;
     }
     
 }

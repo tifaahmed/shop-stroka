@@ -12,5 +12,5 @@
 @endsection
 
 @section('customer-content') 
-    @include('pages.profile.edit-password.edit-password-form')
+    @include('pages.profile.customer.edit-password.edit-password-form')
 @endsection

@@ -1,4 +1,4 @@
-@extends('pages.profile.address.address-index')
+@extends('pages.profile.customer.address.address-index')
 
 @section('address-content') 
 

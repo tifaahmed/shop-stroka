@@ -35,7 +35,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><a href="{{asset(Request::segment(1).'/'.Request::segment(2).'/'.Request::segment(3).'/6321/show')}}">#8132</a></td>
+                            <td><a href="{{asset(Request::segment(1).'/'.Request::segment(2).'/'.Request::segment(3).'/'.Request::segment(4).'/6321/show')}}">#8132</a></td>
                             <td>02 April, 2019</td>
 
                             <td  style="color: red">
@@ -52,7 +52,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><a href="{{asset(Request::segment(1).'/'.Request::segment(2).'/'.Request::segment(3).'/6321/show')}}">#7592</a></td>
+                            <td><a href="{{asset(Request::segment(1).'/'.Request::segment(2).'/'.Request::segment(3).'/'.Request::segment(4).'/6321/show')}}">#7592</a></td>
                             <td>28 March, 2019</td>
                             <td  style="color: green">
                                 {{-- Pending --}}
@@ -67,7 +67,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><a href="{{asset(Request::segment(1).'/'.Request::segment(2).'/'.Request::segment(3).'/6321/show')}}">#7192</a></td>
+                            <td><a href="{{asset(Request::segment(1).'/'.Request::segment(2).'/'.Request::segment(3).'/'.Request::segment(4).'/6321/show')}}">#7192</a></td>
                             <td>15 March, 2019</td>
                             <td style="color: chartreuse">
                                 {{-- Shipped --}}
@@ -82,7 +82,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><a href="{{asset(Request::segment(1).'/'.Request::segment(2).'/'.Request::segment(3).'/6321/show')}}">#6321</a></td>
+                            <td><a href="{{asset(Request::segment(1).'/'.Request::segment(2).'/'.Request::segment(3).'/'.Request::segment(4).'/6321/show')}}">#6321</a></td>
                             <td>28 February, 2019</td>
                             <td style="color: gold">
                                 {{-- Completed --}}
@@ -97,7 +97,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><a href="{{asset(Request::segment(1).'/'.Request::segment(2).'/'.Request::segment(3).'/6321/show')}}">#6001</a></td>
+                            <td><a href="{{asset(Request::segment(1).'/'.Request::segment(2).'/'.Request::segment(3).'/'.Request::segment(4).'/6321/show')}}">#6001</a></td>
                             <td>21 February, 2019</td>
                             <td>
                                 {{-- Completed --}}
@@ -112,7 +112,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><a href="{{asset(Request::segment(1).'/'.Request::segment(2).'/'.Request::segment(3).'/6321/show')}}">#6001</a></td>
+                            <td><a href="{{asset(Request::segment(1).'/'.Request::segment(2).'/'.Request::segment(3).'/'.Request::segment(4).'/6321/show')}}">#6001</a></td>
                             <td>21 February, 2019</td>
                             <td style="color: red">
                                 {{-- Completed --}}
@@ -127,7 +127,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><a href="{{asset(Request::segment(1).'/'.Request::segment(2).'/'.Request::segment(3).'/6321/show')}}">#6001</a></td>
+                            <td><a href="{{asset(Request::segment(1).'/'.Request::segment(2).'/'.Request::segment(3).'/'.Request::segment(4).'/6321/show')}}">#6001</a></td>
                             <td>21 February, 2019</td>
                             <td style="color: orange">
                                 {{-- Completed --}}
