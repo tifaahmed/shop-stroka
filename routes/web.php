@@ -18,10 +18,10 @@ Route::get('/product_modal/{url}', 'App\Http\Controllers\MainController@product_
 
 
 Route::get('/here_moving_one_row_with_tabs', 'MainController@here_moving_one_row_with_tabs');
-Route::get('/here_fixed_seven', 'MainController@here_fixed_seven');
-Route::get('/here_fixed_blocks', 'MainController@here_fixed_blocks');
-Route::get('/here_moving_two_row_with_tabs', 'MainController@here_moving_two_row_with_tabs');
-Route::get('/here_fixed_three_columns', 'MainController@here_fixed_three_columns');
+// Route::get('/here_fixed_seven', 'MainController@here_fixed_seven');
+// Route::get('/here_fixed_blocks', 'MainController@here_fixed_blocks');
+// Route::get('/here_moving_two_row_with_tabs', 'MainController@here_moving_two_row_with_tabs');
+// Route::get('/here_fixed_three_columns', 'MainController@here_fixed_three_columns');
 
 
 
