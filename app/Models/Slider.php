@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Slider extends Model
 {
     use HasFactory;
+    use HasTranslations;
+
     protected $table = 'sliders';
     protected $primaryKey = 'id';
     protected $fillable = [
@@ -18,13 +21,12 @@ class Slider extends Model
         'url1',//nullable
         'button1'//nullable
     ];
-
-    // protected $casts = [
-    //     'title1' => 'json',
-    //     'subject1' => 'json',
-    //     'desktopimage' => 'json',
-    //     'mobile_image' => 'json',
-    //     'url1' => 'json',
-    //     'button1' => 'json',
-    // ];
+    public $translatable = [
+        'title1',
+        'subject1',
+        'desktop_image',
+        'mobile_image',
+        'url1',
+        'button1'
+    ];
 }
