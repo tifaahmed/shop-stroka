@@ -2,16 +2,33 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
+
+
+
+// Route::get( '/dashboard' , function () {
+//     return redirect('/dashboard/auth/login');
+// });
+
+Route::get( '/dashboard/{any}' , fn( ) => view( 'admin-panel' ) )-> where( 'any' , '.*' )   -> name( 'admin' ) ;
+Route::get( '/dashboard' , fn( ) => view( 'admin-panel' ) ) ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Route::get('/product_modal/{url}', 'App\Http\Controllers\MainController@product_modal');
@@ -73,3 +90,11 @@ Route::group([
 	// Route::get('dell_vedio/{id}', 'App\Http\Controllers\AdminController@dell_vedio');
 // admin
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

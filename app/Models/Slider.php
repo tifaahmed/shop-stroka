@@ -14,12 +14,12 @@ class Slider extends Model
     protected $table = 'sliders';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'title1', //nullable
-        'subject1',//nullable
-        'desktop_image',//nullable
-        'mobile_image',//nullable
-        'url1',//nullable
-        'button1'//nullable
+        'title1',           //text , nullable
+        'subject1',         //text , nullable
+        'desktop_image',    //text  
+        'mobile_image',     //text 
+        'url1',             //text , nullable
+        'button1'           //text , nullable
     ];
     public $translatable = [
         'title1',
@@ -29,4 +29,6 @@ class Slider extends Model
         'url1',
         'button1'
     ];
+
+
 }

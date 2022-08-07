@@ -9,15 +9,14 @@ use Illuminate\Routing\Controller as BaseController;
 
 use App\Http\Controllers\ControllerTraits\ResponsesTrait;
 use App\Http\Controllers\ControllerTraits\FileTrait;
-use App\Http\Controllers\ControllerTraits\LanguageTrait;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests,
     DispatchesJobs,
     ValidatesRequests,
+    
     ResponsesTrait,
-    FileTrait,
-    LanguageTrait;
+    FileTrait;
 
 }
