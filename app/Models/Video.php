@@ -20,14 +20,4 @@ class Video extends Model
         'autoplay',// boolean , default 1
         'controls'// boolean , default 1
     ];
-
-    public static function boot() {
-        parent::boot();
-        static::deleting(function($obj) {
-            if ($obj->file && Storage::disk('public')->exists($obj->file)) {
-                Storage::disk('public')->deleteDirectory($obj->file); 
-            }
-        });
-    }
-    
 }

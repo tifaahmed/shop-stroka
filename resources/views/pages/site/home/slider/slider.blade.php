@@ -2,14 +2,14 @@
     <a class="block-slideshow__slide" href="{{$val->url1}}">
         <div class="block-slideshow__slide-image block-slideshow__slide-image--desktop" 
         style="
-        background-image: url({{$val->desktop_image}});
+        background-image: url({{asset('storage/'.$val->desktop_image)}});
         background-position: center;
         background-size: cover;
         ">
         </div>
         <div class="block-slideshow__slide-image block-slideshow__slide-image--mobile" 
         style="
-        background-image: url({{$val->mobile_image}});
+        background-image: url({{asset('storage/'.$val->mobile_image)}});
         background-position: center;
         background-size: cover;
         ">
@@ -18,7 +18,7 @@
         <div class="block-slideshow__slide-content">
 
             @if($val->title1)
-            <div class="block-slideshow__slide-title">{!! $val->title1 !!}</div>
+            <div class="block-slideshow__slide-title"> {!! $val->title1 !!}</div>
             @endif
 
             @if($val->subject1)

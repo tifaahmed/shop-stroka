@@ -14,15 +14,14 @@ class CreateSlidersTable extends Migration
     {
         Schema::create('sliders', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('desktopimage')->nullable();
+            $table->text('desktopimage'); // translatable
+            $table->text('mobile_image');// translatable
 
-            $table->string('mobile_image')->nullable();
-
-            $table->longText('title1')->nullable();
-            $table->longText('subject1')->nullable();
+            $table->text('title1')->nullable();// translatable
+            $table->text('subject1')->nullable();// translatable
  
-            $table->string('button1')->nullable();
-            $table->string('url1')->nullable();
+            $table->text('button1')->nullable();// translatable
+            $table->text('url1')->nullable();// translatable
 
             $table->timestamps();
         });

@@ -23,31 +23,21 @@ class SliderStoreApiRequest extends FormRequest
      */
     public function rules()
     {
-        // 'title1', //nullable
-        // 'subject1',//nullable
-
-        // 'desktop_image',//nullable
-        // 'mobile_image',//nullable
-
-        // 'url1',//nullable
-        // 'button1'//nullable
-        
-        $lang_array =['ar','en'];
+        $lang_array = config('app.lang_array') ;
         
         $all=[];
 
         foreach ($lang_array as $key => $value) {
-            $all += [ 'title1_'.$value                 =>  [ 'sometimes' ,'max:255' ] ]  ;
-            $all += [ 'subject1_'.$value               =>  [ 'sometimes' ,'max:255' ] ]  ;
+            $all += [ 'title1.'.$value                 =>  [ 'sometimes' ,'max:255' ] ]  ;
+            $all += [ 'subject1.'.$value               =>  [ 'sometimes' ,'max:255' ] ]  ;
     
-            $all += [ 'desktop_image_'.$value          =>  [ 'required' ,'max:50000'] ]  ;
-            $all += [ 'mobile_image_'.$value           =>  [ 'required' ,'max:50000'] ]  ;
+            $all += [ 'desktop_image.'.$value          =>  [ 'required' ,'max:50000'] ]  ;
+            $all += [ 'mobile_image.'.$value           =>  [ 'required' ,'max:50000'] ]  ;
     
-            $all += [ 'url1_'.$value                   =>  [ 'sometimes' ,'url' ] ]  ;
-            $all += [ 'button1_'.$value                =>  [ 'sometimes' ,'max:255' ] ]  ;
+            $all += [ 'url1.'.$value                   =>  [ 'sometimes' ,'url' ] ]  ;
+            $all += [ 'button1.'.$value                =>  [ 'sometimes' ,'max:255' ] ]  ;
+
         }
-
-
         return $all;
     }
 }

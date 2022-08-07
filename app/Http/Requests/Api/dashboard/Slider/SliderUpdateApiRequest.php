@@ -13,7 +13,7 @@ class SliderUpdateApiRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,21 @@ class SliderUpdateApiRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        $lang_array = config('app.lang_array') ;
+        
+        $all=[];
+
+        foreach ($lang_array as $key => $value) {
+            $all += [ 'title1.'.$value                 =>  [ 'sometimes' ,'max:255' ] ]  ;
+            $all += [ 'subject1.'.$value               =>  [ 'sometimes' ,'max:255' ] ]  ;
+    
+            $all += [ 'desktop_image.'.$value          =>  [ 'sometimes' ,'max:50000'] ]  ;
+            $all += [ 'mobile_image.'.$value           =>  [ 'sometimes' ,'max:50000'] ]  ;
+    
+            $all += [ 'url1.'.$value                   =>  [ 'sometimes' ,'url' ] ]  ;
+            $all += [ 'button1.'.$value                =>  [ 'sometimes' ,'max:255' ] ]  ;
+
+        }
+        return $all;
     }
 }
