@@ -1,39 +1,45 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+import Vue from 'vue'
+import  createRouter from 'vue-router'
 
-import './bootstrap';
-import { createApp } from 'vue';
+import routes    from './Routes'             ;
 
-/**
- * Next, we will create a fresh Vue application instance. You may then begin
- * registering components with the application instance so they are ready
- * to use in your application's views. An example is included for you.
- */
+import App_layout    from './App.vue'
 
-const app = createApp({});
 
-import ExampleComponent from './components/ExampleComponent.vue';
-app.component('example-component', ExampleComponent);
+window.Vue = require('vue').default;
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
+Vue.use( createRouter ) ;
 
-// Object.entries(import.meta.globEager('./**/*.vue')).forEach(([path, definition]) => {
-//     app.component(path.split('/').pop().replace(/\.\w+$/, ''), definition.default);
-// });
+const app = new Vue({
+    el: '#app',
+    router  :  new createRouter( routes ) ,
+    render  : h => h( App_layout ),
 
-/**
- * Finally, we will attach the application instance to a HTML element with
- * an "id" attribute of "app". This element is included with the "auth"
- * scaffolding. Otherwise, you will need to add an element yourself.
- */
+    data: {
+        query: {
+            CurrentPage:1,
+        }
+    //     messages: [],
+    //     newMessage: '',
+    //     user: '',
+    //     typing: false
+    },
+    // methods: {
+    //     sendMessage() {
+    //         // add new message to messages array
+    //         this.messages.push({
+    //             user: Laravel.user,
+    //             message: this.newMessage
+    //         });
 
-app.mount('#app');
+    //         // clear input field
+    //         this.newMessage = '';
+
+    //         // persist to database
+    //     }
+    // }
+});
+
+
+
+ 
