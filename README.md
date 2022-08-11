@@ -27,6 +27,8 @@ npm i axios
 
 npx mix
 
+npx mix watch
+
 
 
 tsc - t es5 jwt.ts
