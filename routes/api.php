@@ -30,13 +30,21 @@ Route::group(['prefix' =>'dashboard'], fn ( ) : array => [
         Route::get('/collection'                ,   'SliderController@collection'          )->name('collection'),
         Route::DELETE('/{id}'                   ,   'SliderController@destroy'             )->name('destroy'),
         Route::post('/{id}/update'              ,   'SliderController@update'              )->name('update')
-        
-        //Route::get('/{id}/restore'             ,   'IntroductionController@restore'             )->name('restore'),
-        //Route::DELETE('premanently-delete/{id}' ,   'IntroductionController@premanently_delete'  )->name('premanently_delete'),
-        //Route::get('/collection-trash'          ,   'IntroductionController@collection_trash'    )->name('collection_trash'),
-        //Route::get('/{id}/show-trash'           ,   'IntroductionController@show_trash'          )->name('show_trash'),
     ]),
 
-    
+    // slider
+    Route::name('product-category.')->prefix('/product-category')->group( fn ( ) : array => [
+        Route::get('/'                          ,   'ProductCategoryController@all'                 )->name('all'),
+        Route::post(''                          ,   'ProductCategoryController@store'               )->name('store'),
+        Route::get('/{id}/show'                 ,   'ProductCategoryController@show'                )->name('show'),
+        Route::get('/collection'                ,   'ProductCategoryController@collection'          )->name('collection'),
+        Route::DELETE('/{id}'                   ,   'ProductCategoryController@destroy'             )->name('destroy'),
+        Route::post('/{id}/update'              ,   'ProductCategoryController@update'              )->name('update'),
+        
+        Route::get('/{id}/restore'              ,   'ProductCategoryController@restore'             )->name('restore'),
+        Route::DELETE('premanently-delete/{id}' ,   'ProductCategoryController@premanently_delete'  )->name('premanently_delete'),
+        Route::get('/collection-trash'          ,   'ProductCategoryController@collection_trash'    )->name('collection_trash'),
+        Route::get('/{id}/show-trash'           ,   'ProductCategoryController@show_trash'          )->name('show_trash'),
+    ]),
 ]);
     

@@ -44,13 +44,13 @@ use App\Models\Video;
 // standard
 
 // use App\Models\Page_details;
-use App\Models\Store_details;
+use App\Models\StoreDetail;
 // // use App\Models\Service_item;
 // // use App\Models\Service_category;
 // // use App\Models\Blog;
-use App\Models\Product_items;
+use App\Models\ProductItem;
 use App\Models\ProductDetail;
-use App\Models\product_category;
+use App\Models\ProductCategory;
 // use App\Models\Product_color_sold;
 // use App\Models\Product_color_existing;
 // use App\Models\Colors;
