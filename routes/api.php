@@ -19,7 +19,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
+
 Route::group(['prefix' =>'dashboard'], fn ( ) : array => [
+
+    // no middleware
+    Route::name( 'auth.') -> prefix( 'auth' ) -> group( fn ( ) => [
+        Route::post( '/login' ,   'AuthController@login'  ) -> name( 'login' ) ,
+        // Route::post( '/login-social' ,   'AuthController@loginSocial'  ) -> name( 'loginSocial' ) ,
+        Route::post( '/register' ,  'AuthController@register' )  -> name( 'register' ) ,    
+    ]),
 
 
     // slider
