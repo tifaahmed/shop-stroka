@@ -2,10 +2,10 @@
 
 namespace App\Repository\Eloquent;
 
-use App\Models\Slider as ModelName;
-use App\Repository\SliderRepositoryInterface;
+use App\Models\ProductCategory as ModelName;
+use App\Repository\ProductCategoryRepositoryInterface;
 
-class SliderRepository extends BaseRepository implements SliderRepositoryInterface
+class ProductCategoryRepository extends BaseRepository implements ProductCategoryRepositoryInterface
 {
 
 	/**

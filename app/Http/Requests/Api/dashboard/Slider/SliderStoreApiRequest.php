@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Api\dashboard\Slider;
+namespace App\Http\Requests\Api\Dashboard\Slider;
 
 use Illuminate\Foundation\Http\FormRequest;
 

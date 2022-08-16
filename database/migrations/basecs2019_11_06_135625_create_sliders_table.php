@@ -14,7 +14,7 @@ class CreateSlidersTable extends Migration
     {
         Schema::create('sliders', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('desktopimage'); // translatable
+            $table->text('desktop_image'); // translatable
             $table->text('mobile_image');// translatable
 
             $table->text('title1')->nullable();// translatable

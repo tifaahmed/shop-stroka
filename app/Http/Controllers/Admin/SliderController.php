@@ -8,18 +8,16 @@ use Illuminate\Http\Response ;
 use Illuminate\Support\Str;
 
 // Resource
-use App\Http\Resources\Dashboard\Collections\SliderCollection;
-use App\Http\Resources\Dashboard\sliderResource;
+use App\Http\Resources\Dashboard\Collections\SliderCollection as ModelCollection;
+use App\Http\Resources\Dashboard\sliderResource as ModelResource;
 
 // lInterfaces
 use App\Repository\SliderRepositoryInterface as ModelInterface;
 
 // Requests
-use App\Http\Requests\Api\dashboard\Slider\SliderStoreApiRequest as modelInsertRequest;
-use App\Http\Requests\Api\dashboard\Slider\SliderUpdateApiRequest as modelUpdateRequest;
+use App\Http\Requests\Api\Dashboard\Slider\SliderStoreApiRequest as modelInsertRequest;
+use App\Http\Requests\Api\Dashboard\Slider\SliderUpdateApiRequest as modelUpdateRequest;
 
-use App ;
-use App\Models\Slider;
 class SliderController extends Controller
 {
     private $Repository;
@@ -28,14 +26,13 @@ class SliderController extends Controller
         $this->ModelRepository = $Repository;
         $this->folder_name = 'slider/'.Str::random(10).time();
         $this->languages = config('app.lang_array'); // ex [ar , en ]
-        $this->file_columns = ['desktop_image','mobile_image'];
-
+        $this->translated_file_columns = ['desktop_image','mobile_image'];
     }
 
     public function all(){
         try {
             $modal =    $this->ModelRepository->all()    ;
-            return new SliderCollection($modal);
+            return new ModelCollection($modal);
         } catch (\Exception $e) {
             return $this -> MakeResponseErrors(  
                 [$e->getMessage()  ] ,
@@ -47,7 +44,7 @@ class SliderController extends Controller
     public function collection(Request $request){
         try {
             $modal = $this->ModelRepository->collection( $request->per_page ? $request->per_page : 10);
-            return new SliderCollection($modal);
+            return new ModelCollection($modal);
         } catch (\Exception $e) {
             return $this -> MakeResponseErrors(  
                 [$e->getMessage()  ] ,
@@ -60,7 +57,7 @@ class SliderController extends Controller
     public function store(modelInsertRequest $request) {
         try {
             $all = [ ];
-            foreach ($this->file_columns as $file_column) {
+            foreach ($this->translated_file_columns as $file_column) {
                 $data_array = [];
                 foreach ($this->languages as $language) {
                     if ( $request->hasFile( $file_column.'.'.$language ) ) { 
@@ -70,9 +67,9 @@ class SliderController extends Controller
                 }
                 $all += array( $file_column =>  $data_array );
             }
-            $model = $this->ModelRepository->create( Request()->except($this->file_columns)+$all ) ;
+            $model = $this->ModelRepository->create( Request()->except($this->translated_file_columns)+$all ) ;
             return $this -> MakeResponseSuccessful( 
-                [ new sliderResource ( $model ) ],
+                [ new ModelResource ( $model ) ],
                 'Successful'               ,
                 Response::HTTP_OK
             ) ;
@@ -89,7 +86,7 @@ class SliderController extends Controller
             $old_model =  $this->ModelRepository->findById($id)  ;
              
             $all = [ ];
-            foreach ($this->file_columns as $file_column) {
+            foreach ($this->translated_file_columns as $file_column) {
                 $data_array = [];
                 foreach ($this->languages as $language) {
                     if ( $request->hasFile( $file_column.'.'.$language ) ) { 
@@ -107,11 +104,11 @@ class SliderController extends Controller
                 $all += array( $file_column =>  $data_array );
             }
            
-            $this->ModelRepository->update( $id,Request()->except($this->file_columns)+$all) ;
+            $this->ModelRepository->update( $id,Request()->except($this->translated_file_columns)+$all) ;
             $model =  $this->ModelRepository->findById($id) ;
 
             return $this -> MakeResponseSuccessful( 
-                [ new sliderResource ( $model ) ],
+                [ new ModelResource ( $model ) ],
                     'Successful' ,
                     Response::HTTP_OK
             ) ;
@@ -127,7 +124,7 @@ class SliderController extends Controller
         try {
             $model = $this->ModelRepository->findById($id);
             return $this -> MakeResponseSuccessful( 
-                [ new sliderResource ( $model ) ],
+                [ new ModelResource ( $model ) ],
                 'Successful',
                 Response::HTTP_OK
             ) ;
@@ -139,14 +136,12 @@ class SliderController extends Controller
             );
         }
     }
+
     public function destroy($id) {
         try {
             $model =  $this->ModelRepository->findById($id) ;
-            foreach ($this->file_columns as $file_column) {
-                foreach ($this->languages as $language) {
-                    $this->DeleteRowFolder($model->getTranslation($file_column, $language));
-                }
-            }
+            $this->deleteAlltranslatableFiles($model);
+
 
             $this->ModelRepository->deleteById($id);
             return $this -> MakeResponseSuccessful( 
@@ -162,4 +157,18 @@ class SliderController extends Controller
             );
         }
     }
+
+    // inside functions
+
+        // * @param  opject $model ex({id:1})
+        // @return nothing (folder will be deleted)
+        public function deleteAlltranslatableFiles($model){
+            foreach ($this->translated_file_columns as $file_column) {
+                foreach ($this->languages as $language) {
+                    $this->DeleteRowFolder($model->$file_column);
+                }
+            }
+        }
+
+    // inside functions
 }

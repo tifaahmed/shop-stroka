@@ -5,7 +5,7 @@ namespace App\Http\Resources\dashboard;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
 
-class sliderResource extends JsonResource
+class ProductCategoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,13 +15,17 @@ class sliderResource extends JsonResource
      */
     public function toArray($request)
     {
-        $translated_string_fields = ['title1','subject1','url1','button1'];
-        $translated_image_fields  = ['desktop_image','mobile_image'];
-        $date_fields              = ['created_at','updated_at'];
+        
+        $all=[];
+        $translated_string_fields = [
+            'title', 
+            'page_url','page_tab_title','page_title','page_description','page_keywords'
+        ];
+        $image_fields  = ['image'];
+        $date_fields   = ['created_at','updated_at','deleted_at'];
 
         $lang_array = config('app.lang_array') ;
 
-        $all=[];
         $all += [ 'id' => $this->id ]  ;
 
         foreach ($translated_string_fields as $translated_string_field) {
@@ -32,19 +36,15 @@ class sliderResource extends JsonResource
             $all += [ $translated_string_field => $temp_string_arr];
         }
 
-        foreach ($translated_image_fields as $translated_image_field) {
-            $temp_file_arr = [];
-            foreach ($lang_array as $lang) {
-                $temp_file_arr += [
-                    $lang=>  
-                        Storage::disk('public')->exists( $this->getTranslation($translated_image_field, $lang) ) 
-                            ? 
-                        asset(Storage::url( $this->getTranslation($translated_image_field, $lang)  ) )  
-                            : 
-                        null
-                ];
-            }
-            $all += [ $translated_image_field => $temp_file_arr];
+        foreach ($image_fields as $image_field) {
+            $all += [   
+                $image_field=>  
+                    Storage::disk('public')->exists( $this->$image_field) 
+                        ? 
+                    asset( Storage::url( $this->$image_field ) )  
+                        : 
+                    null
+            ];
         }
 
         foreach ($date_fields as $date_field) {
