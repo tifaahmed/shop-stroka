@@ -52,8 +52,9 @@
 
 <script>
     export default {
+        name:'AuthIndex',
         mounted() {
-            console.log( 'auth index ' )
+            console.log( 'AuthIndex' )
         },
     }
 </script>

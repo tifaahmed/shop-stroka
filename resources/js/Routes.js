@@ -1,16 +1,17 @@
+import layout from './layout';
+import AuthRoutes from './Admin/Routes/AuthRoutes';
+import AdminRoutes from './Admin/Routes/Routes';
 
-import layout from './layout' ;
-import AuthRoutes     from './Admin/Routes/AuthRoutes'    ;
-
-export default { 
+export default {
     mode: 'history',
     base: '/',
-    routes : [
-        {   
-            path : '' ,component : layout , name : 'layout' ,children : 
-            [
-                AuthRoutes
-            ] 
-        }
-    ] 
+    routes: [{
+        path: '',
+        component: layout,
+        name: 'layout',
+        children: [
+            AdminRoutes,
+            AuthRoutes
+        ]
+    }]
 };
