@@ -2,7 +2,12 @@
     <span>
         
         <span  v-for="( valColumn , langkey    )  in ValueColumn" :key="langkey"   >
-                <span v-if="valColumn != 'null'"> -{{valColumn}} </span>
+                <a :href="valColumn" target="_blanck">
+                    <img 
+                    v-if="valColumn" 
+                    :src="valColumn" 
+                    style="width: 70px;height: 50px;cursor:pointer;">
+                </a>
             <br> 
         </span>  
     </span>

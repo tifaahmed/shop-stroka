@@ -22,6 +22,11 @@
 		:ValueColumn= "ValueColumn"
 		:LoopOnColumn =  "LoopOnColumn"
 		/>
+		<ForloopImageColumn
+		v-else-if= "typeColumn == 'ForloopImage'"
+		:ValueColumn= "ValueColumn"
+		:LoopOnColumn =  "LoopOnColumn"
+		/>
 		<LinkColumn
 		v-else-if= "typeColumn == 'Link'"
 		:ValueColumn= "ValueColumn"
@@ -41,6 +46,7 @@ import StringColumn     from 'AdminPartials/Components/colums/StringColumn.vue' 
 import ImageColumn     	from 'AdminPartials/Components/colums/ImageColumn.vue'     ;
 import DateColumn     	from 'AdminPartials/Components/colums/DateColumn.vue'     ;
 import ForloopColumn    from 'AdminPartials/Components/colums/ForloopColumn.vue'     ;
+import ForloopImageColumn    from 'AdminPartials/Components/colums/ForloopImageColumn.vue'     ;
 import LinkColumn     	from 'AdminPartials/Components/colums/LinkColumn.vue'     ;
 import ObjectColumn     	from 'AdminPartials/Components/colums/ObjectColumn.vue'     ;
  
@@ -50,7 +56,7 @@ export default {
 
     } } ,
     components : {
-        RouterColumn ,StringColumn,ImageColumn,DateColumn,ForloopColumn,LinkColumn,ObjectColumn
+        RouterColumn ,StringColumn,ImageColumn,DateColumn,ForloopColumn,LinkColumn,ObjectColumn,ForloopImageColumn
     } ,
     props   : {ValueColumn :null,LoopOnColumn:null,typeColumn :String} ,
     methods : {

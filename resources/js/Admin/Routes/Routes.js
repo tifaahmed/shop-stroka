@@ -1,7 +1,7 @@
 import Adminlayout from '../Adminlayout';
 import Welcome from 'AdminViews/Welcome';
 
-// import AvatarRoutes from './AvatarRoutes';
+import SliderRoutes from './SliderRoutes';
 
 
 export default {
@@ -12,7 +12,7 @@ export default {
         { path: '', component: Welcome },
         { path: 'welcome', component: Welcome, name: 'welcome' },
 
-        // AvatarRoutes,
+        SliderRoutes,
 
     ]
 }

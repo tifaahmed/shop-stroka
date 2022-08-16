@@ -1,8 +1,8 @@
 import Model    from './Model';
-import Router    from './Routers/AgeGroup' ;
+import Router    from './Routers/SliderRouter' ;
 
 
-export default class AgeGroup extends Model {
+export default class SliderModel extends Model {
    
    languagesformData : string = 'languages' ;
    protected async all() : Promise<any>  {  
