@@ -32,6 +32,7 @@
 <script>
 
     import Model     from '../../../Models/AuthModel';
+    import jwt   from 'MainServices/jwt' ;
 
     import InputsFactory  from 'AdminPartials/Components/Inputs/InputsFactory.vue'     ;
     import validation     from 'AdminValidations/AuthValidation';
@@ -88,7 +89,8 @@
                 {          
                     this.ServerReaponse = data ;    //print the  errors from server  
                 }else
-                {                           
+                {
+                    console.log(jwt.login(data.data.data))    ;
                     this.redirectPage();             // redirect to onther page
                 }
             },
