@@ -10,15 +10,24 @@
                     </div>
                     <div class="card-body pt-0">
                         <div class="">
-                            <span v-for="( row    , rowkey ) in LanguagesRows " :key="rowkey" >
-                                <!-- (LanguagesRows) loop on ar & en -->
-                                <span v-for="( row_    , rowkey_ ) in LanguagesColumn " :key="rowkey_" >
-                                    <InputsFactory :Factorylable="row_.header+' ( ' + row.full_name + ' ) '" :FactoryPlaceholder="row_.placeholder"         
+
+                            <span v-for="( column_val , column_key ) in TranslatableColumns " :key="column_key" >
+                                <!-- loop on ar & en -->
+                                <span v-for="( lang_val    , lang_key ) in Languages " :key="lang_key" >
+                                    
+                                    <!-- <InputsFactory :Factorylable="column_val.header + '('+ row +')'" :FactoryPlaceholder="row_.placeholder"         
                                         :FactoryType="row_.type" :FactoryName="row_.name"  v-model ="RequestData.languages[rowkey][row_.name]"  
                                         :FactoryErrors="null" 
+                                    /> -->
+
+                                    <InputsFactory :Factorylable="column_val.header + '('+ lang_val +')' "  :FactoryPlaceholder="column_val.placeholder"         
+                                        :FactoryType="column_val.type" :FactoryName="column_val.name"  v-model ="RequestData.name"  
+                                        :FactoryErrors="null" 
                                     />
+                            
                                 </span>
-                                <hr>
+                                <!-- <hr> -->
+
                             </span> 
 
                             <InputsFactory :Factorylable="'age'"  :FactoryPlaceholder=" 'age' "         
@@ -58,26 +67,26 @@
 
 
 <script>
-import Model     from 'AdminModels/AgeGroup';
-import LanguageModel     from 'AdminModels/Language';
+import Model     from 'AdminModels/SliderModel';
 
-import validation     from 'AdminValidations/AgeGroup';
+import validation     from 'AdminValidations/SliderValidation';
 import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue'     ;
 
     export default    {
-        name:'AgeGroupCreate',
+        name:'SliderCreate',
         components : { InputsFactory } ,
 
         async mounted() {
-            this.GetlLanguages();
+            // this.GetlLanguages();
         },
         data( ) { return {
-            TableName :'AgeGroup',
-            TablePageName :'AgeGroup.ShowAll',
+            TableName :'Slider',
+            TablePageName :'Slider.All',
 
-            LanguagesRows : null,
-            LanguagesColumn : [
-                { type: 'string',placeholder:'name',header :'name', name : 'name'},
+            Languages : ['ar','en'],
+
+            TranslatableColumns : [
+                { type: 'string',placeholder:'title',header :'title1', name : 'title1'},
             ],
 
             ServerReaponse : {
@@ -87,9 +96,8 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                 message : null,
             },
             RequestData : {
-                    age     : null,
+                    title1     : null,
 
-                    languages         : { },
             },
 
         } } ,
@@ -116,25 +124,25 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                 }
             },
 
-            async GetlLanguages(){
-                this.LanguagesRows  = ( await this.AllLanguages() ).data.data; // all languages
-                let item_languages = this.RequestData.languages; // item language data
-                let handleLanguages= {}; //handle Languages from item data & all languages
+            // async GetlLanguages(){
+            //     this.LanguagesRows  = ( await this.AllLanguages() ).data.data; // all languages
+            //     let item_languages = this.RequestData.languages; // item language data
+            //     let handleLanguages= {}; //handle Languages from item data & all languages
 
-                for (var key in this.LanguagesRows) {
-                    handleLanguages[key] = [];
-                        Vue.set( handleLanguages[key],  'language'); // language key
-                        handleLanguages[key].language = this.LanguagesRows[key].name;//fr & en & ar
-                    for (var key_ in this.LanguagesColumn) {
-                        Vue.set( handleLanguages[key],  this.LanguagesColumn[key_].name); // ex (name,image,desc,subject) key
-                        if(  item_languages[key] &&  item_languages[key]['language'] ==  this.LanguagesRows[key].name ){
-                            handleLanguages[key][this.LanguagesColumn[key_].name] = item_languages[key][this.LanguagesColumn[key_].name] ;
-                        }
-                    }
-                }
-                this.RequestData.languages = '';
-                this.RequestData.languages = handleLanguages;
-            },
+            //     for (var key in this.LanguagesRows) {
+            //         handleLanguages[key] = [];
+            //             Vue.set( handleLanguages[key],  'language'); // language key
+            //             handleLanguages[key].language = this.LanguagesRows[key].name;//fr & en & ar
+            //         for (var key_ in this.LanguagesColumn) {
+            //             Vue.set( handleLanguages[key],  this.LanguagesColumn[key_].name); // ex (name,image,desc,subject) key
+            //             if(  item_languages[key] &&  item_languages[key]['language'] ==  this.LanguagesRows[key].name ){
+            //                 handleLanguages[key][this.LanguagesColumn[key_].name] = item_languages[key][this.LanguagesColumn[key_].name] ;
+            //             }
+            //         }
+            //     }
+            //     this.RequestData.languages = '';
+            //     this.RequestData.languages = handleLanguages;
+            // },
 
             // model 
                 AllLanguages(){
@@ -152,11 +160,11 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                 if(data && data.errors){
                     this.ServerReaponse = data ;
                 }else{
-                    this.ReturnToTablePag();//success from server
+                    this.ReturnToTablePage();//success from server
                 }
             },
 
-            async ReturnToTablePag( ) {
+            async ReturnToTablePage( ) {
                 return this.$router.push({ 
                     name: this.TablePageName , 
                     query: { CurrentPage: this.$route.query.CurrentPage } 

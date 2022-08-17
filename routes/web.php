@@ -6,12 +6,12 @@ use Illuminate\Support\Facades\Route;
 
 
 
-// Route::get( '/dashboard' , function () {
-//     return redirect('/dashboard/auth/login');
-// });
+Route::get( '/dashboard' , function () {
+    return redirect('/dashboard/auth/login');
+});
 
 Route::get( '/dashboard/{any}' , fn( ) => view( 'admin-panel' ) )-> where( 'any' , '.*' )   -> name( 'admin' ) ;
-Route::get( '/dashboard' , fn( ) => view( 'admin-panel' ) ) ;
+// Route::get( '/dashboard' , fn( ) => view( 'admin-panel' ) ) ;
 
 
 

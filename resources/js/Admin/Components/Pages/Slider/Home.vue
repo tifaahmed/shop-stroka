@@ -30,7 +30,7 @@
                             <div class="pr-1 mb-xl-0">
                                 <router-link style="color:#fff" 
                                 :to = "{ 
-                                    name : TableName+'.ShowAll' , 
+                                    name : TableName+'.All' , 
                                     query: { CurrentPage: 1 }  
                                 }" > 
                                     <button type="button" class="btn btn-primary  ">

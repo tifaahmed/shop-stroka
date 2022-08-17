@@ -19,9 +19,8 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller {
 
     public function login( LoginApiRequest $request ) {
-        if ( $request -> get( 'email' , false ) ) {
-            $user = User::where( 'email' , $request -> get( 'email' ) ) -> first( ) ;
-        }
+        $user = User::where( 'email' , $request -> get( 'email' ) ) -> first( ) ;
+        
         if ( ! Hash::check( $request -> password , $user -> password ) ) {
             return $this -> MakeResponseErrors( 
                 [ 'InvalidCredentials' ] 
@@ -40,6 +39,7 @@ class AuthController extends Controller {
                 Response::HTTP_OK
             ) ; 
         }
+        
     }
 
 }
