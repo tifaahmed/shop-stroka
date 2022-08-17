@@ -44,7 +44,7 @@ class User extends Authenticatable
 
     public function getToken( ) : array { 
 
-        $token = $this -> createToken( $this->remember_token  )->accessToken;
+        $token = $this -> createToken( $this->remember_token ?  $this->remember_token : '' )->accessToken;
         return [
         'token_type'        =>  'Bearer' ,
         'expires_in'        =>  $token -> expires_in ,
