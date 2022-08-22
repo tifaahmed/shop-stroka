@@ -10,31 +10,28 @@
                     </div>
                     <div class="card-body pt-0">
                         <div class="">
-
-                            <span v-for="( column_val , column_key ) in TranslatableColumns " :key="column_key" >
+                            <!-- loop on  ex [title,subject] -->
+                            <span v-for="( column_val , column_key ) in TranslatableColumns" :key="column_key" >
                                 <!-- loop on ar & en -->
                                 <span v-for="( lang_val    , lang_key ) in Languages " :key="lang_key" >
-                                    
-                                    <!-- <InputsFactory :Factorylable="column_val.header + '('+ row +')'" :FactoryPlaceholder="row_.placeholder"         
-                                        :FactoryType="row_.type" :FactoryName="row_.name"  v-model ="RequestData.languages[rowkey][row_.name]"  
-                                        :FactoryErrors="null" 
-                                    /> -->
 
                                     <InputsFactory :Factorylable="column_val.header + '('+ lang_val +')' "  :FactoryPlaceholder="column_val.placeholder"         
-                                        :FactoryType="column_val.type" :FactoryName="column_val.name"  v-model ="RequestData.name"  
-                                        :FactoryErrors="null" 
+                                        :FactoryType="column_val.type" :FactoryName="RequestData[column_val.name][lang_val]"  v-model ="RequestData[column_val.name][lang_val]"  
+                                        :FactoryErrors="( ServerReaponse && Array.isArray( ServerReaponse.errors[column_val.name+'.'+lang_val]  )  ) ?  ServerReaponse.errors[column_val.name+'.'+lang_val] : null" 
                                     />
-                            
+
                                 </span>
                                 <!-- <hr> -->
 
                             </span> 
 
-                            <InputsFactory :Factorylable="'age'"  :FactoryPlaceholder=" 'age' "         
-                                :FactoryType="'number'" :FactoryName="'age'"  v-model ="RequestData.age"  
-                                :FactoryErrors="( ServerReaponse && Array.isArray( ServerReaponse.errors.age )  ) ? ServerReaponse.errors.age : null" 
-                            />
-
+                            <!-- loop on  ex [title,subject] -->
+                            <span v-for="( column_val_ , column_key_ ) in NoneTranslatableColumns" :key="column_key_" >
+                                    <InputsFactory :Factorylable="column_val_.header"  :FactoryPlaceholder="column_val_.placeholder"         
+                                        :FactoryType="'string'" :FactoryName="RequestData[column_val_.name]"  v-model ="RequestData[column_val_.name]"  
+                                        :FactoryErrors="( ServerReaponse && Array.isArray( ServerReaponse.errors[column_val_.name]  )  ) ?  ServerReaponse.errors[column_val_.name] : null" 
+                                    />
+                            </span> 
 
                         </div>
                         <button  @click="FormSubmet()" class="btn btn-primary ">
@@ -77,7 +74,10 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
         components : { InputsFactory } ,
 
         async mounted() {
-            // this.GetlLanguages();
+            this.handleNoneTranslatableColumns();
+            this.handleTranslatableColumns();
+            this.handleErrorTranslatableColumns();
+            this.handleErrorNoneTranslatableColumns();
         },
         data( ) { return {
             TableName :'Slider',
@@ -87,16 +87,19 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
 
             TranslatableColumns : [
                 { type: 'string',placeholder:'title',header :'title1', name : 'title1'},
+                { type: 'string',placeholder:'subject',header :'subject1', name : 'subject1'},
+            ],
+            NoneTranslatableColumns : [
+                { type: 'test',placeholder:'test',header :'test', name : 'test'},
             ],
 
+
             ServerReaponse : {
-                errors : {
-                    age :[],
-                },
+                errors :  {},
                 message : null,
             },
+
             RequestData : {
-                    title1     : null,
 
             },
 
@@ -113,36 +116,58 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
             async FormSubmet(){
                 // clear errors
                 await this.DeleteErrors();
-                // valedate
-                var check = await (new validation).validate(this.RequestData);
+                // front end valedate
+                var check = await (new validation).validate(this.RequestData,this.Languages);
                 if( check ){ // if there is error
                     this.ServerReaponse = check;
                 }
-                // valedate
+                // front end valedate
                 else{
+                    console.log(this.RequestData);
                     await this.SubmetRowButton();// run the form
                 }
             },
 
-            // async GetlLanguages(){
-            //     this.LanguagesRows  = ( await this.AllLanguages() ).data.data; // all languages
-            //     let item_languages = this.RequestData.languages; // item language data
-            //     let handleLanguages= {}; //handle Languages from item data & all languages
+            async handleTranslatableColumns(){
+                for (var key in this.TranslatableColumns) {
+                    Vue.set( this.RequestData,  this.TranslatableColumns[key].name);  
+                    this.RequestData[this.TranslatableColumns[key].name] = [];
+                    // [ Column : [] ]
+                    for (var lang_key in this.Languages) {
+                        Vue.set( this.RequestData[ this.TranslatableColumns[key].name ]   , this.Languages[lang_key] ); 
+                        this.RequestData[ this.TranslatableColumns[key].name ][this.Languages[lang_key]] = null;
+                        // [Column : [ ar : null en : null]]
+                    }
+                }
+            },
+            async handleNoneTranslatableColumns(){
+                for (var key in this.NoneTranslatableColumns) {
+                    Vue.set( this.RequestData ,  this.NoneTranslatableColumns[key].name);  
+                    this.RequestData[this.NoneTranslatableColumns[key].name] = null ;
+                    // [ Column : null ]
+                }
+            },
+            async handleErrorTranslatableColumns(){
+                for (var key in this.TranslatableColumns) {
+                    for (var lang_key in this.Languages) {
+                        Vue.set( this.ServerReaponse.errors,  this.TranslatableColumns[key].name+'.'+this.Languages[lang_key] );  
+                        this.ServerReaponse.errors[this.TranslatableColumns[key].name+'.'+this.Languages[lang_key]] = [];
+                        // [ Column.ar : [] ]
+                    }
+                }
+            },
+            async handleErrorNoneTranslatableColumns(){
+                for (var key in this.NoneTranslatableColumns) {
+                    for (var lang_key in this.Languages) {
+                        Vue.set( this.ServerReaponse.errors,  this.NoneTranslatableColumns[key].name );  
+                        this.ServerReaponse.errors[this.NoneTranslatableColumns[key].name] = [];
+                        // [ Column : [] ]
+                    }
+                }
+                console.log(this.ServerReaponse);
+            },
+            
 
-            //     for (var key in this.LanguagesRows) {
-            //         handleLanguages[key] = [];
-            //             Vue.set( handleLanguages[key],  'language'); // language key
-            //             handleLanguages[key].language = this.LanguagesRows[key].name;//fr & en & ar
-            //         for (var key_ in this.LanguagesColumn) {
-            //             Vue.set( handleLanguages[key],  this.LanguagesColumn[key_].name); // ex (name,image,desc,subject) key
-            //             if(  item_languages[key] &&  item_languages[key]['language'] ==  this.LanguagesRows[key].name ){
-            //                 handleLanguages[key][this.LanguagesColumn[key_].name] = item_languages[key][this.LanguagesColumn[key_].name] ;
-            //             }
-            //         }
-            //     }
-            //     this.RequestData.languages = '';
-            //     this.RequestData.languages = handleLanguages;
-            // },
 
             // model 
                 AllLanguages(){
@@ -155,10 +180,11 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
             // model 
 
             async SubmetRowButton(){
+                console.log(this.RequestData);
                 this.ServerReaponse = null;
                 let data = await this.store()  ;
                 if(data && data.errors){
-                    this.ServerReaponse = data ;
+                     this.ServerReaponse = data    ;
                 }else{
                     this.ReturnToTablePage();//success from server
                 }

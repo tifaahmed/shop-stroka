@@ -3292,9 +3292,72 @@ function (_super) {
   function SliderModel() {
     var _this = _super !== null && _super.apply(this, arguments) || this;
 
-    _this.languagesformData = 'languages';
+    _this.TranslatableColumns = ['title1', 'subject1'];
     return _this; // trash
   }
+
+  SliderModel.prototype.handleData = function (RequestData) {
+    return __awaiter(this, void 0, void 0, function () {
+      var formData, _a, _b, _i, columnKey, data;
+
+      return __generator(this, function (_c) {
+        switch (_c.label) {
+          case 0:
+            formData = new FormData();
+            _a = [];
+
+            for (_b in this.TranslatableColumns) {
+              _a.push(_b);
+            }
+
+            _i = 0;
+            _c.label = 1;
+
+          case 1:
+            if (!(_i < _a.length)) return [3
+            /*break*/
+            , 6];
+            columnKey = _a[_i];
+            if (!RequestData[this.TranslatableColumns[columnKey]]) return [3
+            /*break*/
+            , 3];
+            data = RequestData[this.TranslatableColumns[columnKey]];
+            return [4
+            /*yield*/
+            , Model_1["default"].getObjectFormData(formData, data, this.TranslatableColumns[columnKey])];
+
+          case 2:
+            _c.sent();
+
+            return [3
+            /*break*/
+            , 5];
+
+          case 3:
+            return [4
+            /*yield*/
+            , Model_1["default"].getformData(formData, RequestData)];
+
+          case 4:
+            _c.sent();
+
+            _c.label = 5;
+
+          case 5:
+            _i++;
+            return [3
+            /*break*/
+            , 1];
+
+          case 6:
+            //  Columns
+            return [2
+            /*return*/
+            , formData];
+        }
+      });
+    });
+  };
 
   SliderModel.prototype.all = function () {
     return __awaiter(this, void 0, void 0, function () {
@@ -3391,58 +3454,42 @@ function (_super) {
 
   SliderModel.prototype.store = function (RequestData) {
     return __awaiter(this, void 0, void 0, function () {
-      var formData, data, result, error_3;
+      var formData, result, error_3;
       return __generator(this, function (_a) {
         switch (_a.label) {
           case 0:
-            formData = new FormData();
             return [4
             /*yield*/
-            , Model_1["default"].getformData(formData, RequestData)];
+            , this.handleData(RequestData)];
 
           case 1:
-            _a.sent();
-
-            if (!RequestData.languages) return [3
-            /*break*/
-            , 3];
-            data = RequestData.languages;
-            return [4
-            /*yield*/
-            , Model_1["default"].getObjectFormData(formData, data, this.languagesformData)];
+            formData = _a.sent();
+            result = '';
+            _a.label = 2;
 
           case 2:
-            _a.sent();
-
-            _a.label = 3;
-
-          case 3:
-            result = '';
-            _a.label = 4;
-
-          case 4:
-            _a.trys.push([4, 6,, 7]);
+            _a.trys.push([2, 4,, 5]);
 
             return [4
             /*yield*/
             , new SliderRouter_1["default"]().StoreAxios(formData)];
 
-          case 5:
+          case 3:
             result = _a.sent();
             Model_1["default"].SuccessNotification(result.data.message);
             return [3
             /*break*/
-            , 7];
+            , 5];
 
-          case 6:
+          case 4:
             error_3 = _a.sent();
             result = Model_1["default"]["catch"](error_3);
             Model_1["default"].ErrorNotification(result.message);
             return [3
             /*break*/
-            , 7];
+            , 5];
 
-          case 7:
+          case 5:
             return [2
             /*return*/
             , result];
@@ -3533,58 +3580,42 @@ function (_super) {
 
   SliderModel.prototype.update = function (id, RequestData) {
     return __awaiter(this, void 0, void 0, function () {
-      var formData, data, result, error_6;
+      var formData, result, error_6;
       return __generator(this, function (_a) {
         switch (_a.label) {
           case 0:
-            formData = new FormData();
             return [4
             /*yield*/
-            , Model_1["default"].getformData(formData, RequestData)];
+            , this.handleData(RequestData)];
 
           case 1:
-            _a.sent();
-
-            if (!RequestData.languages) return [3
-            /*break*/
-            , 3];
-            data = RequestData.languages;
-            return [4
-            /*yield*/
-            , Model_1["default"].getObjectFormData(formData, data, this.languagesformData)];
+            formData = _a.sent();
+            result = '';
+            _a.label = 2;
 
           case 2:
-            _a.sent();
-
-            _a.label = 3;
-
-          case 3:
-            result = '';
-            _a.label = 4;
-
-          case 4:
-            _a.trys.push([4, 6,, 7]);
+            _a.trys.push([2, 4,, 5]);
 
             return [4
             /*yield*/
             , new SliderRouter_1["default"]().UpdateAxios(id, formData)];
 
-          case 5:
+          case 3:
             result = _a.sent();
             Model_1["default"].SuccessNotification(result.data.message);
             return [3
             /*break*/
-            , 7];
+            , 5];
 
-          case 6:
+          case 4:
             error_6 = _a.sent();
             result = Model_1["default"]["catch"](error_6);
             Model_1["default"].ErrorNotification(result.message);
             return [3
             /*break*/
-            , 7];
+            , 5];
 
-          case 7:
+          case 5:
             return [2
             /*return*/
             , result];
@@ -3899,26 +3930,28 @@ function (_super) {
   __extends(SliderValidation, _super);
 
   function SliderValidation() {
-    var _this = _super !== null && _super.apply(this, arguments) || this;
-
-    _this.EmailArray = [];
-    _this.PasswordArray = [];
-    return _this;
+    return _super !== null && _super.apply(this, arguments) || this;
   }
 
-  SliderValidation.prototype.validate = function (RequestData) {
-    this.conditions(RequestData);
+  SliderValidation.prototype.validate = function (RequestData, Languages) {
+    this.conditions(RequestData, Languages);
 
     if (Object.keys(this.errors).length > 0) {
+      console.log(this.Reaponse());
       return this.Reaponse();
     }
   };
 
-  SliderValidation.prototype.conditions = function (RequestData) {// email 
-    // this.required(RequestData.email,'email',this.EmailArray);
-    // this.validEmail(RequestData.email,'email',this.EmailArray);
-    // password 
-    // this.required(RequestData.password,'password',this.PasswordArray);
+  SliderValidation.prototype.conditions = function (RequestData, Languages) {
+    for (var lang_key in Languages) {
+      console.log(); // title1 
+
+      this.required(RequestData['title1'][Languages[lang_key]], 'title1.' + Languages[lang_key], []); // subject1 
+
+      this.required(RequestData['subject1'][Languages[lang_key]], 'subject1.' + Languages[lang_key], []); // subject1 
+
+      this.required(RequestData.test, 'test', []);
+    }
   };
 
   return SliderValidation;
@@ -4449,13 +4482,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   components: {
     InputsFactory: AdminPartials_Components_Inputs_InputsFactory_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  mounted: function mounted() {// this.GetlLanguages();
+  mounted: function mounted() {
+    var _this = this;
 
     return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              _this.handleNoneTranslatableColumns();
+
+              _this.handleTranslatableColumns();
+
+              _this.handleErrorTranslatableColumns();
+
+              _this.handleErrorNoneTranslatableColumns();
+
+            case 4:
             case "end":
               return _context.stop();
           }
@@ -4473,16 +4516,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         placeholder: 'title',
         header: 'title1',
         name: 'title1'
+      }, {
+        type: 'string',
+        placeholder: 'subject',
+        header: 'subject1',
+        name: 'subject1'
+      }],
+      NoneTranslatableColumns: [{
+        type: 'test',
+        placeholder: 'test',
+        header: 'test',
+        name: 'test'
       }],
       ServerReaponse: {
-        errors: {
-          age: []
-        },
+        errors: {},
         message: null
       },
-      RequestData: {
-        title1: null
-      }
+      RequestData: {}
     };
   },
   methods: {
@@ -4494,7 +4544,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.ServerReaponse.message = null;
     },
     FormSubmet: function FormSubmet() {
-      var _this = this;
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         var check;
@@ -4503,11 +4553,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return _this.DeleteErrors();
+                return _this2.DeleteErrors();
 
               case 2:
                 _context2.next = 4;
-                return new (AdminValidations_SliderValidation__WEBPACK_IMPORTED_MODULE_1___default())().validate(_this.RequestData);
+                return new (AdminValidations_SliderValidation__WEBPACK_IMPORTED_MODULE_1___default())().validate(_this2.RequestData, _this2.Languages);
 
               case 4:
                 check = _context2.sent;
@@ -4518,15 +4568,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 // if there is error
-                _this.ServerReaponse = check;
-                _context2.next = 11;
+                _this2.ServerReaponse = check;
+                _context2.next = 12;
                 break;
 
               case 9:
-                _context2.next = 11;
-                return _this.SubmetRowButton();
+                console.log(_this2.RequestData);
+                _context2.next = 12;
+                return _this2.SubmetRowButton();
 
-              case 11:
+              case 12:
               case "end":
                 return _context2.stop();
             }
@@ -4534,24 +4585,105 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
-    // async GetlLanguages(){
-    //     this.LanguagesRows  = ( await this.AllLanguages() ).data.data; // all languages
-    //     let item_languages = this.RequestData.languages; // item language data
-    //     let handleLanguages= {}; //handle Languages from item data & all languages
-    //     for (var key in this.LanguagesRows) {
-    //         handleLanguages[key] = [];
-    //             Vue.set( handleLanguages[key],  'language'); // language key
-    //             handleLanguages[key].language = this.LanguagesRows[key].name;//fr & en & ar
-    //         for (var key_ in this.LanguagesColumn) {
-    //             Vue.set( handleLanguages[key],  this.LanguagesColumn[key_].name); // ex (name,image,desc,subject) key
-    //             if(  item_languages[key] &&  item_languages[key]['language'] ==  this.LanguagesRows[key].name ){
-    //                 handleLanguages[key][this.LanguagesColumn[key_].name] = item_languages[key][this.LanguagesColumn[key_].name] ;
-    //             }
-    //         }
-    //     }
-    //     this.RequestData.languages = '';
-    //     this.RequestData.languages = handleLanguages;
-    // },
+    handleTranslatableColumns: function handleTranslatableColumns() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var key, lang_key;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                for (key in _this3.TranslatableColumns) {
+                  Vue.set(_this3.RequestData, _this3.TranslatableColumns[key].name);
+                  _this3.RequestData[_this3.TranslatableColumns[key].name] = []; // [ Column : [] ]
+
+                  for (lang_key in _this3.Languages) {
+                    Vue.set(_this3.RequestData[_this3.TranslatableColumns[key].name], _this3.Languages[lang_key]);
+                    _this3.RequestData[_this3.TranslatableColumns[key].name][_this3.Languages[lang_key]] = null; // [Column : [ ar : null en : null]]
+                  }
+                }
+
+              case 1:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    handleNoneTranslatableColumns: function handleNoneTranslatableColumns() {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var key;
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                for (key in _this4.NoneTranslatableColumns) {
+                  Vue.set(_this4.RequestData, _this4.NoneTranslatableColumns[key].name);
+                  _this4.RequestData[_this4.NoneTranslatableColumns[key].name] = null; // [ Column : null ]
+                }
+
+              case 1:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    handleErrorTranslatableColumns: function handleErrorTranslatableColumns() {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        var key, lang_key;
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                for (key in _this5.TranslatableColumns) {
+                  for (lang_key in _this5.Languages) {
+                    Vue.set(_this5.ServerReaponse.errors, _this5.TranslatableColumns[key].name + '.' + _this5.Languages[lang_key]);
+                    _this5.ServerReaponse.errors[_this5.TranslatableColumns[key].name + '.' + _this5.Languages[lang_key]] = []; // [ Column.ar : [] ]
+                  }
+                }
+
+              case 1:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    },
+    handleErrorNoneTranslatableColumns: function handleErrorNoneTranslatableColumns() {
+      var _this6 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        var key, lang_key;
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                for (key in _this6.NoneTranslatableColumns) {
+                  for (lang_key in _this6.Languages) {
+                    Vue.set(_this6.ServerReaponse.errors, _this6.NoneTranslatableColumns[key].name);
+                    _this6.ServerReaponse.errors[_this6.NoneTranslatableColumns[key].name] = []; // [ Column : [] ]
+                  }
+                }
+
+                console.log(_this6.ServerReaponse);
+
+              case 2:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
+      }))();
+    },
     // model 
     AllLanguages: function AllLanguages() {
       return new LanguageModel().all();
@@ -4561,57 +4693,58 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     // model 
     SubmetRowButton: function SubmetRowButton() {
-      var _this2 = this;
+      var _this7 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
         var data;
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context7.prev = _context7.next) {
               case 0:
-                _this2.ServerReaponse = null;
-                _context3.next = 3;
-                return _this2.store();
+                console.log(_this7.RequestData);
+                _this7.ServerReaponse = null;
+                _context7.next = 4;
+                return _this7.store();
 
-              case 3:
-                data = _context3.sent;
+              case 4:
+                data = _context7.sent;
 
                 if (data && data.errors) {
-                  _this2.ServerReaponse = data;
+                  _this7.ServerReaponse = data;
                 } else {
-                  _this2.ReturnToTablePage(); //success from server
+                  _this7.ReturnToTablePage(); //success from server
 
                 }
 
-              case 5:
+              case 6:
               case "end":
-                return _context3.stop();
+                return _context7.stop();
             }
           }
-        }, _callee3);
+        }, _callee7);
       }))();
     },
     ReturnToTablePage: function ReturnToTablePage() {
-      var _this3 = this;
+      var _this8 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context8.prev = _context8.next) {
               case 0:
-                return _context4.abrupt("return", _this3.$router.push({
-                  name: _this3.TablePageName,
+                return _context8.abrupt("return", _this8.$router.push({
+                  name: _this8.TablePageName,
                   query: {
-                    CurrentPage: _this3.$route.query.CurrentPage
+                    CurrentPage: _this8.$route.query.CurrentPage
                   }
                 }));
 
               case 1:
               case "end":
-                return _context4.stop();
+                return _context8.stop();
             }
           }
-        }, _callee4);
+        }, _callee8);
       }))();
     }
   }
@@ -5882,33 +6015,37 @@ var render = function render() {
           Factorylable: column_val.header + "(" + lang_val + ")",
           FactoryPlaceholder: column_val.placeholder,
           FactoryType: column_val.type,
-          FactoryName: column_val.name,
-          FactoryErrors: null
+          FactoryName: _vm.RequestData[column_val.name][lang_val],
+          FactoryErrors: _vm.ServerReaponse && Array.isArray(_vm.ServerReaponse.errors[column_val.name + "." + lang_val]) ? _vm.ServerReaponse.errors[column_val.name + "." + lang_val] : null
         },
         model: {
-          value: _vm.RequestData.name,
+          value: _vm.RequestData[column_val.name][lang_val],
           callback: function callback($$v) {
-            _vm.$set(_vm.RequestData, "name", $$v);
+            _vm.$set(_vm.RequestData[column_val.name], lang_val, $$v);
           },
-          expression: "RequestData.name"
+          expression: "RequestData[column_val.name][lang_val]"
         }
       })], 1);
     }), 0);
-  }), _vm._v(" "), _c("InputsFactory", {
-    attrs: {
-      Factorylable: "age",
-      FactoryPlaceholder: "age",
-      FactoryType: "number",
-      FactoryName: "age",
-      FactoryErrors: _vm.ServerReaponse && Array.isArray(_vm.ServerReaponse.errors.age) ? _vm.ServerReaponse.errors.age : null
-    },
-    model: {
-      value: _vm.RequestData.age,
-      callback: function callback($$v) {
-        _vm.$set(_vm.RequestData, "age", $$v);
+  }), _vm._v(" "), _vm._l(_vm.NoneTranslatableColumns, function (column_val_, column_key_) {
+    return _c("span", {
+      key: column_key_
+    }, [_c("InputsFactory", {
+      attrs: {
+        Factorylable: column_val_.header,
+        FactoryPlaceholder: column_val_.placeholder,
+        FactoryType: "string",
+        FactoryName: _vm.RequestData[column_val_.name],
+        FactoryErrors: _vm.ServerReaponse && Array.isArray(_vm.ServerReaponse.errors[column_val_.name]) ? _vm.ServerReaponse.errors[column_val_.name] : null
       },
-      expression: "RequestData.age"
-    }
+      model: {
+        value: _vm.RequestData[column_val_.name],
+        callback: function callback($$v) {
+          _vm.$set(_vm.RequestData, column_val_.name, $$v);
+        },
+        expression: "RequestData[column_val_.name]"
+      }
+    })], 1);
   })], 2), _vm._v(" "), _c("button", {
     staticClass: "btn btn-primary",
     on: {
