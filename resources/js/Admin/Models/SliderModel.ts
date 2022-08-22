@@ -4,7 +4,23 @@ import Router    from './Routers/SliderRouter' ;
 
 export default class SliderModel extends Model {
    
-   languagesformData : string = 'languages' ;
+   TranslatableColumns : any = ['title1','subject1',] ;
+
+   public async handleData(RequestData) : Promise<any>  {  
+      let formData = new FormData();
+      //  Columns
+      for (var columnKey in this.TranslatableColumns) {
+         if (RequestData[this.TranslatableColumns[columnKey]] ) {
+            let data =RequestData[this.TranslatableColumns[columnKey]];
+            await Model.getObjectFormData(formData,data,this.TranslatableColumns[columnKey]);
+         } else{
+            await Model.getformData(formData,RequestData) ;
+         }
+      }  
+      //  Columns
+      return formData;
+   }
+
    protected async all() : Promise<any>  {  
       let result : any = '';
       try {
@@ -32,16 +48,7 @@ export default class SliderModel extends Model {
    }
 
    protected async store(RequestData : any) : Promise<any>  {  
-      let formData = new FormData();
-      await Model.getformData(formData,RequestData) ;
-
-      // languages
-         if (RequestData.languages ) {
-            let data =RequestData.languages;
-            await Model.getObjectFormData(formData,data,this.languagesformData);
-         }   
-      // languages
-
+      let formData = await this.handleData(RequestData);
        let result : any = '';
        try {
           result   = await (new Router).StoreAxios(formData) ;
@@ -78,16 +85,7 @@ export default class SliderModel extends Model {
    }
 
    protected async update ( id  : number ,RequestData ?: any) : Promise< any > {
-      let formData = new FormData();
-      await Model.getformData(formData,RequestData) ;
-
-      // languages
-         if (RequestData.languages ) {
-            let data =RequestData.languages;
-            await Model.getObjectFormData(formData,data,this.languagesformData);
-         }  
-      // languages
-    
+      let formData = await this.handleData(RequestData);
       let result : any = '';
       try {
          result =  await (new Router).UpdateAxios(id,formData) ;
