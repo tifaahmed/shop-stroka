@@ -22,6 +22,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['prefix' =>'dashboard'], fn ( ) : array => [
 
+    Route::name('language.')->prefix('/language')->group( fn ( ) : array => [
+        Route::get('/'                          ,   'LanguageController@all'                 )->name('all'),
+    ]),
+
+
     // no middleware
     Route::name( 'auth.') -> prefix( 'auth' ) -> group( fn ( ) => [
         Route::post( '/login' ,   'AuthController@login'  ) -> name( 'login' ) ,

@@ -13,6 +13,7 @@
                             <!-- loop on  ex [title,subject] -->
                             <span v-for="( column_val , column_key ) in TranslatableColumns" :key="column_key" >
                                 <!-- loop on ar & en -->
+                                {{Languages}}
                                 <span v-for="( lang_val    , lang_key ) in Languages " :key="lang_key" >
 
                                     <InputsFactory :Factorylable="column_val.header + '('+ lang_val +')' "  :FactoryPlaceholder="column_val.placeholder"         
@@ -26,12 +27,12 @@
                             </span> 
 
                             <!-- loop on  ex [title,subject] -->
-                            <span v-for="( column_val_ , column_key_ ) in NoneTranslatableColumns" :key="column_key_" >
+                            <!-- <span v-for="( column_val_ , column_key_ ) in NoneTranslatableColumns" :key="column_key_" >
                                     <InputsFactory :Factorylable="column_val_.header"  :FactoryPlaceholder="column_val_.placeholder"         
                                         :FactoryType="'string'" :FactoryName="RequestData[column_val_.name]"  v-model ="RequestData[column_val_.name]"  
                                         :FactoryErrors="( ServerReaponse && Array.isArray( ServerReaponse.errors[column_val_.name]  )  ) ?  ServerReaponse.errors[column_val_.name] : null" 
                                     />
-                            </span> 
+                            </span>  -->
 
                         </div>
                         <button  @click="FormSubmet()" class="btn btn-primary ">
@@ -64,7 +65,8 @@
 
 
 <script>
-import Model     from 'AdminModels/SliderModel';
+import Model            from 'AdminModels/SliderModel';
+import LanguageModel    from 'AdminModels/LanguageModel';
 
 import validation     from 'AdminValidations/SliderValidation';
 import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue'     ;
@@ -74,25 +76,27 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
         components : { InputsFactory } ,
 
         async mounted() {
-            this.handleNoneTranslatableColumns();
+            await this.GetlLanguages();
+
+            // this.handleNoneTranslatableColumns();
+            // this.handleErrorNoneTranslatableColumns();
+
             this.handleTranslatableColumns();
             this.handleErrorTranslatableColumns();
-            this.handleErrorNoneTranslatableColumns();
         },
         data( ) { return {
             TableName :'Slider',
             TablePageName :'Slider.All',
 
-            Languages : ['ar','en'],
+            Languages : [],
 
             TranslatableColumns : [
                 { type: 'string',placeholder:'title',header :'title1', name : 'title1'},
                 { type: 'string',placeholder:'subject',header :'subject1', name : 'subject1'},
             ],
-            NoneTranslatableColumns : [
-                { type: 'test',placeholder:'test',header :'test', name : 'test'},
-            ],
-
+            // NoneTranslatableColumns : [
+            //     { type: 'test',placeholder:'test',header :'test', name : 'test'},
+            // ],
 
             ServerReaponse : {
                 errors :  {},
@@ -129,6 +133,7 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
             },
 
             async handleTranslatableColumns(){
+                console.log(this.Languages);
                 for (var key in this.TranslatableColumns) {
                     Vue.set( this.RequestData,  this.TranslatableColumns[key].name);  
                     this.RequestData[this.TranslatableColumns[key].name] = [];
@@ -140,13 +145,6 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                     }
                 }
             },
-            async handleNoneTranslatableColumns(){
-                for (var key in this.NoneTranslatableColumns) {
-                    Vue.set( this.RequestData ,  this.NoneTranslatableColumns[key].name);  
-                    this.RequestData[this.NoneTranslatableColumns[key].name] = null ;
-                    // [ Column : null ]
-                }
-            },
             async handleErrorTranslatableColumns(){
                 for (var key in this.TranslatableColumns) {
                     for (var lang_key in this.Languages) {
@@ -156,17 +154,26 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                     }
                 }
             },
-            async handleErrorNoneTranslatableColumns(){
-                for (var key in this.NoneTranslatableColumns) {
-                    for (var lang_key in this.Languages) {
-                        Vue.set( this.ServerReaponse.errors,  this.NoneTranslatableColumns[key].name );  
-                        this.ServerReaponse.errors[this.NoneTranslatableColumns[key].name] = [];
-                        // [ Column : [] ]
-                    }
-                }
-                console.log(this.ServerReaponse);
+            // async handleNoneTranslatableColumns(){
+            //     for (var key in this.NoneTranslatableColumns) {
+            //         Vue.set( this.RequestData ,  this.NoneTranslatableColumns[key].name);  
+            //         this.RequestData[this.NoneTranslatableColumns[key].name] = null ;
+            //         // [ Column : null ]
+            //     }
+            // },
+            // async handleErrorNoneTranslatableColumns(){
+            //     for (var key in this.NoneTranslatableColumns) {
+            //         for (var lang_key in this.Languages) {
+            //             Vue.set( this.ServerReaponse.errors,  this.NoneTranslatableColumns[key].name );  
+            //             this.ServerReaponse.errors[this.NoneTranslatableColumns[key].name] = [];
+            //             // [ Column : [] ]
+            //         }
+            //     }
+            // },
+            async GetlLanguages(){
+                this.Languages  = ( await this.AllLanguages() ).data; // all languages
             },
-            
+
 
 
             // model 
@@ -180,7 +187,6 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
             // model 
 
             async SubmetRowButton(){
-                console.log(this.RequestData);
                 this.ServerReaponse = null;
                 let data = await this.store()  ;
                 if(data && data.errors){

@@ -2304,6 +2304,247 @@ exports["default"] = AuthModel;
 
 /***/ }),
 
+/***/ "./resources/js/Admin/Models/LanguageModel.ts":
+/*!****************************************************!*\
+  !*** ./resources/js/Admin/Models/LanguageModel.ts ***!
+  \****************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) {
+        if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+      }
+    };
+
+    return _extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+
+    _extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+
+var __generator = this && this.__generator || function (thisArg, body) {
+  var _ = {
+    label: 0,
+    sent: function sent() {
+      if (t[0] & 1) throw t[1];
+      return t[1];
+    },
+    trys: [],
+    ops: []
+  },
+      f,
+      y,
+      t,
+      g;
+  return g = {
+    next: verb(0),
+    "throw": verb(1),
+    "return": verb(2)
+  }, typeof Symbol === "function" && (g[Symbol.iterator] = function () {
+    return this;
+  }), g;
+
+  function verb(n) {
+    return function (v) {
+      return step([n, v]);
+    };
+  }
+
+  function step(op) {
+    if (f) throw new TypeError("Generator is already executing.");
+
+    while (_) {
+      try {
+        if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+        if (y = 0, t) op = [op[0] & 2, t.value];
+
+        switch (op[0]) {
+          case 0:
+          case 1:
+            t = op;
+            break;
+
+          case 4:
+            _.label++;
+            return {
+              value: op[1],
+              done: false
+            };
+
+          case 5:
+            _.label++;
+            y = op[1];
+            op = [0];
+            continue;
+
+          case 7:
+            op = _.ops.pop();
+
+            _.trys.pop();
+
+            continue;
+
+          default:
+            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+              _ = 0;
+              continue;
+            }
+
+            if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
+              _.label = op[1];
+              break;
+            }
+
+            if (op[0] === 6 && _.label < t[1]) {
+              _.label = t[1];
+              t = op;
+              break;
+            }
+
+            if (t && _.label < t[2]) {
+              _.label = t[2];
+
+              _.ops.push(op);
+
+              break;
+            }
+
+            if (t[2]) _.ops.pop();
+
+            _.trys.pop();
+
+            continue;
+        }
+
+        op = body.call(thisArg, _);
+      } catch (e) {
+        op = [6, e];
+        y = 0;
+      } finally {
+        f = t = 0;
+      }
+    }
+
+    if (op[0] & 5) throw op[1];
+    return {
+      value: op[0] ? op[1] : void 0,
+      done: true
+    };
+  }
+};
+
+exports.__esModule = true;
+
+var Model_1 = __webpack_require__(/*! ./Model */ "./resources/js/Admin/Models/Model.ts");
+
+var LanguageRouter_1 = __webpack_require__(/*! ./Routers/LanguageRouter */ "./resources/js/Admin/Models/Routers/LanguageRouter.ts");
+
+var LanguageModel =
+/** @class */
+function (_super) {
+  __extends(LanguageModel, _super);
+
+  function LanguageModel() {
+    return _super !== null && _super.apply(this, arguments) || this;
+  }
+
+  LanguageModel.prototype.all = function () {
+    return __awaiter(this, void 0, void 0, function () {
+      var result, error_1;
+      return __generator(this, function (_a) {
+        switch (_a.label) {
+          case 0:
+            result = '';
+            _a.label = 1;
+
+          case 1:
+            _a.trys.push([1, 3,, 4]);
+
+            return [4
+            /*yield*/
+            , new LanguageRouter_1["default"]().AllAxios()];
+
+          case 2:
+            result = _a.sent();
+            return [3
+            /*break*/
+            , 4];
+
+          case 3:
+            error_1 = _a.sent();
+            result = Model_1["default"]["catch"](error_1);
+            Model_1["default"].ErrorNotification(result.data.message);
+            return [3
+            /*break*/
+            , 4];
+
+          case 4:
+            return [2
+            /*return*/
+            , result];
+        }
+      });
+    });
+  };
+
+  return LanguageModel;
+}(Model_1["default"]);
+
+exports["default"] = LanguageModel;
+
+/***/ }),
+
 /***/ "./resources/js/Admin/Models/Model.ts":
 /*!********************************************!*\
   !*** ./resources/js/Admin/Models/Model.ts ***!
@@ -2608,6 +2849,66 @@ function () {
 }();
 
 exports["default"] = AuthRouter;
+
+/***/ }),
+
+/***/ "./resources/js/Admin/Models/Routers/LanguageRouter.ts":
+/*!*************************************************************!*\
+  !*** ./resources/js/Admin/Models/Routers/LanguageRouter.ts ***!
+  \*************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) {
+        if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+      }
+    };
+
+    return _extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+
+    _extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+exports.__esModule = true;
+
+var Router_1 = __webpack_require__(/*! ./Router */ "./resources/js/Admin/Models/Routers/Router.ts");
+
+var LanguageRouter =
+/** @class */
+function (_super) {
+  __extends(LanguageRouter, _super);
+
+  function LanguageRouter() {
+    var _this = _super !== null && _super.apply(this, arguments) || this;
+
+    _this.name = 'language';
+    return _this;
+  }
+
+  return LanguageRouter;
+}(Router_1["default"]);
+
+exports["default"] = LanguageRouter;
 
 /***/ }),
 
@@ -4463,9 +4764,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var AdminModels_SliderModel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! AdminModels/SliderModel */ "./resources/js/Admin/Models/SliderModel.ts");
 /* harmony import */ var AdminModels_SliderModel__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(AdminModels_SliderModel__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var AdminValidations_SliderValidation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! AdminValidations/SliderValidation */ "./resources/js/Admin/Validation/SliderValidation.ts");
-/* harmony import */ var AdminValidations_SliderValidation__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(AdminValidations_SliderValidation__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var AdminPartials_Components_Inputs_InputsFactory_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! AdminPartials/Components/Inputs/InputsFactory.vue */ "./resources/js/Admin/Partials/Components/Inputs/InputsFactory.vue");
+/* harmony import */ var AdminModels_LanguageModel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! AdminModels/LanguageModel */ "./resources/js/Admin/Models/LanguageModel.ts");
+/* harmony import */ var AdminModels_LanguageModel__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(AdminModels_LanguageModel__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var AdminValidations_SliderValidation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! AdminValidations/SliderValidation */ "./resources/js/Admin/Validation/SliderValidation.ts");
+/* harmony import */ var AdminValidations_SliderValidation__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(AdminValidations_SliderValidation__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var AdminPartials_Components_Inputs_InputsFactory_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! AdminPartials/Components/Inputs/InputsFactory.vue */ "./resources/js/Admin/Partials/Components/Inputs/InputsFactory.vue");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
@@ -4477,10 +4780,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'SliderCreate',
   components: {
-    InputsFactory: AdminPartials_Components_Inputs_InputsFactory_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    InputsFactory: AdminPartials_Components_Inputs_InputsFactory_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   mounted: function mounted() {
     var _this = this;
@@ -4490,13 +4794,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _this.handleNoneTranslatableColumns();
+              _context.next = 2;
+              return _this.GetlLanguages();
 
+            case 2:
+              // this.handleNoneTranslatableColumns();
+              // this.handleErrorNoneTranslatableColumns();
               _this.handleTranslatableColumns();
 
               _this.handleErrorTranslatableColumns();
-
-              _this.handleErrorNoneTranslatableColumns();
 
             case 4:
             case "end":
@@ -4510,7 +4816,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       TableName: 'Slider',
       TablePageName: 'Slider.All',
-      Languages: ['ar', 'en'],
+      Languages: [],
       TranslatableColumns: [{
         type: 'string',
         placeholder: 'title',
@@ -4522,12 +4828,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         header: 'subject1',
         name: 'subject1'
       }],
-      NoneTranslatableColumns: [{
-        type: 'test',
-        placeholder: 'test',
-        header: 'test',
-        name: 'test'
-      }],
+      // NoneTranslatableColumns : [
+      //     { type: 'test',placeholder:'test',header :'test', name : 'test'},
+      // ],
       ServerReaponse: {
         errors: {},
         message: null
@@ -4557,7 +4860,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
                 _context2.next = 4;
-                return new (AdminValidations_SliderValidation__WEBPACK_IMPORTED_MODULE_1___default())().validate(_this2.RequestData, _this2.Languages);
+                return new (AdminValidations_SliderValidation__WEBPACK_IMPORTED_MODULE_2___default())().validate(_this2.RequestData, _this2.Languages);
 
               case 4:
                 check = _context2.sent;
@@ -4594,6 +4897,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
+                console.log(_this3.Languages);
+
                 for (key in _this3.TranslatableColumns) {
                   Vue.set(_this3.RequestData, _this3.TranslatableColumns[key].name);
                   _this3.RequestData[_this3.TranslatableColumns[key].name] = []; // [ Column : [] ]
@@ -4604,7 +4909,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }
                 }
 
-              case 1:
+              case 2:
               case "end":
                 return _context3.stop();
             }
@@ -4612,18 +4917,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3);
       }))();
     },
-    handleNoneTranslatableColumns: function handleNoneTranslatableColumns() {
+    handleErrorTranslatableColumns: function handleErrorTranslatableColumns() {
       var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-        var key;
+        var key, lang_key;
         return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                for (key in _this4.NoneTranslatableColumns) {
-                  Vue.set(_this4.RequestData, _this4.NoneTranslatableColumns[key].name);
-                  _this4.RequestData[_this4.NoneTranslatableColumns[key].name] = null; // [ Column : null ]
+                for (key in _this4.TranslatableColumns) {
+                  for (lang_key in _this4.Languages) {
+                    Vue.set(_this4.ServerReaponse.errors, _this4.TranslatableColumns[key].name + '.' + _this4.Languages[lang_key]);
+                    _this4.ServerReaponse.errors[_this4.TranslatableColumns[key].name + '.' + _this4.Languages[lang_key]] = []; // [ Column.ar : [] ]
+                  }
                 }
 
               case 1:
@@ -4634,23 +4941,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee4);
       }))();
     },
-    handleErrorTranslatableColumns: function handleErrorTranslatableColumns() {
+    // async handleNoneTranslatableColumns(){
+    //     for (var key in this.NoneTranslatableColumns) {
+    //         Vue.set( this.RequestData ,  this.NoneTranslatableColumns[key].name);  
+    //         this.RequestData[this.NoneTranslatableColumns[key].name] = null ;
+    //         // [ Column : null ]
+    //     }
+    // },
+    // async handleErrorNoneTranslatableColumns(){
+    //     for (var key in this.NoneTranslatableColumns) {
+    //         for (var lang_key in this.Languages) {
+    //             Vue.set( this.ServerReaponse.errors,  this.NoneTranslatableColumns[key].name );  
+    //             this.ServerReaponse.errors[this.NoneTranslatableColumns[key].name] = [];
+    //             // [ Column : [] ]
+    //         }
+    //     }
+    // },
+    GetlLanguages: function GetlLanguages() {
       var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
-        var key, lang_key;
         return _regeneratorRuntime().wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                for (key in _this5.TranslatableColumns) {
-                  for (lang_key in _this5.Languages) {
-                    Vue.set(_this5.ServerReaponse.errors, _this5.TranslatableColumns[key].name + '.' + _this5.Languages[lang_key]);
-                    _this5.ServerReaponse.errors[_this5.TranslatableColumns[key].name + '.' + _this5.Languages[lang_key]] = []; // [ Column.ar : [] ]
-                  }
-                }
+                _context5.next = 2;
+                return _this5.AllLanguages();
 
-              case 1:
+              case 2:
+                _this5.Languages = _context5.sent.data;
+
+              case 3:
               case "end":
                 return _context5.stop();
             }
@@ -4658,25 +4979,38 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee5);
       }))();
     },
-    handleErrorNoneTranslatableColumns: function handleErrorNoneTranslatableColumns() {
+    // model 
+    AllLanguages: function AllLanguages() {
+      return new (AdminModels_LanguageModel__WEBPACK_IMPORTED_MODULE_1___default())().all();
+    },
+    store: function store() {
+      return new (AdminModels_SliderModel__WEBPACK_IMPORTED_MODULE_0___default())().store(this.RequestData);
+    },
+    // model 
+    SubmetRowButton: function SubmetRowButton() {
       var _this6 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
-        var key, lang_key;
+        var data;
         return _regeneratorRuntime().wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                for (key in _this6.NoneTranslatableColumns) {
-                  for (lang_key in _this6.Languages) {
-                    Vue.set(_this6.ServerReaponse.errors, _this6.NoneTranslatableColumns[key].name);
-                    _this6.ServerReaponse.errors[_this6.NoneTranslatableColumns[key].name] = []; // [ Column : [] ]
-                  }
+                _this6.ServerReaponse = null;
+                _context6.next = 3;
+                return _this6.store();
+
+              case 3:
+                data = _context6.sent;
+
+                if (data && data.errors) {
+                  _this6.ServerReaponse = data;
+                } else {
+                  _this6.ReturnToTablePage(); //success from server
+
                 }
 
-                console.log(_this6.ServerReaponse);
-
-              case 2:
+              case 5:
               case "end":
                 return _context6.stop();
             }
@@ -4684,67 +5018,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee6);
       }))();
     },
-    // model 
-    AllLanguages: function AllLanguages() {
-      return new LanguageModel().all();
-    },
-    store: function store() {
-      return new (AdminModels_SliderModel__WEBPACK_IMPORTED_MODULE_0___default())().store(this.RequestData);
-    },
-    // model 
-    SubmetRowButton: function SubmetRowButton() {
+    ReturnToTablePage: function ReturnToTablePage() {
       var _this7 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
-        var data;
         return _regeneratorRuntime().wrap(function _callee7$(_context7) {
           while (1) {
             switch (_context7.prev = _context7.next) {
               case 0:
-                console.log(_this7.RequestData);
-                _this7.ServerReaponse = null;
-                _context7.next = 4;
-                return _this7.store();
-
-              case 4:
-                data = _context7.sent;
-
-                if (data && data.errors) {
-                  _this7.ServerReaponse = data;
-                } else {
-                  _this7.ReturnToTablePage(); //success from server
-
-                }
-
-              case 6:
-              case "end":
-                return _context7.stop();
-            }
-          }
-        }, _callee7);
-      }))();
-    },
-    ReturnToTablePage: function ReturnToTablePage() {
-      var _this8 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
-        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
-          while (1) {
-            switch (_context8.prev = _context8.next) {
-              case 0:
-                return _context8.abrupt("return", _this8.$router.push({
-                  name: _this8.TablePageName,
+                return _context7.abrupt("return", _this7.$router.push({
+                  name: _this7.TablePageName,
                   query: {
-                    CurrentPage: _this8.$route.query.CurrentPage
+                    CurrentPage: _this7.$route.query.CurrentPage
                   }
                 }));
 
               case 1:
               case "end":
-                return _context8.stop();
+                return _context7.stop();
             }
           }
-        }, _callee8);
+        }, _callee7);
       }))();
     }
   }
@@ -6004,10 +6298,10 @@ var render = function render() {
     staticClass: "card-title mb-1"
   }, [_vm._v("Create " + _vm._s(_vm.TableName) + " ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body pt-0"
-  }, [_c("div", {}, [_vm._l(_vm.TranslatableColumns, function (column_val, column_key) {
+  }, [_c("div", {}, _vm._l(_vm.TranslatableColumns, function (column_val, column_key) {
     return _c("span", {
       key: column_key
-    }, _vm._l(_vm.Languages, function (lang_val, lang_key) {
+    }, [_vm._v("\n                            " + _vm._s(_vm.Languages) + "\n                            "), _vm._l(_vm.Languages, function (lang_val, lang_key) {
       return _c("span", {
         key: lang_key
       }, [_c("InputsFactory", {
@@ -6026,27 +6320,8 @@ var render = function render() {
           expression: "RequestData[column_val.name][lang_val]"
         }
       })], 1);
-    }), 0);
-  }), _vm._v(" "), _vm._l(_vm.NoneTranslatableColumns, function (column_val_, column_key_) {
-    return _c("span", {
-      key: column_key_
-    }, [_c("InputsFactory", {
-      attrs: {
-        Factorylable: column_val_.header,
-        FactoryPlaceholder: column_val_.placeholder,
-        FactoryType: "string",
-        FactoryName: _vm.RequestData[column_val_.name],
-        FactoryErrors: _vm.ServerReaponse && Array.isArray(_vm.ServerReaponse.errors[column_val_.name]) ? _vm.ServerReaponse.errors[column_val_.name] : null
-      },
-      model: {
-        value: _vm.RequestData[column_val_.name],
-        callback: function callback($$v) {
-          _vm.$set(_vm.RequestData, column_val_.name, $$v);
-        },
-        expression: "RequestData[column_val_.name]"
-      }
-    })], 1);
-  })], 2), _vm._v(" "), _c("button", {
+    })], 2);
+  }), 0), _vm._v(" "), _c("button", {
     staticClass: "btn btn-primary",
     on: {
       click: function click($event) {
