@@ -10,8 +10,7 @@
                     <div class="card-body pt-0">
 
 
-                        <span v-for="( row    , rowkey ) in LanguagesRows " :key="rowkey" >
-                             <!-- (LanguagesRows) loop on ar & en -->
+                        <!-- <span v-for="( row    , rowkey ) in LanguagesRows " :key="rowkey" >
                             <span v-for="( row_    , rowkey_ ) in LanguagesColumn " :key="rowkey_" >
                                 <InputsFactory :Factorylable="row_.header+' ( ' + row.full_name + ' ) '" :FactoryPlaceholder="row_.placeholder"         
                                     :FactoryType="row_.type" :FactoryName="row_.name"  v-model ="RequestData.languages[rowkey][row_.name]"  
@@ -19,13 +18,10 @@
                                 />
                             </span>
                             <hr>
-                        </span> 
+                        </span>  -->
 
 
-                        <InputsFactory :Factorylable="'age'"  :FactoryPlaceholder=" 'age' "         
-                            :FactoryType="'number'" :FactoryName="'age'"  v-model ="RequestData.age"  
-                            :FactoryErrors="( ServerReaponse && Array.isArray( ServerReaponse.errors.age )  ) ? ServerReaponse.errors.age : null" 
-                        />
+
 
                         <button  @click="FormSubmet()" class="btn btn-primary  ">Submit</button>
 
@@ -53,51 +49,63 @@
 	</div>
 </template>
 <script>
-import Model     from 'AdminModels/AgeGroup';
-import LanguageModel     from 'AdminModels/Language';
+import Model            from 'AdminModels/SliderModel';
+import LanguageModel    from 'AdminModels/LanguageModel';
+import DataService    from '../../DataService';
 
-import validation     from 'AdminValidations/AgeGroup';
+import validation     from 'AdminValidations/SliderValidation';
 import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue'     ;
 
     export default {
+        name:'SliderEdit',
         components : { InputsFactory } ,
 
-        name:"AgeGroupEdit",
-
         mounted() {
+
+            // await this.GetlLanguages();
+            // await this.start();
+
             this.GetData();
-            this.GetlLanguages();
+
         },
         data( ) { return {
-            TableName :'AgeGroup',
-            TablePageName :'AgeGroup.ShowAll',
+            TableName :'Slider',
+            TablePageName :'Slider.All',
 
-            LanguagesRows : null,
-            LanguagesColumn : [
-                { type: 'string',placeholder:'name',header :'name', name : 'name'},
+            Languages : [],
+
+            TranslatableColumns : [
+                { type: 'string',placeholder:'title',header :'title1', name : 'title1'},
+                { type: 'string',placeholder:'subject',header :'subject1', name : 'subject1'},
+                { type: 'file',placeholder:null,header :'desktop image', name : 'desktop_image'},
+                { type: 'file',placeholder:null,header :'mobile_image', name : 'mobile_image'},
+                { type: 'string',placeholder:'url',header :'url', name : 'url1'},
+                { type: 'string',placeholder:'button',header :'button', name : 'button1'},
             ],
 
             ServerReaponse : {
-                errors : {
-                    age :[],
-                },
+                errors :  {},
                 message : null,
             },
-            RequestData : {
-                    age     : null,
 
-                    languages         : { },
-            },
+            RequestData : {},
+
         } } ,
         methods : {
+            start(){
+                this.RequestData =  DataService.handleTranslatableColumns(this.TranslatableColumns,this.Languages);
+                this.ServerReaponse.errors = DataService.handleErrorTranslatableColumns(this.TranslatableColumns,this.Languages);
+            },
+
             DeleteErrors(){
                 for (var key in this.ServerReaponse.errors) {
                     this.ServerReaponse.errors[key] = [];
                 }
                 this.ServerReaponse.message =null;
             },
+            
             async GetData(){
-                let receivedData = await this.show( ) ;
+                let receivedData =   await this.show( ) ;
                 for (var key in receivedData) {
                     if(  
                         ( Array.isArray( receivedData[key] )  && (receivedData[key]).length > 0 ) 

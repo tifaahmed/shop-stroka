@@ -22,6 +22,7 @@ export default class Model {
 			return  err.response.data;
 		}
 	}
+	// normal data ony
 	static getformData (formData ,RequestData ?: any) {
 	for (var key in RequestData) {
 	   formData.append(key, RequestData[key]);
@@ -29,7 +30,26 @@ export default class Model {
 	return  formData;
 	};
 
+	//  RequestData : any = [ Column1 : data  , Column2 : [ ar : data1 , en : data2] ]
+	// normal data or array with many arrays
+	// return formData;
+	static getformDataTranslatedOrNot (formData ,RequestData ?: any) {
+	for (var RequestDataKey in RequestData) {  
+		if ( Array.isArray(RequestData[RequestDataKey]) ) 
+		{	// Column2 : [ ar : data1 , en : data2]
+			for (var key in RequestData[RequestDataKey]) { // [ ar : data1 , en : data2]
 
+				formData.append( RequestDataKey+ '[' + key + ']',  RequestData[RequestDataKey][key]   ); // Column2[ar] : data1
+			}
+		}else
+		{ // Column1 : data 
+			formData.append(RequestDataKey, RequestData[RequestDataKey]);  // Column1 : data1
+		}
+	}
+	return  formData;
+	};
+
+	// object with many objects
 	static getObjectFormData(formData, data, key) {
 		if ( ( typeof data === 'object' && data !== null ) || Array.isArray(data) ) {
 			for ( let i in data ) {
@@ -43,6 +63,8 @@ export default class Model {
 			formData.append(key, data);
 		}
 	}
+
+
 	static ErrorNotification(message) {
 		Toast.fire({
             icon: 'error',

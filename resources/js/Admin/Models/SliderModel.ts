@@ -4,20 +4,9 @@ import Router    from './Routers/SliderRouter' ;
 
 export default class SliderModel extends Model {
    
-   TranslatableColumns : any = ['title1','subject1',] ;
-
    public async handleData(RequestData) : Promise<any>  {  
       let formData = new FormData();
-      //  Columns
-      for (var columnKey in this.TranslatableColumns) {
-         if (RequestData[this.TranslatableColumns[columnKey]] ) {
-            let data =RequestData[this.TranslatableColumns[columnKey]];
-            await Model.getObjectFormData(formData,data,this.TranslatableColumns[columnKey]);
-         } else{
-            await Model.getformData(formData,RequestData) ;
-         }
-      }  
-      //  Columns
+      await Model.getformDataTranslatedOrNot(formData,RequestData) ;
       return formData;
    }
 

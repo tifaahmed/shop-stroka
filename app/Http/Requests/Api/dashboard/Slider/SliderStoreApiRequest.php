@@ -26,7 +26,6 @@ class SliderStoreApiRequest extends FormRequest
         $lang_array = config('app.lang_array') ;
         
         $all=[];
-        $all += [ 'test'                 =>  [ 'required' ,'max:255' ] ]  ;
 
         foreach ($lang_array as $key => $value) {
             $all += [ 'title1.'.$value                 =>  [ 'required' ,'max:255' ] ]  ;
