@@ -48,6 +48,20 @@ export default class SliderModel extends Model {
         }
          return result;
    }
+   protected async update ( id  : number ,RequestData ?: any) : Promise< any > {
+      console.log(RequestData);
+      let formData = await this.handleData(RequestData);
+      let result : any = '';
+      try {
+         result =  await (new Router).UpdateAxios(id,formData) ;
+         Model.SuccessNotification(result.data.message) ;
+      } catch (error) {
+         result = Model.catch(error) ;
+         Model.ErrorNotification(result.message) ;
+      }
+      return result;
+   }
+
 
    protected async deleteRow(id : number) : Promise<any>  {  
       let result : any = '';
@@ -73,18 +87,7 @@ export default class SliderModel extends Model {
        return result;
    }
 
-   protected async update ( id  : number ,RequestData ?: any) : Promise< any > {
-      let formData = await this.handleData(RequestData);
-      let result : any = '';
-      try {
-         result =  await (new Router).UpdateAxios(id,formData) ;
-         Model.SuccessNotification(result.data.message) ;
-      } catch (error) {
-         result = Model.catch(error) ;
-         Model.ErrorNotification(result.message) ;
-      }
-      return result;
-   }
+
 
    // trash
       protected async CollectionTrash(page : number , PerPage :number)  : Promise<Model> {  

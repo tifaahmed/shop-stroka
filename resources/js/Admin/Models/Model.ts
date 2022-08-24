@@ -35,7 +35,11 @@ export default class Model {
 	// return formData;
 	static getformDataTranslatedOrNot (formData ,RequestData ?: any) {
 	for (var RequestDataKey in RequestData) {  
-		if ( Array.isArray(RequestData[RequestDataKey]) ) 
+		if ( 
+			typeof RequestData[RequestDataKey] === 'object' && RequestData[RequestDataKey] !== null 
+			|| 
+			Array.isArray(RequestData[RequestDataKey]) 
+			) 
 		{	// Column2 : [ ar : data1 , en : data2]
 			for (var key in RequestData[RequestDataKey]) { // [ ar : data1 , en : data2]
 

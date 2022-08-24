@@ -3,7 +3,7 @@
     <div>
  
                  <!-- breadcrumb -->
-                <div class="container-fluid">
+                <div class="container-fluid" style="    margin-top: -70px;">
                     <div class="breadcrumb-header justify-content-between" style="justify-content: space-between !important; margin-top: 80px;">
                         
                         <div class="my-auto">
@@ -41,19 +41,6 @@
                                 </router-link>
                             </div>
 
-                            <div class="pr-1 mb-xl-0">
-                                <router-link style="color:#fff" 
-                                :to = "{ 
-                                    name : TableName+'.AllTrash' , 
-                                    query: { CurrentPage: 1 }  
-                                }" > 
-                                    <button type="button" class="btn btn-danger  ">
-                                        <i class="fas fa-trash-alt">
-                                                trash
-                                        </i>
-                                    </button>
-                                </router-link>
-                            </div>
 
                         </div>
                     </div>

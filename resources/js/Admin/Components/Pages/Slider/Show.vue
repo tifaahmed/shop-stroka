@@ -6,21 +6,23 @@
                     <div class="table-responsive">
                         <table class="table table-hover mb-0 text-md-nowrap">
                             <tbody>
-                                <tr  v-for="( column , key    )  in Columns" :key="key" class="teeee" >
-                                    <th class="never-hide"> {{column.header}}  </th>
+
+                                <tr  v-for="( column_val , key    )  in Columns" :key="key" class="teeee" >
+                                    <th class="never-hide"> {{column_val.header}}  </th>
                                     <td class="never-hide"> 
                                         <ColumsIndex  
-                                            :ValueColumn="column.value"   
-                                            :typeColumn="column.type" 
-                                            :LoopOnColumn="column.LoopOnColumn"
+                                            :ValueColumn="column_val.value"   
+                                            :typeColumn="column_val.type" 
+                                            :LoopOnColumn="column_val.LoopOnColumn"
                                         />
                                     </td>
                                 </tr>
+
                             </tbody>
                         </table>
                         <router-link style="color:#fff" 
                             :to = "{ 
-                                name : TableName+'.ShowAll' , 
+                                name : TablePageName , 
                                 query: { CurrentPage: this.$route.query.CurrentPage }  
                             }" >                         
                             <button type="button" class="btn btn-danger  ">
@@ -36,11 +38,11 @@
     </div>
 </template>
 <script>
-import Model     from 'AdminModels/AgeGroup';
+import Model            from 'AdminModels/SliderModel';
 import ColumsIndex          from 'AdminPartials/Components/colums/ColumsIndex.vue'     ;
 
     export default {
-        name:"AgeGroupShow",
+        name:"SliderShow",
 
         mounted() {
             this.initial();
@@ -49,18 +51,19 @@ import ColumsIndex          from 'AdminPartials/Components/colums/ColumsIndex.vu
             ColumsIndex
         },
         data( ) { return {
-            TableName :'AgeGroup',
+            TableName :'Slider',
+            TablePageName :'Slider.All',
 
-            Columns :  [
+            Columns : [
                 { type: 'Router'    ,header : 'id'                  , name : 'id'          , value : null  } ,
-
-                { type: 'String'    ,header : 'age'                 , name : 'age'          , value : null  } ,
-
-                ,
-                { type: 'Forloop'   ,header : 'name'                , name : 'languages'    , value : null  , LoopOnColumn :['language','name']} ,
+                { type: 'ForloopImage'   ,header : 'desktop image'              , name : 'desktop_image'    , value : null  } ,
+                { type: 'ForloopImage'   ,header : 'mobile image'              , name : 'mobile_image'    , value : null  } ,
+                { type: 'Forloop'   ,header : 'title1'              , name : 'title1'    , value : null  } ,
+                { type: 'Forloop'   ,header : 'subject1'              , name : 'subject1'    , value : null  } ,
+                { type: 'Forloop'   ,header : 'url1'              , name : 'url1'    , value : null  } ,
+                { type: 'Forloop'   ,header : 'button1'              , name : 'button1'    , value : null  } ,
                 { type: 'Date'      ,header : 'created'             , name : 'created_at'   , value : null  } ,
-                { type: 'Date'      ,header : 'updated'             , name : 'updated_at'   , value : null  } ,
-            ],        
+                { type: 'Date'      ,header : 'updated'             , name : 'updated_at'   , value : null  } ,],   
         } 
         } ,
         methods : {

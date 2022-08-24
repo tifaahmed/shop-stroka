@@ -2,13 +2,10 @@
 		<div class="form-group">
 		    <label :for="PropName">{{PropLable}}</label>
 		    <input :type="PropType" :placeholder="PropPlaceholder" v-model="data" class="form-control" @change="change( $event.target.value )" :id="PropName"  :name="PropName"  />
-		    <div>
-		        <ul  > 
-		            <li  v-for="err in PropErrors" :key="err" class="alert alert-solid-warning">
-		              {{ err }}
-		            </li>
-		        </ul >
-		    </div>
+			
+			<b-alert show variant="danger" v-for="err in PropErrors" :key="err"  >
+					{{ err }}
+			</b-alert>
 		</div>
 </template>
 
