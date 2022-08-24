@@ -17,14 +17,12 @@ export default class SliderValidation   extends Validation {
 			console.log(  );
 
 			// title1 
-			this.required(RequestData['title1'][Languages[lang_key]],'title1.'+Languages[lang_key],[]);
+			// this.required(RequestData['title1'][Languages[lang_key]],'title1.'+Languages[lang_key],[]);
 
 			
 			// subject1 
-			this.required(RequestData['subject1'][Languages[lang_key]],'subject1.'+Languages[lang_key],[]);
+			// this.required(RequestData['subject1'][Languages[lang_key]],'subject1.'+Languages[lang_key],[]);
 
-			// subject1 
-			this.required(RequestData.test,'test',[]);
 		}
 
 	}
