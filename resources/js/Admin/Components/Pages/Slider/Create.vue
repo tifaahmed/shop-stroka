@@ -21,9 +21,9 @@
 
                                         <span v-for="( column_val , column_key ) in Columns" :key="column_key" >
                                                 <InputsFactory 
-                                                    v-if="RequestData[column_val.name] && column_val.translatable"
+                                                    v-if="column_val.translatable"
                                                     :Factorylable="column_val.header + ' ('+ lang_val +') ' "  :FactoryPlaceholder="column_val.placeholder"         
-                                                    :FactoryType="column_val.type" :FactoryName="RequestData[column_val.name][lang_val]"  v-model ="RequestData[column_val.name][lang_val]"  
+                                                    :FactoryType="column_val.type" :FactoryName="column_val.name+'['+lang_val+']'"  v-model ="RequestData[column_val.name][lang_val]"  
                                                     :FactoryErrors="( ServerReaponse && Array.isArray( ServerReaponse.errors[column_val.name+'.'+lang_val]  )  ) ?  ServerReaponse.errors[column_val.name+'.'+lang_val] : null" 
                                                 />
                                         </span> 
@@ -43,9 +43,9 @@
                         <div class="">
                             <span v-for="( column_val , column_key ) in Columns" :key="column_key" >
                                     <InputsFactory 
-                                        v-if="RequestData[column_val.name] && !column_val.translatable"
+                                        v-if="column_val.translatable == false"
                                         :Factorylable="column_val.header"  :FactoryPlaceholder="column_val.placeholder"         
-                                        :FactoryType="column_val.type" :FactoryName="RequestData[column_val.name]"  v-model ="RequestData[column_val.name]"  
+                                        :FactoryType="column_val.type" :FactoryName="column_val.name"  v-model ="RequestData[column_val.name]"  
                                         :FactoryErrors="( ServerReaponse && Array.isArray( ServerReaponse.errors[column_val.name]  )  ) ?  ServerReaponse.errors[column_val.name] : null" 
                                     />
                             </span> 
@@ -107,12 +107,30 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
             hasTranslatableFields : 0,
 
             Columns : [
-                { type: 'string',placeholder:'title',header :'title', name : 'title1' ,translatable : true },
-                { type: 'string',placeholder:'subject',header :'subject', name : 'subject1' ,translatable : true},
-                { type: 'file',placeholder:null,header :'desktop image', name : 'desktop_image' ,translatable : true },
-                { type: 'file',placeholder:null,header :'mobile_image', name : 'mobile_image',translatable : true },
-                { type: 'string',placeholder:'url',header :'url', name : 'url1' ,translatable : true },
-                { type: 'string',placeholder:'button',header :'button', name : 'button1' ,translatable : true},
+                { 
+                    type: 'string',placeholder:'title',header :'title', name : 'title1' ,translatable : false ,
+                    validation:{required : false } 
+                },
+                { 
+                    type: 'string',placeholder:'subject',header :'subject', name : 'subject1' ,translatable : true ,
+                    validation:{required : true } 
+                },
+                { 
+                    type: 'file',placeholder:null,header :'desktop image', name : 'desktop_image' ,translatable : true ,
+                    validation:{required : true } 
+                },
+                { 
+                    type: 'file',placeholder:null,header :'mobile_image', name : 'mobile_image',translatable : true ,
+                    validation:{required : true } 
+                },
+                { 
+                    type: 'string',placeholder:'url',header :'url', name : 'url1' ,translatable : true ,
+                    validation:{required : true } 
+                },
+                { 
+                    type: 'string',placeholder:'button',header :'button', name : 'button1' ,translatable : true,
+                    validation:{required : true } 
+                },
             ],
 
 
@@ -149,7 +167,7 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                 // clear errors
                 await this.DeleteErrors();
                 // front end valedate
-                var check = await (new validation).validate(this.RequestData,this.Languages);
+                var check = await (new validation).validate(this.RequestData,this.Columns,this.Languages);
                 if( check ){ // if there is error
                     this.ServerReaponse = check;
                 }

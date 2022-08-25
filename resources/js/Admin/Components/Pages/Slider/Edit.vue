@@ -21,7 +21,7 @@
                                                 <InputsFactory 
                                                     v-if="RequestData[column_val.name] && column_val.translatable"
                                                     :Factorylable="column_val.header + ' ('+ lang_val +') ' "  :FactoryPlaceholder="column_val.placeholder"         
-                                                    :FactoryType="column_val.type" :FactoryName="RequestData[column_val.name][lang_val]"  v-model ="RequestData[column_val.name][lang_val]"  
+                                                    :FactoryType="column_val.type" :FactoryName="column_val.name+'['+lang_val+']'"  v-model ="RequestData[column_val.name][lang_val]"  
                                                     :FactoryErrors="( ServerReaponse && Array.isArray( ServerReaponse.errors[column_val.name+'.'+lang_val]  )  ) ?  ServerReaponse.errors[column_val.name+'.'+lang_val] : null" 
                                                 />
                                         </span> 
@@ -43,7 +43,7 @@
                                     <InputsFactory 
                                         v-if="RequestData[column_val.name] && !column_val.translatable"
                                         :Factorylable="column_val.header"  :FactoryPlaceholder="column_val.placeholder"         
-                                        :FactoryType="column_val.type" :FactoryName="RequestData[column_val.name]"  v-model ="RequestData[column_val.name]"  
+                                        :FactoryType="column_val.type" :FactoryName="column_val.name"  v-model ="RequestData[column_val.name]"  
                                         :FactoryErrors="( ServerReaponse && Array.isArray( ServerReaponse.errors[column_val.name]  )  ) ?  ServerReaponse.errors[column_val.name] : null" 
                                     />
                             </span> 
