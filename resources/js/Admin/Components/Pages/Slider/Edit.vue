@@ -1,51 +1,79 @@
 <template>
 	<div class="container-fluid" >
         <div class="row row-sm">
-
             <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
-                <div class="card  box-shadow-0 ">
+
+                <div class="card  box-shadow-0 " v-if="hasTranslatableFields">
                     <div class="card-header">
-                        <h4 class="card-title mb-1">Edit {{TableName}} </h4>
+                        <h4 class="card-title mb-1">Create {{TableName}} translatable fields</h4>
+                    </div>
+                    <b-card no-body>
+                        <b-tabs  content-class="mt-3" card lazy >
+                            <b-tab  v-for="( lang_val    , lang_key ) in Languages " :key="lang_key" >
+                                <template #title>
+                                    <b-spinner type="grow" small></b-spinner> <strong>{{lang_val}}</strong>
+                                </template>
+
+                                <div class="card-body pt-0">
+                                    <div class="">
+
+                                        <span v-for="( column_val , column_key ) in Columns" :key="column_key" >
+                                                <InputsFactory 
+                                                    v-if="RequestData[column_val.name] && column_val.translatable"
+                                                    :Factorylable="column_val.header + ' ('+ lang_val +') ' "  :FactoryPlaceholder="column_val.placeholder"         
+                                                    :FactoryType="column_val.type" :FactoryName="column_val.name+'['+lang_val+']'"  v-model ="RequestData[column_val.name][lang_val]"  
+                                                    :FactoryErrors="( ServerReaponse && Array.isArray( ServerReaponse.errors[column_val.name+'.'+lang_val]  )  ) ?  ServerReaponse.errors[column_val.name+'.'+lang_val] : null" 
+                                                />
+                                        </span> 
+
+                                    </div>
+                                </div>
+                            </b-tab>
+                        </b-tabs>
+                    </b-card>
+                </div>
+
+                <div class="card  box-shadow-0 "  v-if="hasNoneTranslatableFields">
+                    <div class="card-header">
+                        <h4 class="card-title mb-1">Create {{TableName}} fields</h4>
                     </div>
                     <div class="card-body pt-0">
-
-
-                        <!-- <span v-for="( row    , rowkey ) in LanguagesRows " :key="rowkey" >
-                            <span v-for="( row_    , rowkey_ ) in LanguagesColumn " :key="rowkey_" >
-                                <InputsFactory :Factorylable="row_.header+' ( ' + row.full_name + ' ) '" :FactoryPlaceholder="row_.placeholder"         
-                                    :FactoryType="row_.type" :FactoryName="row_.name"  v-model ="RequestData.languages[rowkey][row_.name]"  
-                                    :FactoryErrors="null" 
-                                />
-                            </span>
-                            <hr>
-                        </span>  -->
-
-
-
-
-                        <button  @click="FormSubmet()" class="btn btn-primary  ">Submit</button>
-
-                        <router-link style="color:#fff" 
-                            :to = "{ 
-                                name : TableName+'.ShowAll' , 
-                                query: { CurrentPage: this.$route.query.CurrentPage }  
-                            }" 
-                        > 
-                        <button type="button" class="btn btn-danger  ">
-                            <i class="fas fa-arrow-left">
-                                    back
-                            </i>
-                        </button>
-                        </router-link>
-
-
-
-                        <div class="alert alert-danger " v-if="ServerReaponse && ServerReaponse.message"> {{ServerReaponse.message}}  </div>
+                        <div class="">
+                            <span v-for="( column_val , column_key ) in Columns" :key="column_key" >
+                                    <InputsFactory 
+                                        v-if="RequestData[column_val.name] && !column_val.translatable"
+                                        :Factorylable="column_val.header"  :FactoryPlaceholder="column_val.placeholder"         
+                                        :FactoryType="column_val.type" :FactoryName="column_val.name"  v-model ="RequestData[column_val.name]"  
+                                        :FactoryErrors="( ServerReaponse && Array.isArray( ServerReaponse.errors[column_val.name]  )  ) ?  ServerReaponse.errors[column_val.name] : null" 
+                                    />
+                            </span> 
+                        </div>
                     </div>
                 </div>
+
+                <button  @click="FormSubmet()" class="btn btn-primary ">
+                    Submit
+                </button>
+                
+                <router-link style="color:#fff" 
+                    :to = "{ 
+                        name : TablePageName , 
+                        query: { CurrentPage: this.$route.query.CurrentPage }  
+                    }" 
+                > 
+                    <button type="button" class="btn btn-danger  ">
+                        <i class="fas fa-arrow-left">
+                                back
+                        </i>
+                    </button>
+                </router-link>
+
+                <div class="alert alert-danger " v-if="ServerReaponse && ServerReaponse.message"> 
+                    {{ServerReaponse.message}}
+                </div>
+
             </div>
         </div>
-
 	</div>
 </template>
 <script>
@@ -62,8 +90,8 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
 
         mounted() {
 
-            // await this.GetlLanguages();
-            // await this.start();
+            this.GetlLanguages();
+            this.start();
 
             this.GetData();
 
@@ -74,13 +102,16 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
 
             Languages : [],
 
-            TranslatableColumns : [
-                { type: 'string',placeholder:'title',header :'title1', name : 'title1'},
-                { type: 'string',placeholder:'subject',header :'subject1', name : 'subject1'},
-                { type: 'file',placeholder:null,header :'desktop image', name : 'desktop_image'},
-                { type: 'file',placeholder:null,header :'mobile_image', name : 'mobile_image'},
-                { type: 'string',placeholder:'url',header :'url', name : 'url1'},
-                { type: 'string',placeholder:'button',header :'button', name : 'button1'},
+            hasNoneTranslatableFields : 0,
+            hasTranslatableFields : 0,
+            
+            Columns : [
+                { type: 'string',placeholder:'title',header :'title1', name : 'title1' ,translatable : true },
+                { type: 'string',placeholder:'subject',header :'subject1', name : 'subject1' ,translatable : true},
+                { type: 'file',placeholder:null,header :'desktop image', name : 'desktop_image' ,translatable : true },
+                { type: 'file',placeholder:null,header :'mobile_image', name : 'mobile_image',translatable : true },
+                { type: 'string',placeholder:'url',header :'url', name : 'url1' ,translatable : true },
+                { type: 'string',placeholder:'button',header :'button', name : 'button1' ,translatable : true},
             ],
 
             ServerReaponse : {
@@ -93,8 +124,15 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
         } } ,
         methods : {
             start(){
-                this.RequestData =  DataService.handleTranslatableColumns(this.TranslatableColumns,this.Languages);
-                this.ServerReaponse.errors = DataService.handleErrorTranslatableColumns(this.TranslatableColumns,this.Languages);
+                this.RequestData =  DataService.handleColumns(this.Columns,this.Languages);
+                this.ServerReaponse.errors = DataService.handleErrorColumns(this.Columns,this.Languages);
+                this.Columns.forEach(element => {
+                    if (element.translatable) {
+                        this.hasTranslatableFields = 1;
+                    }else{
+                        this.hasNoneTranslatableFields = 1;
+                    }
+                });
             },
 
             DeleteErrors(){
@@ -106,6 +144,8 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
             
             async GetData(){
                 let receivedData =   await this.show( ) ;
+                console.log(receivedData);
+                console.log(this.RequestData);
                 for (var key in receivedData) {
                     if(  
                         ( Array.isArray( receivedData[key] )  && (receivedData[key]).length > 0 ) 
@@ -129,26 +169,10 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                      this.SubmetRowButton(); // succes from file
                 }
             },
+
             async GetlLanguages(){
-                this.LanguagesRows  = ( await this.AllLanguages() ).data.data; // all languages
-                let item_languages = this.RequestData.languages; // item language data
-                let handleLanguages= {}; //handle Languages from item data & all languages
-
-                for (var key in this.LanguagesRows) {
-                    handleLanguages[key] = [];
-                        Vue.set( handleLanguages[key],  'language'); // language key
-                        handleLanguages[key].language = this.LanguagesRows[key].name;//fr & en & ar
-                    for (var key_ in this.LanguagesColumn) {
-                        Vue.set( handleLanguages[key],  this.LanguagesColumn[key_].name); // ex (name,image,desc,subject) key
-                        if(  item_languages[key] &&  item_languages[key]['language'] ==  this.LanguagesRows[key].name ){
-                            handleLanguages[key][this.LanguagesColumn[key_].name] = item_languages[key][this.LanguagesColumn[key_].name] ;
-                        }
-                    }
-                }
-                this.RequestData.languages = '';
-                this.RequestData.languages = handleLanguages;
+                this.Languages  = ( await this.AllLanguages() ).data; // all languages
             },
-
 
 
             async SubmetRowButton(){
@@ -176,7 +200,7 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                     return ( await (new Model).show( this.$route.params.id) ).data.data[0] ;
                 },
                 update(){
-                    return (new Model).update(this.RequestData.id , this.RequestData)  ;
+                    return (new Model).update(this.$route.params.id , this.RequestData)  ;
                 }
             // modal
 

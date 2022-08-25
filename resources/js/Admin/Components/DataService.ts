@@ -4,44 +4,39 @@ export default class DataService {
 	static RequestData = {}  ;
 	static ErrorsData  = {}  ;
 
-    static handleNoneTranslatableColumns(NoneTranslatableColumns){
-        for (var key in NoneTranslatableColumns) {
-            Vue.set( DataService.RequestData ,  NoneTranslatableColumns[key].name , 1);  
-            DataService.RequestData[ NoneTranslatableColumns[key].name ] = null ;
-            // [ Column : null ]
-        }
-        return DataService.RequestData;
-    }
-    static handleErrorNoneTranslatableColumns(NoneTranslatableColumns){
-        for (var key in NoneTranslatableColumns) {
-            Vue.set( DataService.ErrorsData ,  NoneTranslatableColumns[key].name , 1);  
-            DataService.ErrorsData[ NoneTranslatableColumns[key].name ] = null ;
-            // [ Column : null ]
-        }
-        return DataService.ErrorsData;
-    }
 
     // *********************************************
 
-    static  handleTranslatableColumns(TranslatableColumns,Languages){
-        for (var key in TranslatableColumns) {
-            Vue.set( DataService.RequestData,  TranslatableColumns[key].name ,1);  
-            DataService.RequestData[TranslatableColumns[key].name] = [];
-            // [ Column : [] ]
-            for (var lang_key in Languages) {
-                Vue.set( DataService.RequestData[ TranslatableColumns[key].name ]   , Languages[lang_key],1 ); 
-                DataService.RequestData[ TranslatableColumns[key].name ][Languages[lang_key]] = null;
-                // [Column : [ ar : null en : null]]
-            }
+    static  handleColumns(Columns,Languages){
+        for (var key in Columns) {
+            Vue.set( DataService.RequestData,  Columns[key].name ,1); 
+            if (Columns[key].translatable) {
+                DataService.RequestData[Columns[key].name] = [];
+                // [ Column : [] ]
+                for (var lang_key in Languages) {
+                    Vue.set( DataService.RequestData[ Columns[key].name ]   , Languages[lang_key],1 ); 
+                    DataService.RequestData[ Columns[key].name ][Languages[lang_key]] = null;
+                    // [Column : [ ar : null en : null]]
+                }
+            }else{
+                DataService.RequestData[Columns[key].name] = null;
+                // [ Column : null ]
+            } 
+
         }
         return DataService.RequestData;
     }
-    static handleErrorTranslatableColumns(TranslatableColumns,Languages){
-        for (var key in TranslatableColumns) {
-            for (var lang_key in Languages) {
-                Vue.set( DataService.ErrorsData, TranslatableColumns[key].name+'.'+Languages[lang_key] , 1);  
-                DataService.ErrorsData[TranslatableColumns[key].name+'.'+Languages[lang_key]] = [];
-                // [ Column.ar : [] ]
+    static handleErrorColumns(Columns,Languages){
+        for (var key in Columns) {
+            if (Columns[key].translatable) {
+                for (var lang_key in Languages) {
+                    Vue.set( DataService.ErrorsData, Columns[key].name+'.'+Languages[lang_key] , 1);  
+                    DataService.ErrorsData[Columns[key].name+'.'+Languages[lang_key]] = [];
+                    // [ Column.ar : [] ]
+                }
+            }else{
+                Vue.set( DataService.ErrorsData, Columns[key].name , 1);  
+                DataService.ErrorsData[Columns[key].name] = null;
             }
         }
         return DataService.ErrorsData;

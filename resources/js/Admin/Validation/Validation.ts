@@ -2,6 +2,29 @@ export default class Validation   {
 	public errors           : object   = {}  ;
 	public ServerReaponse   : object   = {}  ;
 
+
+	staticConditions(RequestData,Columns,Languages){
+
+		for (var Column_key in Columns) {
+			let name = Columns[Column_key].name;
+			
+			if(Columns[Column_key].translatable){
+				for (var lang_key in Languages) {
+					let lang = Languages[lang_key];
+					if (Columns[Column_key].validation.required) {
+						this.required(RequestData[name][lang] , name+'.'+lang,[]);
+					}
+				}
+			}else{
+				if (Columns[Column_key].validation.required) {
+					this.required(RequestData[name] , name ,[]);
+				}
+
+			}
+		}
+	}
+
+
 	Reaponse(){
 		this.ServerReaponse['errors']  = this.errors;
 		this.ServerReaponse['message'] = 'error in validation';

@@ -5,13 +5,10 @@
 		    <button v-if="data" @click="removeImage">Remove image</button>
 
 		    <input :type="PropType"     @change="AvatarInput($event)" class="form-control" :id="PropName"  :name="PropName"  />
-		    <div >
-		        <ul  > 
-		        	<li  v-for="err in PropErrors" :key="err" class="alert alert-solid-warning">
-		              {{ err }}
-		            </li>
-		        </ul >
-		    </div>
+		    
+        <b-alert show variant="danger" v-for="err in PropErrors" :key="err"  >
+            {{ err }}
+        </b-alert>
 		</div>
 </template>
 
@@ -59,7 +56,11 @@ export default {
          },
 
         removeImage: function (e) {
-          this.data = '';
+          this.data = null;
+          this.$emit( 'input'  ,  null ) ;
+          this.$emit( 'change' ,  null  ) ; 
+          this.readerAvatarInput(null)
+          console.log(this.data);
         }
 
 

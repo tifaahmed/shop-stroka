@@ -101,7 +101,9 @@ class SliderController extends Controller
                         $data_array +=  [ $language => $path ]  ;
                     }
                 } 
-                $all += array( $file_column =>  $data_array );
+                if ( count($data_array) ) {
+                    $all += array( $file_column =>  $data_array );
+                }
             }
            
             $this->ModelRepository->update( $id,Request()->except($this->translated_file_columns)+$all) ;

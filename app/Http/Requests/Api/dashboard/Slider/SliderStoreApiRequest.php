@@ -34,7 +34,7 @@ class SliderStoreApiRequest extends FormRequest
             $all += [ 'desktop_image.'.$value          =>  [ 'required' ,'max:50000'] ]  ;
             $all += [ 'mobile_image.'.$value           =>  [ 'required' ,'max:50000'] ]  ;
     
-            $all += [ 'url1.'.$value                   =>  [ 'sometimes' ,'url' ] ]  ;
+            $all += [ 'url1.'.$value                   =>  [ 'required' ,'url' ] ]  ;
             $all += [ 'button1.'.$value                =>  [ 'sometimes' ,'max:255' ] ]  ;
 
         }
