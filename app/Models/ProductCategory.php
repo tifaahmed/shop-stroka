@@ -15,23 +15,24 @@ class ProductCategory extends Model
     protected $table = 'product_categories';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'title',            //string 
-        'image',            //string , nullable
+        'title',            //text 
+        'image',            //text , nullable
 
-        'page_url',                 //string , nullable
-        'page_tab_title',           //string , nullable
-        'page_title',               //string , nullable
-        'page_description',         //string , nullable
-        'page_keywords',            //string , nullable
+        'page_url',                 //text , nullable
+        'page_tab_title',           //text , nullable
+        'page_title',               //text , nullable
+        'page_description',         //text , nullable
+        'page_keywords',            //text , nullable
     ];
     public $translatable = [
-        'title',            //string 
+        'title',            
+        'image',           
 
-        'page_url',                 //string , nullable
-        'page_tab_title',           //string , nullable
-        'page_title',               //string , nullable
-        'page_description',         //string , nullable
-        'page_keywords',            //string , nullable
+        'page_url',                
+        'page_tab_title',     
+        'page_title',          
+        'page_description',    
+        'page_keywords',   
     ];
 }
 

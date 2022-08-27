@@ -25,7 +25,6 @@ class SliderController extends Controller
     {
         $this->ModelRepository = $Repository;
         $this->folder_name = 'slider/'.Str::random(10).time();
-        $this->languages = config('app.lang_array'); // ex [ar , en ]
         $this->translated_file_columns = ['desktop_image','mobile_image'];
     }
 
@@ -56,17 +55,12 @@ class SliderController extends Controller
 
     public function store(modelInsertRequest $request) {
         try {
-            $all = [ ];
-            foreach ($this->translated_file_columns as $file_column) {
-                $data_array = [];
-                foreach ($this->languages as $language) {
-                    if ( $request->hasFile( $file_column.'.'.$language ) ) { 
-                        $path = $this->HelperStorage($this->folder_name,$request->$file_column[$language]) ;
-                        $data_array +=  [ $language => $path ]  ;
-                    }
-                }
-                $all += array( $file_column =>  $data_array );
-            }
+            $all = $this->store_translated_files(
+                $request,
+                $this->folder_name,
+                $this->translated_file_columns
+            );
+
             $model = $this->ModelRepository->create( Request()->except($this->translated_file_columns)+$all ) ;
             return $this -> MakeResponseSuccessful( 
                 [ new ModelResource ( $model ) ],
@@ -81,31 +75,17 @@ class SliderController extends Controller
             );
         }
     }
+
     public function update(modelUpdateRequest $request ,$id) {
         try {
             $old_model =  $this->ModelRepository->findById($id)  ;
-             
-            $all = [ ];
-            foreach ($this->translated_file_columns as $file_column) {
-                $data_array = [];
-                foreach ($this->languages as $language) {
-                    if ( $request->hasFile( $file_column.'.'.$language ) ) { 
-                        $old_path = $old_model->getTranslation($file_column, $language);
-                        $this->Deletefile($old_path); 
-                        $old_folder_location = $this->GetFolderDirectory($old_path); 
+            $all = $this->update_translated_files(
+                $old_model,
+                $request,
+                $this->folder_name,
+                $this->translated_file_columns
+            );
 
-                        $folder_location = $old_folder_location ? $old_folder_location : $this->folder_name;
-
-                        $path =   $this->HelperStorage($folder_location,$request->$file_column[$language]) ;
-
-                        $data_array +=  [ $language => $path ]  ;
-                    }
-                } 
-                if ( count($data_array) ) {
-                    $all += array( $file_column =>  $data_array );
-                }
-            }
-           
             $this->ModelRepository->update( $id,Request()->except($this->translated_file_columns)+$all) ;
             $model =  $this->ModelRepository->findById($id) ;
 

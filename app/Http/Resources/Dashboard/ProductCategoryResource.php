@@ -17,11 +17,14 @@ class ProductCategoryResource extends JsonResource
     {
         
         $all=[];
+
         $translated_string_fields = [
             'title', 
             'page_url','page_tab_title','page_title','page_description','page_keywords'
         ];
-        $image_fields  = ['image'];
+        $image_fields  = [];
+        $translated_image_fields  = ['image'];
+
         $date_fields   = ['created_at','updated_at','deleted_at'];
 
         $lang_array = config('app.lang_array') ;
@@ -46,7 +49,20 @@ class ProductCategoryResource extends JsonResource
                     null
             ];
         }
-
+        foreach ($translated_image_fields as $translated_image_field) {
+            $temp_file_arr = [];
+            foreach ($lang_array as $lang) {
+                $temp_file_arr += [
+                    $lang=>  
+                        Storage::disk('public')->exists( $this->getTranslation($translated_image_field, $lang) ) 
+                            ? 
+                        asset(Storage::url( $this->getTranslation($translated_image_field, $lang)  ) )  
+                            : 
+                        null
+                ];
+            }
+            $all += [ $translated_image_field => $temp_file_arr];
+        }
         foreach ($date_fields as $date_field) {
             $all += [$date_field=>  $this->$date_field ?   $this->$date_field->format('d/m/Y') : null ];
         }
