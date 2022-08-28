@@ -26,6 +26,7 @@ class ProductCategoryController extends Controller
         $this->ModelRepository = $Repository;
         $this->folder_name = 'ProductCategory/'.Str::random(10).time();
         $this->languages = config('app.lang_array'); // ex [ar , en ]
+        $this->file_columns = [];
         $this->translated_file_columns = ['image'];
         $this->default_per_page = 10;
     }
@@ -45,7 +46,7 @@ class ProductCategoryController extends Controller
 
     public function collection(Request $request){
         try {
-            $modal = $this->ModelRepository->collection( $request->per_page = $this->default_per_page);
+            $modal = $this->ModelRepository->collection( $request->per_page ? $request->per_page : $this->default_per_page);
             return new ModelCollection($modal);
         } catch (\Exception $e) {
             return $this -> MakeResponseErrors(  
@@ -140,19 +141,6 @@ class ProductCategoryController extends Controller
         }
     }
 
-    // inside functions
-
-        // * @param  opject $model ex({id:1})
-        // @return nothing (folder will be deleted)
-        public function deleteAllNontranslatableFiles($model){
-            foreach ($this->file_columns as $file_column) {
-                foreach ($this->languages as $language) {
-                    $this->DeleteRowFolder($model->$file_column);
-                }
-            }
-        }
-
-    // inside functions
 
     // trash functions
     public function collection_trash(Request $request){
@@ -186,7 +174,14 @@ class ProductCategoryController extends Controller
     public function premanently_delete($id) {
         try {
             $model =  $this->ModelRepository->findTrashedById($id) ;
-            $this->deleteAllNontranslatableFiles($model);
+
+            if (count($this->translated_file_columns)) {
+                $this->deleteAlltranslatableFiles($model,$this->translated_file_columns,$this->languages);
+            }
+            if (count($this->file_columns)) {
+                $this->deleteAllFiles($model,$this->translated_file_columns);
+            }
+            
             $this->ModelRepository->PremanentlyDeleteById($id);
             return $this -> MakeResponseSuccessful( 
                 [$model] ,

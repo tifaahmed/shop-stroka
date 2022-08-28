@@ -22,7 +22,7 @@
                                         <span v-for="( column_val , column_key ) in Columns" :key="column_key" >
                                                 <InputsFactory 
                                                     v-if="column_val.translatable"
-                                                    :Factorylable="column_val.header + ' ('+ lang_val +') ' "  :FactoryPlaceholder="column_val.placeholder"         
+                                                    :Factorylable="column_val.header + ' ('+ lang_val +') '+( column_val.validation.required ? '*' : ''  )"  :FactoryPlaceholder="column_val.placeholder"         
                                                     :FactoryType="column_val.type" :FactoryName="column_val.name+'['+lang_val+']'"  v-model ="RequestData[column_val.name][lang_val]"  
                                                     :FactoryErrors="( ServerReaponse && Array.isArray( ServerReaponse.errors[column_val.name+'.'+lang_val]  )  ) ?  ServerReaponse.errors[column_val.name+'.'+lang_val] : null" 
                                                 />
@@ -108,12 +108,12 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
 
             Columns : [
                 { 
-                    type: 'string',placeholder:'title',header :'title', name : 'title1' ,translatable : false ,
+                    type: 'string',placeholder:'title',header :'title', name : 'title1' ,translatable : true ,
                     validation:{required : false } 
                 },
                 { 
                     type: 'string',placeholder:'subject',header :'subject', name : 'subject1' ,translatable : true ,
-                    validation:{required : true } 
+                    validation:{required : false } 
                 },
                 { 
                     type: 'file',placeholder:null,header :'desktop image', name : 'desktop_image' ,translatable : true ,
@@ -125,11 +125,11 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                 },
                 { 
                     type: 'string',placeholder:'url',header :'url', name : 'url1' ,translatable : true ,
-                    validation:{required : true } 
+                    validation:{required : false } 
                 },
                 { 
                     type: 'string',placeholder:'button',header :'button', name : 'button1' ,translatable : true,
-                    validation:{required : true } 
+                    validation:{required : false } 
                 },
             ],
 

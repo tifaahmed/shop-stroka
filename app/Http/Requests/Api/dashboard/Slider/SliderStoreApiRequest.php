@@ -28,13 +28,13 @@ class SliderStoreApiRequest extends FormRequest
         $all=[];
 
         foreach ($lang_array as $key => $value) {
-            $all += [ 'title1.'.$value                 =>  [ 'required' ,'max:255' ] ]  ;
-            $all += [ 'subject1.'.$value               =>  [ 'required' ,'max:255' ] ]  ;
+            $all += [ 'title1.'.$value                 =>  [ 'sometimes' ,'max:255' ] ]  ;
+            $all += [ 'subject1.'.$value               =>  [ 'sometimes' ,'max:255' ] ]  ;
     
             $all += [ 'desktop_image.'.$value          =>  [ 'required' ,'max:50000'] ]  ;
             $all += [ 'mobile_image.'.$value           =>  [ 'required' ,'max:50000'] ]  ;
     
-            $all += [ 'url1.'.$value                   =>  [ 'required' ,'url' ] ]  ;
+            $all += [ 'url1.'.$value                   =>  [ 'sometimes' ,'url' ] ]  ;
             $all += [ 'button1.'.$value                =>  [ 'sometimes' ,'max:255' ] ]  ;
 
         }

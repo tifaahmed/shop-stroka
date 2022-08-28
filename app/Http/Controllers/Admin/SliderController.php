@@ -25,7 +25,13 @@ class SliderController extends Controller
     {
         $this->ModelRepository = $Repository;
         $this->folder_name = 'slider/'.Str::random(10).time();
+
+        $this->languages = config('app.lang_array'); // ex [ar , en ]
+        $this->file_columns = [];
         $this->translated_file_columns = ['desktop_image','mobile_image'];
+        $this->default_per_page = 10;
+
+
     }
 
     public function all(){
@@ -42,7 +48,7 @@ class SliderController extends Controller
     }
     public function collection(Request $request){
         try {
-            $modal = $this->ModelRepository->collection( $request->per_page ? $request->per_page : 10);
+            $modal = $this->ModelRepository->collection( $request->per_page ? $request->per_page : $this->default_per_page);
             return new ModelCollection($modal);
         } catch (\Exception $e) {
             return $this -> MakeResponseErrors(  
@@ -122,8 +128,13 @@ class SliderController extends Controller
     public function destroy($id) {
         try {
             $model =  $this->ModelRepository->findById($id) ;
-            $this->deleteAlltranslatableFiles($model);
 
+            if (count($this->translated_file_columns)) {
+                $this->deleteAlltranslatableFiles($model,$this->translated_file_columns,$this->languages);
+            }
+            if (count($this->file_columns)) {
+                $this->deleteAllFiles($model,$this->translated_file_columns);
+            }
 
             $this->ModelRepository->deleteById($id);
             return $this -> MakeResponseSuccessful( 
@@ -140,17 +151,5 @@ class SliderController extends Controller
         }
     }
 
-    // inside functions
 
-        // * @param  opject $model ex({id:1})
-        // @return nothing (folder will be deleted)
-        public function deleteAlltranslatableFiles($model){
-            foreach ($this->translated_file_columns as $file_column) {
-                foreach ($this->languages as $language) {
-                    $this->DeleteRowFolder($model->$file_column);
-                }
-            }
-        }
-
-    // inside functions
 }

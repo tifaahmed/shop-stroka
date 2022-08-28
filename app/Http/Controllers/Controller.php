@@ -18,7 +18,19 @@ class Controller extends BaseController
     
     ResponsesTrait,
     FileTrait;
-
+    public function deleteAllFiles($model,$file_columns){
+        foreach ($file_columns as $file_column) {
+            $this->DeleteRowFolder($model->$file_column);
+        }
+    }
+    public function deleteAlltranslatableFiles($model,$translated_file_columns,$languages){
+        foreach ($translated_file_columns as $file_column) {
+            foreach ($languages as $language) {
+                $this->DeleteRowFolder($model->getTranslation($file_column, $language));
+            }
+        }
+    }
+    
     public function store_files($request,$folder_name,$file_columns){
 
         $all = [ ];

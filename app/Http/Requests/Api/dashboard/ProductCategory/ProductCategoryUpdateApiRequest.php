@@ -28,17 +28,17 @@ class ProductCategoryUpdateApiRequest extends FormRequest
         $all=[];
 
 
-        $all += [ 'image'         =>  [ 'sometimes' ,'max:50000'] ]  ;
 
 
         foreach ($lang_array as $key => $value) {
-            $all += [ 'title.'.$value                 =>  [ 'required' ,'max:127' ] ]  ;
-    
-            $all += [ 'page_url.'.$value                  =>  [ 'sometimes' ,'max:127' ] ]  ;
-            $all += [ 'page_tab_title.'.$value            =>  [ 'sometimes' ,'max:127' ] ]  ;
-            $all += [ 'page_title.'.$value                =>  [ 'sometimes' ,'max:127' ] ]  ;
-            $all += [ 'page_description.'.$value          =>  [ 'sometimes' ,'max:127' ] ]  ;
-            $all += [ 'page_keywords.'.$value             =>  [ 'sometimes' ,'max:127' ] ]  ;
+            $all += [ 'title.'.$value                 =>  [ 'required'  ] ]  ;
+            $all += [ 'image.'.$value                  =>  [ 'sometimes' ,'max:50000'] ]  ;
+
+            $all += [ 'page_url.'.$value                  =>  [ 'sometimes'  ] ]  ;
+            $all += [ 'page_tab_title.'.$value            =>  [ 'sometimes'  ] ]  ;
+            $all += [ 'page_title.'.$value                =>  [ 'sometimes'  ] ]  ;
+            $all += [ 'page_description.'.$value          =>  [ 'sometimes'  ] ]  ;
+            $all += [ 'page_keywords.'.$value             =>  [ 'sometimes'  ] ]  ;
 
         }
         return $all;
