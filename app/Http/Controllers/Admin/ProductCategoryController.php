@@ -26,7 +26,7 @@ class ProductCategoryController extends Controller
         $this->ModelRepository = $Repository;
         $this->folder_name = 'ProductCategory/'.Str::random(10).time();
         $this->languages = config('app.lang_array'); // ex [ar , en ]
-        $this->file_columns = ['image'];
+        $this->translated_file_columns = ['image'];
         $this->default_per_page = 10;
     }
 
@@ -58,14 +58,13 @@ class ProductCategoryController extends Controller
 
     public function store(modelInsertRequest $request) {
         try {
-            $all = [ ];
-            foreach ($this->file_columns as $file_column) {
-                if ( $request->hasFile( $file_column ) ) { 
-                    $path = $this->HelperStorage($this->folder_name,$request->$file_column) ;
-                    $all += array( $file_column =>  $path );
-                }
-            }
-            $model = $this->ModelRepository->create( Request()->except($this->file_columns)+$all ) ;
+            $all = $this->store_translated_files(
+                $request,
+                $this->folder_name,
+                $this->translated_file_columns
+            );
+
+            $model = $this->ModelRepository->create( Request()->except($this->translated_file_columns)+$all ) ;
             return $this -> MakeResponseSuccessful( 
                 [ new ModelResource ( $model ) ],
                 'Successful'               ,
@@ -83,24 +82,14 @@ class ProductCategoryController extends Controller
     public function update(modelUpdateRequest $request ,$id) {
         try {
             $old_model =  $this->ModelRepository->findById($id)  ;
-             
-            $all = [ ];
-            foreach ($this->file_columns as $file_column) {
+            $all = $this->update_translated_files(
+                $old_model,
+                $request,
+                $this->folder_name,
+                $this->translated_file_columns
+            );
 
-                if ( $request->hasFile( $file_column ) ) { 
-                    $old_path = $old_model->$file_column;
-                    $this->Deletefile($old_path); 
-                    $old_folder_location = $this->GetFolderDirectory($old_path); 
-
-                    $folder_location = $old_folder_location ? $old_folder_location : $this->folder_name;
-
-                    $path =   $this->HelperStorage($folder_location,$request->$file_column) ;
-
-                    $all += array( $file_column =>  $path );
-                }
-            }
-           
-            $this->ModelRepository->update( $id,Request()->except($this->file_columns)+$all) ;
+            $this->ModelRepository->update( $id,Request()->except($this->translated_file_columns)+$all) ;
             $model =  $this->ModelRepository->findById($id) ;
 
             return $this -> MakeResponseSuccessful( 

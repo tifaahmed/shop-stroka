@@ -106,13 +106,30 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
             hasTranslatableFields : 0,
             
             Columns : [
-                { type: 'string',placeholder:'title',header :'title1', name : 'title1' ,translatable : true },
-                { type: 'string',placeholder:'subject',header :'subject1', name : 'subject1' ,translatable : true},
-                { type: 'file',placeholder:null,header :'desktop image', name : 'desktop_image' ,translatable : true },
-                { type: 'file',placeholder:null,header :'mobile_image', name : 'mobile_image',translatable : true },
-                { type: 'string',placeholder:'url',header :'url', name : 'url1' ,translatable : true },
-                { type: 'string',placeholder:'button',header :'button', name : 'button1' ,translatable : true},
-            ],
+                            { 
+                    type: 'string',placeholder:'title',header :'title', name : 'title1' ,translatable : true ,
+                    validation:{required : false } 
+                },
+                { 
+                    type: 'string',placeholder:'subject',header :'subject', name : 'subject1' ,translatable : true ,
+                    validation:{required : false } 
+                },
+                { 
+                    type: 'file',placeholder:null,header :'desktop image', name : 'desktop_image' ,translatable : true ,
+                    validation:{required : true } 
+                },
+                { 
+                    type: 'file',placeholder:null,header :'mobile_image', name : 'mobile_image',translatable : true ,
+                    validation:{required : true } 
+                },
+                { 
+                    type: 'string',placeholder:'url',header :'url', name : 'url1' ,translatable : true ,
+                    validation:{required : false } 
+                },
+                { 
+                    type: 'string',placeholder:'button',header :'button', name : 'button1' ,translatable : true,
+                    validation:{required : false } 
+                },],
 
             ServerReaponse : {
                 errors :  {},

@@ -28,12 +28,12 @@ class ProductCategoryStoreApiRequest extends FormRequest
         $all=[];
 
 
-        $all += [ 'image'         =>  [ 'sometimes' ,'max:50000'] ]  ;
 
 
         foreach ($lang_array as $key => $value) {
-            $all += [ 'title.'.$value                 =>  [ 'required' ,'max:127' ] ]  ;
-    
+            $all += [ 'title.'.$value           =>  [ 'required' ,'max:127' ] ]  ;
+            $all += [ 'image.'.$value           =>  [ 'sometimes' ,'max:50000'] ]  ;
+
             $all += [ 'page_url.'.$value                  =>  [ 'sometimes' ,'max:127' ] ]  ;
             $all += [ 'page_tab_title.'.$value            =>  [ 'sometimes' ,'max:127' ] ]  ;
             $all += [ 'page_title.'.$value                =>  [ 'sometimes' ,'max:127' ] ]  ;
