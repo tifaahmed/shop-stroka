@@ -31,7 +31,7 @@
 		     v-model      = "data"
 		 /> 
 
-		<InputMultiSelect
+		<!-- <InputMultiSelect
 			v-if= "FactoryType === 'multiSelect'"
 			:PropLable = "Factorylable"
 			:PropType = "FactoryType"
@@ -47,7 +47,7 @@
 
 			:PropSelectColumnOptions = "FactorySelectColumnOptions"
 			:PropFactorySelectimage = "FactorySelectimage"
-		/> 
+		/>  -->
 		<InputSelect
 			v-if= "FactoryType === 'select'"
 			:PropLable = "Factorylable"
@@ -56,15 +56,21 @@
 			:PropErrors = "FactoryErrors"
 			@change      = "change"
 			v-model      = "data"
-			:PropSelectOptions = "FactorySelectOptions"
-			:PropSelectColumnName = "FactorySelectColumnName"
-			:PropSelectColumnOptions = "FactorySelectColumnOptions"
-			:PropFactorySelectimage = "FactorySelectimage"
 
-			:PropSelectForloop= "FactorySelectForloop"
-			:PropSelectForloopColumn = "FactorySelectForloopColumn"
+
+			:PropSelectOptions = "FactorySelectOptions"
+
+			:PropSelectStrings = "FactorySelectStrings"
+			:PropSelectForloopStrings = "FactorySelectForloopStrings"
+			:PropSelectForloopStringKeys = "FactorySelectForloopStringKeys"
+
+			:PropSelectimages = null
+			:PropSelectForloopImages= "FactorySelectForloopImage"
+			:PropSelectForloopImageKeys = "FactorySelectForloopImageKeys"
 		/> 
-		<InputRadioCheckBox
+ 
+
+		<!-- <InputRadioCheckBox
 		 	v-if= "FactoryType === 'radio'"
 		     :PropLable = "Factorylable"
 		     :PropType = "FactoryType"
@@ -73,7 +79,7 @@
 		     @change      = "change"
 		     v-model      = "data"
 			 :PropSelectOptions = "FactorySelectOptions"
-		/> 
+		/>  -->
 		<!-- <InputForloop
 		 	v-if= "FactoryType === 'Forloop'"
 		     :PropLable = "Factorylable"
@@ -123,14 +129,18 @@ export default {
 		FactoryName :  			{  default                       : ''        } ,
 		FactoryErrors : 		{  required : false	   } ,
 		value       : 			null,
-		FactorySelectOptions:   {  default                       : null        } ,
-		FactorySelected:   		{  default                       : ''        } ,
-		FactorySelectColumnName:{  default                       : ''        } ,
-		FactorySelectimage:		{  default                       : ''        } ,
-		FactorySelectColumnOptions:{  default                       : ''        } ,
 
-		FactorySelectForloop:{  default                       : ''        } ,
-		FactorySelectForloopColumn:{  default                       : ''        } ,
+
+		FactorySelectOptions			:[] ,
+
+		FactorySelectStrings			:  [] ,
+		FactorySelectForloopStrings		:  [] ,
+		FactorySelectForloopStringKeys	:  [] ,
+
+		FactorySelectImage				:  [] ,
+		FactorySelectForloopImage		:  [] ,
+		FactorySelectForloopImageKeys   :  [] ,
+
 
 	} ,
 	watch   : {
