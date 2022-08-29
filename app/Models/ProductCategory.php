@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
 
+use App\Models\ProductSubCategory;              // HasMany
+
 class ProductCategory extends Model
 {
     use HasFactory , HasTranslations , SoftDeletes;
@@ -34,6 +36,11 @@ class ProductCategory extends Model
         'page_description',    
         'page_keywords',   
     ];
+
+    // HasMany
+    public function product_sub_category(){
+        return $this->HasMany(ProductSubCategory::class);
+    }
 }
 
 

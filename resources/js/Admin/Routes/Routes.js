@@ -2,6 +2,8 @@ import Adminlayout from '../Adminlayout';
 import Welcome from 'AdminViews/Welcome';
 
 import SliderRoutes from './SliderRoutes';
+import ProductCategoryRoutes from './ProductCategoryRoutes';
+import ProductSubCategoryRoutes from './ProductSubCategoryRoutes';
 
 
 export default {
@@ -13,6 +15,7 @@ export default {
         { path: 'welcome', component: Welcome, name: 'welcome' },
 
         SliderRoutes,
-
+        ProductCategoryRoutes,
+        ProductSubCategoryRoutes,
     ]
 }

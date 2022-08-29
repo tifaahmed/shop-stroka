@@ -2,8 +2,6 @@
 		<div  v-if="PropSelectOptions" class="form-group">
 		    <label  class="typo__label" :for="PropName"> {{PropLable}}  </label>
 
-
-
 			<multiselect v-model="data" 
 			:label="PropSelectColumnName" 
 			:track-by="PropSelectColumnName" 
@@ -17,14 +15,15 @@
 					<span class="option__desc">
 						<span class="option__title">
 							<span > ( {{props.option.id}} ) </span>
-							<img v-if="props.option[PropFactorySelectimage]" class="option__image" :src="props.option[PropFactorySelectimage]" style="width:50px">
+							<img   class="option__image" :src="'http://localhost:8000/storage/ProductCategory/hnYBIMCvwi1661779396/6oSnN3Kvzw1oLRN3t06pVr9mRoC6iLSkFoFEjmmK.jpg'" style="width:50px">
+							<img   class="option__image" :src="'http://localhost:8000/storage/ProductCategory/hnYBIMCvwi1661779396/6oSnN3Kvzw1oLRN3t06pVr9mRoC6iLSkFoFEjmmK.jpg'" style="width:50px">
 							/
-							<span :if="PropSelectColumnOptions" class="option__title" v-for="( val , key_first ) in PropSelectColumnOptions" :key="key_first"   >
+							<!-- <span :if="PropSelectColumnOptions" class="option__title" v-for="( val , key_first ) in PropSelectColumnOptions" :key="key_first"   >
 								<span v-if="props.option[val] != null">- {{props.option[val]}} </span>
-							</span> 
+							</span>  -->
 							/
-							<span  :if="props.option[PropSelectForloop]" v-for="valLang in props.option[PropSelectForloop]">
-								<span  v-for="valColumn in PropSelectForloopColumn">
+							<span  :if="props.option[PropSelectForloop]" v-for=" ( valLang , key_first ) in props.option[PropSelectForloop]" :key="key_first">
+								<span  v-for=" ( valColumn , key_test ) in PropSelectForloopColumn"  :key="key_test"></span>
 									<span v-if="valLang[valColumn] != null">- {{valLang[valColumn]}} </span>
 								</span>
 							</span> 
@@ -34,14 +33,15 @@
 				<template slot="option" slot-scope="props">
 					<div class="option__desc">
 						<span > ( {{props.option.id}} ) </span>
-						<img v-if="props.option[PropFactorySelectimage]" class="option__image" :src="props.option[PropFactorySelectimage]" style="width:50px">
+						<img   class="option__image" :src="'http://localhost:8000/storage/ProductCategory/hnYBIMCvwi1661779396/6oSnN3Kvzw1oLRN3t06pVr9mRoC6iLSkFoFEjmmK.jpg'" style="width:50px">
+						<img   class="option__image" :src="'http://localhost:8000/storage/ProductCategory/hnYBIMCvwi1661779396/6oSnN3Kvzw1oLRN3t06pVr9mRoC6iLSkFoFEjmmK.jpg'" style="width:50px">
 						/
-						<span :if="PropSelectColumnOptions" class="option__title" v-for="( val , key_second ) in PropSelectColumnOptions" :key="key_second"   >
+						<!-- <span :if="PropSelectColumnOptions" class="option__title" v-for="( val , key_second ) in PropSelectColumnOptions" :key="key_second"   >
 							<span v-if="props.option[val] != null">- {{props.option[val]}} </span>
-						</span> 
+						</span>  -->
 						/
-						<span  :if="props.option[PropSelectForloop]" v-for="valLang in props.option[PropSelectForloop]"   >
-							<span  v-for="valColumn in PropSelectForloopColumn"   >
+						<span  :if="props.option[PropSelectForloop]" v-for=" ( valLang , key_first ) in props.option[PropSelectForloop]" :key="key_first"  >
+							<span  v-for="( valColumn , key_first ) in PropSelectForloopColumn" :key="key_first"   >
 								<span v-if="valLang[valColumn] != null">- {{valLang[valColumn]}} </span>
 							</span>
 						</span> 
@@ -49,8 +49,6 @@
 				</template>
 			</multiselect>
 			<!-- <pre class="language-json"><code>{{ data  }} </code></pre> -->
-
-
 
             <div>
 		        <ul> 

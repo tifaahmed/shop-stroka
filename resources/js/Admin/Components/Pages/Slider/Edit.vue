@@ -116,11 +116,11 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                 },
                 { 
                     type: 'file',placeholder:null,header :'desktop image', name : 'desktop_image' ,translatable : true ,
-                    validation:{required : true } 
+                    validation:{required : false } 
                 },
                 { 
                     type: 'file',placeholder:null,header :'mobile_image', name : 'mobile_image',translatable : true ,
-                    validation:{required : true } 
+                    validation:{required : false } 
                 },
                 { 
                     type: 'string',placeholder:'url',header :'url', name : 'url1' ,translatable : true ,

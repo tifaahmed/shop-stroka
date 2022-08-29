@@ -16,58 +16,33 @@ class ProductCategoryResource extends JsonResource
     public function toArray($request)
     {
         
-        $all=[];
+        $model = $this;
+        $lang_array = config('app.lang_array') ;
 
+        // $string_fields = [];
         $translated_string_fields = [
             'title', 
             'page_url','page_tab_title','page_title','page_description','page_keywords'
         ];
-        $image_fields  = [];
+
+        // $image_fields  = [];
         $translated_image_fields  = ['image'];
 
         $date_fields   = ['created_at','updated_at','deleted_at'];
 
-        $lang_array = config('app.lang_array') ;
 
-        $all += [ 'id' => $this->id ]  ;
+        $all=[];
 
-        foreach ($translated_string_fields as $translated_string_field) {
-            $temp_string_arr = [];
-            foreach ($lang_array as $lang) {
-                $temp_string_arr += [$lang=>  $this->getTranslation($translated_string_field, $lang)];
-            }
-            $all += [ $translated_string_field => $temp_string_arr];
-        }
+        $all += [ 'id' =>   $this->id ]  ;
 
-        foreach ($image_fields as $image_field) {
-            $all += [   
-                $image_field=>  
-                    Storage::disk('public')->exists( $this->$image_field) 
-                        ? 
-                    asset( Storage::url( $this->$image_field ) )  
-                        : 
-                    null
-            ];
-        }
-        foreach ($translated_image_fields as $translated_image_field) {
-            $temp_file_arr = [];
-            foreach ($lang_array as $lang) {
-                $temp_file_arr += [
-                    $lang=>  
-                        Storage::disk('public')->exists( $this->getTranslation($translated_image_field, $lang) ) 
-                            ? 
-                        asset(Storage::url( $this->getTranslation($translated_image_field, $lang)  ) )  
-                            : 
-                        null
-                ];
-            }
-            $all += [ $translated_image_field => $temp_file_arr];
-        }
-        foreach ($date_fields as $date_field) {
-            $all += [$date_field=>  $this->$date_field ?   $this->$date_field->format('d/m/Y') : null ];
-        }
+        $all += resource_translated_string($model,$lang_array,$translated_string_fields);
+        $all += resource_translated_image($model,$lang_array,$translated_image_fields);
 
+        // $all += resource_image($model,$image_fields);
+        // $all += resource_string($model,$string_fields);
+
+        $all += resource_date($model,$date_fields);
+        
         return $all;
-
     }
 }

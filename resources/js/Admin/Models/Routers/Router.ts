@@ -95,7 +95,7 @@ export default class Router   {
       ) 
    }
    async RstoreRowAxios(id : number) : Promise<any>  {
-      return await Axios.post( 
+      return await Axios.get( 
          this.routerPrefix+this.name+'/'+id+'/restore', 
          { headers : this.headers , responseType : this.responseType}
       ); 
