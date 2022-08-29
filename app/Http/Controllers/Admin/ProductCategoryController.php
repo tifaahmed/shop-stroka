@@ -25,7 +25,6 @@ class ProductCategoryController extends Controller
     {
         $this->ModelRepository = $Repository;
         $this->folder_name = 'ProductCategory/'.Str::random(10).time();
-        $this->languages = config('app.lang_array'); // ex [ar , en ]
         $this->file_columns = [];
         $this->translated_file_columns = ['image'];
         $this->default_per_page = 10;
@@ -176,7 +175,7 @@ class ProductCategoryController extends Controller
             $model =  $this->ModelRepository->findTrashedById($id) ;
 
             if (count($this->translated_file_columns)) {
-                $this->deleteAlltranslatableFiles($model,$this->translated_file_columns,$this->languages);
+                $this->deleteAlltranslatableFiles($model,$this->translated_file_columns);
             }
             if (count($this->file_columns)) {
                 $this->deleteAllFiles($model,$this->translated_file_columns);

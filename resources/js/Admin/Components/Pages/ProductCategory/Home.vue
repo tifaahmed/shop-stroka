@@ -40,6 +40,21 @@
                                     </button>
                                 </router-link>
                             </div>
+                            <!-- trash -->
+                            <div class="pr-1 mb-xl-0">
+                                <router-link style="color:#fff" 
+                                :to = "{ 
+                                    name : TableName+'.AllTrash' , 
+                                    query: { CurrentPage: 1 }  
+                                }" > 
+                                    <button type="button" class="btn btn-danger  ">
+                                        <i class="fas fa-trash-alt">
+                                                trash
+                                        </i>
+                                    </button>
+                                </router-link>
+                            </div>
+                            <!-- trash -->
 
 
                         </div>
@@ -56,7 +71,7 @@
 </template>
 <script>
     export default {
-        name:'ProductCategoryHome',
+        name:'ProductCategory'+'Home',
         mounted() {
         },
         components:{

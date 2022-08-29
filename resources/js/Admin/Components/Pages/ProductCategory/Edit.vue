@@ -20,7 +20,7 @@
                                         <span v-for="( column_val , column_key ) in Columns" :key="column_key" >
                                                 <InputsFactory 
                                                     v-if="RequestData[column_val.name] && column_val.translatable"
-                                                    :Factorylable="column_val.header + ' ('+ lang_val +') ' "  :FactoryPlaceholder="column_val.placeholder"         
+                                                    :Factorylable="column_val.header + ' ('+ lang_val +') '+( column_val.validation.required ? '*' : ''  )"  :FactoryPlaceholder="column_val.placeholder"         
                                                     :FactoryType="column_val.type" :FactoryName="column_val.name+'['+lang_val+']'"  v-model ="RequestData[column_val.name][lang_val]"  
                                                     :FactoryErrors="( ServerReaponse && Array.isArray( ServerReaponse.errors[column_val.name+'.'+lang_val]  )  ) ?  ServerReaponse.errors[column_val.name+'.'+lang_val] : null" 
                                                 />
@@ -106,30 +106,34 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
             hasTranslatableFields : 0,
             
             Columns : [
-                // { 
-                //     type: 'string',placeholder:'title',header :'title', name : 'title1' ,translatable : true ,
-                //     validation:{required : false } 
-                // },
-                // { 
-                //     type: 'string',placeholder:'subject',header :'subject', name : 'subject1' ,translatable : true ,
-                //     validation:{required : false } 
-                // },
-                // { 
-                //     type: 'file',placeholder:null,header :'desktop image', name : 'desktop_image' ,translatable : true ,
-                //     validation:{required : false } 
-                // },
-                // { 
-                //     type: 'file',placeholder:null,header :'mobile_image', name : 'mobile_image',translatable : true ,
-                //     validation:{required : false } 
-                // },
-                // { 
-                //     type: 'string',placeholder:'url',header :'url', name : 'url1' ,translatable : true ,
-                //     validation:{required : false } 
-                // },
-                // { 
-                //     type: 'string',placeholder:'button',header :'button', name : 'button1' ,translatable : true,
-                //     validation:{required : false } 
-                // },
+            { 
+                    type: 'string',placeholder:'title',header :'title', name : 'title' ,translatable : true ,
+                    validation:{required : true } 
+                },
+                { 
+                    type: 'file',placeholder:null,header :'image', name : 'image' ,translatable : true ,
+                    validation:{required : false } 
+                },
+                { 
+                    type: 'string',placeholder:'page url',header :'page url', name : 'page_url' ,translatable : true ,
+                    validation:{required : false } 
+                },
+                { 
+                    type: 'string',placeholder:'page tab title',header :'page tab title', name : 'page_tab_title' ,translatable : true,
+                    validation:{required : false } 
+                },
+                { 
+                    type: 'string',placeholder:'page title',header :'page title', name : 'page_title' ,translatable : true,
+                    validation:{required : false } 
+                },
+                { 
+                    type: 'string',placeholder:'page description',header :'page description', name : 'page_description' ,translatable : true,
+                    validation:{required : false } 
+                },
+                { 
+                    type: 'string',placeholder:'page keywords',header :'page keywords', name : 'page_keywords' ,translatable : true,
+                    validation:{required : false } 
+                },
             ],
 
             ServerReaponse : {

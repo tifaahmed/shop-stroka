@@ -8,7 +8,7 @@
 		<router-link 
 			data-dismiss="modal"
 		    class="   text-info  "  
-		    :to = "{ path : 'TrashShow/'+RowId , query: { CurrentPage: CurrentPage } }" > 
+		    :to = "{ path : 'trash-show/'+RowId , query: { CurrentPage: CurrentPage } }" > 
 		<i class="fas fa-eye"></i>
 		</router-link>
 		<a  

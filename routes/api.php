@@ -45,7 +45,7 @@ Route::group(['prefix' =>'dashboard'], fn ( ) : array => [
         Route::post('/{id}/update'              ,   'SliderController@update'              )->name('update')
     ]),
 
-    // slider
+    // product-category
     Route::name('product-category.')->prefix('/product-category')->group( fn ( ) : array => [
         Route::get('/'                          ,   'ProductCategoryController@all'                 )->name('all'),
         Route::post(''                          ,   'ProductCategoryController@store'               )->name('store'),
@@ -58,6 +58,19 @@ Route::group(['prefix' =>'dashboard'], fn ( ) : array => [
         Route::DELETE('premanently-delete/{id}' ,   'ProductCategoryController@premanently_delete'  )->name('premanently_delete'),
         Route::get('/collection-trash'          ,   'ProductCategoryController@collection_trash'    )->name('collection_trash'),
         Route::get('/{id}/show-trash'           ,   'ProductCategoryController@show_trash'          )->name('show_trash'),
+    ]),
+    Route::name('product-sub-category.')->prefix('/product-sub-category')->group( fn ( ) : array => [
+        Route::get('/'                          ,   'ProductSubCategoryController@all'                 )->name('all'),
+        Route::post(''                          ,   'ProductSubCategoryController@store'               )->name('store'),
+        Route::get('/{id}/show'                 ,   'ProductSubCategoryController@show'                )->name('show'),
+        Route::get('/collection'                ,   'ProductSubCategoryController@collection'          )->name('collection'),
+        Route::DELETE('/{id}'                   ,   'ProductSubCategoryController@destroy'             )->name('destroy'),
+        Route::post('/{id}/update'              ,   'ProductSubCategoryController@update'              )->name('update'),
+        
+        Route::get('/{id}/restore'              ,   'ProductSubCategoryController@restore'             )->name('restore'),
+        Route::DELETE('premanently-delete/{id}' ,   'ProductSubCategoryController@premanently_delete'  )->name('premanently_delete'),
+        Route::get('/collection-trash'          ,   'ProductSubCategoryController@collection_trash'    )->name('collection_trash'),
+        Route::get('/{id}/show-trash'           ,   'ProductSubCategoryController@show_trash'          )->name('show_trash'),
     ]),
 ]);
     

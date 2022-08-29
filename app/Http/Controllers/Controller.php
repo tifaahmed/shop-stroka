@@ -18,14 +18,21 @@ class Controller extends BaseController
     
     ResponsesTrait,
     FileTrait;
+    public function __construct()
+    {
+        $this->languages = config('app.lang_array'); // ex [ar , en ]
+    }
+
+
+    
     public function deleteAllFiles($model,$file_columns){
         foreach ($file_columns as $file_column) {
             $this->DeleteRowFolder($model->$file_column);
         }
     }
-    public function deleteAlltranslatableFiles($model,$translated_file_columns,$languages){
+    public function deleteAlltranslatableFiles($model,$translated_file_columns){
         foreach ($translated_file_columns as $file_column) {
-            foreach ($languages as $language) {
+            foreach ($this->languages as $language) {
                 $this->DeleteRowFolder($model->getTranslation($file_column, $language));
             }
         }
@@ -34,12 +41,15 @@ class Controller extends BaseController
     public function store_files($request,$folder_name,$file_columns){
 
         $all = [ ];
-        foreach ($this->file_columns as $file_column) {
-            if ( $request->hasFile( $file_column ) ) { 
-                $path = $this->HelperStorage($folder_name,$request->$file_column) ;
-                $all += array( $file_column =>  $path );
-            }
+        if (count($this->file_columns)) {
+            foreach ($this->file_columns as $file_column) {
+                if ( $request->hasFile( $file_column ) ) { 
+                    $path = $this->HelperStorage($folder_name,$request->$file_column) ;
+                    $all += array( $file_column =>  $path );
+                }
+            }        
         }
+
         return $all;
 
     }
@@ -67,16 +77,21 @@ class Controller extends BaseController
     public function store_translated_files($request,$folder_name,$translated_file_columns){
    
         $all = [ ];
+        if (count($this->translated_file_columns)) {
 
-        foreach ($translated_file_columns as $translated_file_column) {
-            $data_array = [];
-            foreach ($request->$translated_file_column as $key => $file) {
-                if ( $request->hasFile( $translated_file_column.'.'.$key ) ) { 
-                    $path = $this->HelperStorage($folder_name,$file) ;
-                    $data_array +=  [ $key => $path ]  ;
+            foreach ($translated_file_columns as $translated_file_column) {
+                $data_array = [];
+                if ($request->$translated_file_column) {
+                    foreach ($request->$translated_file_column as $key => $file) {
+                        if ( $request->hasFile( $translated_file_column.'.'.$key ) ) { 
+                            $path = $this->HelperStorage($folder_name,$file) ;
+                            $data_array +=  [ $key => $path ]  ;
+                        }
+                    }
+                    $all += array( $translated_file_column =>  $data_array );
                 }
+
             }
-            $all += array( $translated_file_column =>  $data_array );
         }
         return $all;
     }

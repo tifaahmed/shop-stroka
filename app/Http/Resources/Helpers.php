@@ -1,6 +1,5 @@
 <?php
 if (!function_exists('translated_string')) {
-
    function resource_translated_string($model,$lang_array,$translated_string_fields)
    {
         $all=[];
@@ -14,6 +13,8 @@ if (!function_exists('translated_string')) {
         }
         return $all;
     }
+}
+if (!function_exists('resource_translated_image')) {
     function resource_translated_image($model,$lang_array,$translated_image_fields)
     {
         $all=[];
@@ -36,6 +37,9 @@ if (!function_exists('translated_string')) {
         return $all;
 
     }
+}
+if (!function_exists('resource_string')) {
+
     function resource_string($model,$string_fields)
     {
         $all=[];
@@ -47,6 +51,9 @@ if (!function_exists('translated_string')) {
         }
         return $all;
     }
+}
+
+if (!function_exists('resource_image')) {
 
     function resource_image($model,$image_fields)
     {

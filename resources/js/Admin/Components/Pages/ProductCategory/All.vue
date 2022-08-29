@@ -70,7 +70,7 @@ import TableControllers     from 'AdminPartials/Components/Controllers/TableCont
 import ColumsIndex          from 'AdminPartials/Components/colums/ColumsIndex.vue'     ;
 
 export default {
-    name:"ProductCategoryAll",
+    name:"ProductCategory"+"All",
     components:{
         pagination,ModalIndex,TableControllers,ColumsIndex
     },
@@ -81,16 +81,17 @@ export default {
         TableRows  : {},
         Columns :  [
                 { type: 'Router'    ,header : 'id'                  , name : 'id'          , value : null  } ,
+                { type: 'Forloop'   ,header : 'title'              , name : 'title'    , value : null  } ,
+                { type: 'ForloopImage'   ,header : 'image'              , name : 'image'    , value : null  } ,
                 
+                { type: 'Forloop'   ,header : 'page url'              , name : 'page_url' , value : null  } ,
+                { type: 'Forloop'   ,header : 'page tab title'              , name : 'page_tab_title' , value : null  } ,
+                { type: 'Forloop'   ,header : 'page title'              , name : 'page_title' , value : null  } ,
+                { type: 'Forloop'   ,header : 'page description'              , name : 'page_description' , value : null  } ,
+                { type: 'Forloop'   ,header : 'page_keywords'              , name : 'page_keywords' , value : null  } ,
 
-                // { type: 'ForloopImage'   ,header : 'desktop image'              , name : 'desktop_image'    , value : null  } ,
-                // { type: 'ForloopImage'   ,header : 'mobile image'              , name : 'mobile_image'    , value : null  } ,
-                // { type: 'Forloop'   ,header : 'title1'              , name : 'title1'    , value : null  } ,
-                // { type: 'Forloop'   ,header : 'subject1'              , name : 'subject1'    , value : null  } ,
-                // { type: 'Forloop'   ,header : 'url1'              , name : 'url1'    , value : null  } ,
-                // { type: 'Forloop'   ,header : 'button1'              , name : 'button1'    , value : null  } ,
-                // { type: 'Date'      ,header : 'created'             , name : 'created_at'   , value : null  } ,
-                // { type: 'Date'      ,header : 'updated'             , name : 'updated_at'   , value : null  } ,
+                { type: 'Date'      ,header : 'created'             , name : 'created_at'   , value : null  } ,
+                { type: 'Date'      ,header : 'updated'             , name : 'updated_at'   , value : null  } ,
             ],
         PerPage  : 10
     } },

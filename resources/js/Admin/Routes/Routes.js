@@ -3,6 +3,7 @@ import Welcome from 'AdminViews/Welcome';
 
 import SliderRoutes from './SliderRoutes';
 import ProductCategoryRoutes from './ProductCategoryRoutes';
+import ProductSubCategoryRoutes from './ProductSubCategoryRoutes';
 
 
 export default {
@@ -15,6 +16,6 @@ export default {
 
         SliderRoutes,
         ProductCategoryRoutes,
-
+        ProductSubCategoryRoutes,
     ]
 }
