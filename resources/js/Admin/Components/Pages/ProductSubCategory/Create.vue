@@ -42,33 +42,58 @@
                     <div class="card-body pt-0">
                         <div class="">
                             <span v-for="( column_val , column_key ) in Columns" :key="column_key" >
-                                    <InputsFactory 
-                                        v-if="column_val.translatable == false"
-                                        :Factorylable="column_val.header"  :FactoryPlaceholder="column_val.placeholder"         
-                                        :FactoryType="column_val.type" :FactoryName="column_val.name"  v-model ="RequestData[column_val.name]"  
-                                        :FactoryErrors="( ServerReaponse && Array.isArray( ServerReaponse.errors[column_val.name]  )  ) ?  ServerReaponse.errors[column_val.name] : null" 
-                                    />
+                                <InputsFactory 
+                                    v-if="column_val.translatable == false"
+                                    :Factorylable="column_val.header"  :FactoryPlaceholder="column_val.placeholder"         
+                                    :FactoryType="column_val.type" :FactoryName="column_val.name"  v-model ="RequestData[column_val.name]"  
+                                    :FactoryErrors="( ServerReaponse && Array.isArray( ServerReaponse.errors[column_val.name]  )  ) ?  ServerReaponse.errors[column_val.name] : null" 
+                                    
+                                    :FactorySelectOptions="column_val.type === 'select'? column_val.SelectOptions : [] "  
+
+                                    :FactorySelectStrings="column_val.type === 'select'? column_val.SelectStrings : []"   
+                                    :FactorySelectForloopStrings="column_val.type === 'select'? column_val.SelectForloopStrings : []"   
+                                    :FactorySelectForloopStringKeys="column_val.type === 'select'? column_val.SelectForloopStringKeys : []"  
+
+                                    :FactorySelectImages="column_val.type === 'select'? column_val.SelectImages : []"   
+                                    :FactorySelectForloopImages="column_val.type === 'select'? column_val.SelectForloopImages : []"  
+                                    :FactorySelectForloopImageKeys="column_val.type === 'select'? column_val.SelectForloopImageKeys : []" 
+                                 
+                                    
+
+                                />
+                                   
                             </span> 
+<!-- :FactorySelectOptions="  this.AllProductCategoryData "  
 
-                            
-                            <InputsFactory 
-                                :Factorylable="'Avatar'" 
+                                    :FactorySelectStrings="column_val.type === 'select'? column_val.SelectStrings : []"   
+                                    :FactorySelectForloopStrings="column_val.type === 'select'? column_val.SelectForloopStrings : []"   
+                                    :FactorySelectForloopStringKeys="column_val.type === 'select'? column_val.SelectForloopStringKeys : []"  
+
+                                    :FactorySelectImages="column_val.type === 'select'? column_val.SelectImages : []"   
+                                    :FactorySelectForloopImages="column_val.type === 'select'? column_val.SelectForloopImages : []"  
+                                    :FactorySelectForloopImageKeys="column_val.type === 'select'? column_val.SelectForloopImageKeys : []" 
+                                
+                                
+                                -->
+
+                            <!-- <InputsFactory 
+                                :Factorylable="'product category'" 
                                 :FactoryType="'select'" :FactoryName="'product_category_id'"   v-model ="RequestData.product_category_id"  
-                                :FactorySelectOptions="AllProductCategoryData"   
+                                :FactorySelectOptions=" this['AllProductCategoryData'] "  
 
-                                :FactorySelectStrings="[]"  
-                                :FactorySelectForloopStrings="['title','page_url']"  
-                                :FactorySelectForloopStringKeys="['ar','en']" 
+                                :FactorySelectStrings="[]"   
+                                :FactorySelectForloopStrings="['title','page_url']"   
+                                :FactorySelectForloopStringKeys="['en']"  
 
-                                :FactorySelectImage="[]" 
-                                :FactorySelectForloopImage="['image']"
-                                :FactorySelectForloopImageKeys="['ar','en']" 
+                                :FactorySelectImages="[]"   
+                                :FactorySelectForloopImages="['image']"  
+                                :FactorySelectForloopImageKeys="['en']"   
 
                                 :FactoryErrors="null" 
-                            />
+                            /> -->
 
-
-
+                        
+ 
 
                         </div>
                     </div>
@@ -97,9 +122,9 @@
 
             </div>
         </div>
+
     </div>
 </template>
-
 
 
 <script>
@@ -117,7 +142,7 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
         components : { InputsFactory } ,
 
         async mounted() {
-            this.start();
+            await this.start();
         },
         data( ) { return {
             TableName :'ProductSubCategory',
@@ -126,39 +151,10 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
             Languages : [],
 
             hasNoneTranslatableFields : 1,
-            hasTranslatableFields : 0,
+            hasTranslatableFields : 1,
+            AllProductCategoryData : [],
 
-            Columns : [
-                { 
-                    type: 'string',placeholder:'title',header :'title', name : 'title' ,translatable : true ,
-                    validation:{required : true } 
-                },
-                { 
-                    type: 'file',placeholder:null,header :'image', name : 'image' ,translatable : true ,
-                    validation:{required : false } 
-                },
-                { 
-                    type: 'string',placeholder:'page url',header :'page url', name : 'page_url' ,translatable : true ,
-                    validation:{required : false } 
-                },
-                { 
-                    type: 'string',placeholder:'page tab title',header :'page tab title', name : 'page_tab_title' ,translatable : true,
-                    validation:{required : false } 
-                },
-                { 
-                    type: 'string',placeholder:'page title',header :'page title', name : 'page_title' ,translatable : true,
-                    validation:{required : false } 
-                },
-                { 
-                    type: 'string',placeholder:'page description',header :'page description', name : 'page_description' ,translatable : true,
-                    validation:{required : false } 
-                },
-                { 
-                    type: 'string',placeholder:'page keywords',header :'page keywords', name : 'page_keywords' ,translatable : true,
-                    validation:{required : false } 
-                },
-
-            ],
+            Columns : [],
 
 
             ServerReaponse : {
@@ -167,7 +163,6 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
             },
 
             RequestData : {},
-            AllProductCategoryData : []
 
         } } ,
         methods : {
@@ -186,7 +181,53 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                 });
 
                 this.AllProductCategoryData = (await this.AllProductCategory()).data.data;
-                console.log(this.AllProductCategoryData);
+                // this.AllProductCategoryData = (await this.AllProductCategory()).data.data;
+
+
+                this.Columns = [
+                    { 
+                        type: 'select',placeholder:'',header :'product category', name : 'product_category_id' ,translatable : false ,
+                        validation:{required : true } ,
+                        SelectOptions : this.AllProductCategoryData,  
+                        SelectStrings: ['title'] ,SelectForloopStrings:['title','page_url'],SelectForloopStringKeys:['en','ar'],
+                        SelectImages: [] ,SelectForloopImages:['image'],SelectForloopImageKeys:['en','ar'],
+                    },
+                    // { 
+                    //     type: 'string',placeholder:'title',header : this.AllProductCategoryData, name : 'title' ,translatable : true ,
+                    //     validation:{required : false } 
+                    // },
+                    // { 
+                    //     type: 'file',placeholder:null,header :'image', name : 'image' ,translatable : true ,
+                    //     validation:{required : false } 
+                    // },
+                    // { 
+                    //     type: 'string',placeholder:'page url',header :'page url', name : 'page_url' ,translatable : true ,
+                    //     validation:{required : false } 
+                    // },
+                    // { 
+                    //     type: 'string',placeholder:'page tab title',header :'page tab title', name : 'page_tab_title' ,translatable : true,
+                    //     validation:{required : false } 
+                    // },
+                    // { 
+                    //     type: 'string',placeholder:'page title',header :'page title', name : 'page_title' ,translatable : true,
+                    //     validation:{required : false } 
+                    // },
+                    // { 
+                    //     type: 'string',placeholder:'page description',header :'page description', name : 'page_description' ,translatable : true,
+                    //     validation:{required : false } 
+                    // },
+                    // { 
+                    //     type: 'string',placeholder:'page keywords',header :'page keywords', name : 'page_keywords' ,translatable : true,
+                    //     validation:{required : false } 
+                    // },
+
+                ];
+
+
+
+
+
+
 
             },
             DeleteErrors(){

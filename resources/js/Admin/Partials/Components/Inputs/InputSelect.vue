@@ -1,10 +1,11 @@
 <template>
-		<div  v-if="PropSelectOptions" class="form-group">
+		<div   class="form-group">
 		    <label  class="typo__label" :for="PropName"> {{PropLable}}  </label>
 
 			<multiselect v-model="data" 
+
 			:label="PropLable" 
-			:track-by="PropName" 
+			:track-by="'id'" 
 			:options="PropSelectOptions ? PropSelectOptions : []" 
 			:option-height="104"   
 			:multiple="false"   
@@ -102,7 +103,8 @@ export default {
     components : { Multiselect } ,
 
     data( ) { return {
-    	data : this.value ,
+    	data : null
+		// data : this.value ,
     } } ,
     props   : {
     	PropLable :null,
@@ -111,28 +113,27 @@ export default {
     	PropErrors    : [] ,	
     	value :[],
 
-
         PropSelectOptions : [],
 
-        PropSelectStrings : [], 				//  ['name','title']  
-        PropSelectForloopStrings : [], 			// name : { en : 'rice' , ar : '***' }
-        PropSelectForloopStringKeys : [],		// [ 'en' , ' ar'] 
+        PropSelectStrings : [], 				//  ['name','title']  = ['rrrr','gggg']
+        PropSelectForloopStrings : [], 			// name : { en : 'rice' ,  }
+        PropSelectForloopStringKeys : [],		// [ 'en' ,  ] 
 
         PropSelectimages : [],				 	// [image] = ['http//****','http//****']  
-		PropSelectForloopImages : [],				// image : { en : 'http//****' , ar : '***' }	
-		PropSelectForloopImageKeys : [],		// [ 'en' , ' ar'] 
+		PropSelectForloopImages : [],				// image : { en : 'http//****' ,  }	
+		PropSelectForloopImageKeys : [],		// [ 'en' , ' ] 
 		
-
-
     } ,
+
     watch   : {
 
-    	value( ) {
-    	    this.data = this.value ;
-    	},
-        data( ) {
+    	// value( ) {
+    	//     this.data = this.value ;
+    	// },
+	    data(  ) {
+			console.log(  this.data,'jjjj');
             this.$emit( 'input'  ,  this.data  ) ;
-        	this.$emit( 'change' ,  this.data  ) ;    
+        	this.$emit( 'change' ,  this.data.id  ) ;    
     	}
     } ,
 

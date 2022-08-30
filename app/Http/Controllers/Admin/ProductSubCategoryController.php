@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 // Resource
 use App\Http\Resources\Dashboard\Collections\ProductSubCategoryCollection as ModelCollection;
-use App\Http\Resources\Dashboard\ProductSubCategoryResource as ModelResource;
+use App\Http\Resources\Dashboard\ProductSubCategory\ProductSubCategoryResource as ModelResource;
 
 // lInterfaces
 use App\Repository\ProductSubCategoryRepositoryInterface as ModelInterface;
