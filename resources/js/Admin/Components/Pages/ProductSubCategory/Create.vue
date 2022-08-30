@@ -50,31 +50,23 @@
                                     />
                             </span> 
 
-                            ddfdf
+                            
                             <InputsFactory 
                                 :Factorylable="'Avatar'" 
                                 :FactoryType="'select'" :FactoryName="'product_category_id'"   v-model ="RequestData.product_category_id"  
                                 :FactorySelectOptions="AllProductCategoryData"   
-                                :FactorySelectColumnOptions="[]"  
 
-                                :FactorySelectColumnName="null"  
+                                :FactorySelectStrings="[]"  
+                                :FactorySelectForloopStrings="['title','page_url']"  
+                                :FactorySelectForloopStringKeys="['ar','en']" 
 
-                                :FactorySelectForloop="'title'"  
-                                :FactorySelectForloopColumn="['ar','en']" 
+                                :FactorySelectImage="[]" 
+                                :FactorySelectForloopImage="['image']"
+                                :FactorySelectForloopImageKeys="['ar','en']" 
 
-                                :FactorySelectimage="'image'"  
                                 :FactoryErrors="null" 
                             />
 
-                            <!-- FactorySelectColumnName // name = 'rice'   -->
-
-                            <!-- FactorySelectForloop // name { en : 'rice' , ar : '***' } -->
-                            <!-- FactorySelectForloopColumn //  name { [ 'en' , ' ar'] }-->
-
-                            <!-- FactorySelectimage // image = http//****  -->
-
-                            <!-- FactorySelectForloopimage // image { en : 'http//****' , ar : '***' } -->
-                            <!-- FactorySelectForloopimageColumn //  image { [ 'en' , ' ar'] }-->
 
 
 
@@ -175,7 +167,7 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
             },
 
             RequestData : {},
-            AllProductCategoryData : {}
+            AllProductCategoryData : []
 
         } } ,
         methods : {

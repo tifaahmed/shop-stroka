@@ -3,48 +3,82 @@
 		    <label  class="typo__label" :for="PropName"> {{PropLable}}  </label>
 
 			<multiselect v-model="data" 
-			:label="PropSelectColumnName" 
-			:track-by="PropSelectColumnName" 
+			:label="PropLable" 
+			:track-by="PropName" 
 			:options="PropSelectOptions ? PropSelectOptions : []" 
 			:option-height="104"   
 			:multiple="false"   
-			 :searchable="false"
+			:searchable="false"
 			>
 				<template slot="singleLabel" slot-scope="props" >
 					
 					<span class="option__desc">
 						<span class="option__title">
 							<span > ( {{props.option.id}} ) </span>
-							<img   class="option__image" :src="'http://localhost:8000/storage/ProductCategory/hnYBIMCvwi1661779396/6oSnN3Kvzw1oLRN3t06pVr9mRoC6iLSkFoFEjmmK.jpg'" style="width:50px">
-							<img   class="option__image" :src="'http://localhost:8000/storage/ProductCategory/hnYBIMCvwi1661779396/6oSnN3Kvzw1oLRN3t06pVr9mRoC6iLSkFoFEjmmK.jpg'" style="width:50px">
-							/
-							<!-- <span :if="PropSelectColumnOptions" class="option__title" v-for="( val , key_first ) in PropSelectColumnOptions" :key="key_first"   >
-								<span v-if="props.option[val] != null">- {{props.option[val]}} </span>
-							</span>  -->
-							/
-							<span  :if="props.option[PropSelectForloop]" v-for=" ( valLang , key_first ) in props.option[PropSelectForloop]" :key="key_first">
-								<span  v-for=" ( valColumn , key_test ) in PropSelectForloopColumn"  :key="key_test"></span>
-									<span v-if="valLang[valColumn] != null">- {{valLang[valColumn]}} </span>
+							<span v-for=" ( PropSelectForloopImage_val , PropSelectForloopImage_key ) in PropSelectForloopImages" 
+									:key="PropSelectForloopImage_key"
+							>
+								<span  v-for=" ( Image_key_val , Image_key_key ) in PropSelectForloopImageKeys"  
+									:key="Image_key_key"
+								> 
+									<img style="width:50px"  class="option__image"  :src="props.option[PropSelectForloopImage_val][Image_key_val]" >
+								-
 								</span>
-							</span> 
+								/
+
+							</span>
+							
+							/
+
+							<span v-for=" ( PropSelectForloopString_val , PropSelectForloopString_key ) in PropSelectForloopStrings" 
+									:key="PropSelectForloopString_key"
+							> 
+								<span class="option__title" v-for=" ( string_key_val , string_key_key ) in PropSelectForloopStringKeys"  
+									:key="string_key_key"
+								> 
+									<span class="option__title" >{{props.option[PropSelectForloopString_val][string_key_val]}}</span>
+								-
+								</span>
+								/
+
+							</span>
 						</span>
 					</span>
 				</template>
 				<template slot="option" slot-scope="props">
 					<div class="option__desc">
 						<span > ( {{props.option.id}} ) </span>
-						<img   class="option__image" :src="'http://localhost:8000/storage/ProductCategory/hnYBIMCvwi1661779396/6oSnN3Kvzw1oLRN3t06pVr9mRoC6iLSkFoFEjmmK.jpg'" style="width:50px">
-						<img   class="option__image" :src="'http://localhost:8000/storage/ProductCategory/hnYBIMCvwi1661779396/6oSnN3Kvzw1oLRN3t06pVr9mRoC6iLSkFoFEjmmK.jpg'" style="width:50px">
-						/
-						<!-- <span :if="PropSelectColumnOptions" class="option__title" v-for="( val , key_second ) in PropSelectColumnOptions" :key="key_second"   >
-							<span v-if="props.option[val] != null">- {{props.option[val]}} </span>
-						</span>  -->
-						/
-						<span  :if="props.option[PropSelectForloop]" v-for=" ( valLang , key_first ) in props.option[PropSelectForloop]" :key="key_first"  >
-							<span  v-for="( valColumn , key_first ) in PropSelectForloopColumn" :key="key_first"   >
-								<span v-if="valLang[valColumn] != null">- {{valLang[valColumn]}} </span>
+						
+						<span v-for=" ( PropSelectForloopImage_val , PropSelectForloopImage_key ) in PropSelectForloopImages" 
+								:key="PropSelectForloopImage_key"
+						>
+							<span  v-for=" ( Image_key_val , Image_key_key ) in PropSelectForloopImageKeys"  
+								:key="Image_key_key"
+							> 
+								<img style="width:50px"  class="option__image"  :src="props.option[PropSelectForloopImage_val][Image_key_val]" >
+							-
 							</span>
-						</span> 
+							/
+
+						</span>
+						
+						/
+
+						<span v-for=" ( PropSelectForloopString_val , PropSelectForloopString_key ) in PropSelectForloopStrings" 
+								:key="PropSelectForloopString_key"
+						> 
+							<span class="option__title" v-for=" ( string_key_val , string_key_key ) in PropSelectForloopStringKeys"  
+								:key="string_key_key"
+							> 
+								<span class="option__title" >{{props.option[PropSelectForloopString_val][string_key_val]}}</span>
+							-
+							</span>
+							/
+
+						</span>
+						 
+
+
 					</div>
 				</template>
 			</multiselect>
@@ -77,16 +111,19 @@ export default {
     	PropErrors    : [] ,	
     	value :[],
 
+
         PropSelectOptions : [],
 
-        PropSelectColumnName : null,
+        PropSelectStrings : [], 				//  ['name','title']  
+        PropSelectForloopStrings : [], 			// name : { en : 'rice' , ar : '***' }
+        PropSelectForloopStringKeys : [],		// [ 'en' , ' ar'] 
 
-        PropFactorySelectimage : null,
-
-		PropSelectColumnOptions : [],
+        PropSelectimages : [],				 	// [image] = ['http//****','http//****']  
+		PropSelectForloopImages : [],				// image : { en : 'http//****' , ar : '***' }	
+		PropSelectForloopImageKeys : [],		// [ 'en' , ' ar'] 
 		
-		PropSelectForloop : null,
-		PropSelectForloopColumn : [],
+
+
     } ,
     watch   : {
 
