@@ -57,6 +57,24 @@
 			@change      = "change"
 			v-model      = "data"
 
+			:PropSelectOptions = "FactorySelectOptions"
+
+			:PropSelectStrings = "FactorySelectStrings"
+			:PropSelectForloopStrings = "FactorySelectForloopStrings"
+			:PropSelectForloopStringKeys = "FactorySelectForloopStringKeys"
+
+			:PropSelectimages = FactorySelectImages
+			:PropSelectForloopImages= "FactorySelectForloopImages"
+			:PropSelectForloopImageKeys = "FactorySelectForloopImageKeys"
+		/> 
+		<!-- <InputSelectEdit
+			v-if= "FactoryType === 'select_edit'"
+			:PropLable = "Factorylable"
+			:PropType = "FactoryType"
+			:PropName = "FactoryName"
+			:PropErrors = "FactoryErrors"
+			@change      = "change"
+			v-model      = "data"
 
 			:PropSelectOptions = "FactorySelectOptions"
 
@@ -64,11 +82,10 @@
 			:PropSelectForloopStrings = "FactorySelectForloopStrings"
 			:PropSelectForloopStringKeys = "FactorySelectForloopStringKeys"
 
-			:PropSelectimages = null
-			:PropSelectForloopImages= "FactorySelectForloopImage"
+			:PropSelectimages = FactorySelectImages
+			:PropSelectForloopImages= "FactorySelectForloopImages"
 			:PropSelectForloopImageKeys = "FactorySelectForloopImageKeys"
-		/> 
- 
+		/>  -->
 
 		<!-- <InputRadioCheckBox
 		 	v-if= "FactoryType === 'radio'"
@@ -106,6 +123,7 @@ import InputDate     	from 'AdminPartials/Components/Inputs/InputDate.vue'     ;
 
 import InputMultiSelect     	from 'AdminPartials/Components/Inputs/InputMultiSelect.vue'     ;
 import InputSelect     	from 'AdminPartials/Components/Inputs/InputSelect.vue'     ;
+import InputSelectEdit     	from 'AdminPartials/Components/Inputs/InputSelectEdit.vue'     ;
 
 import InputRadioCheckBox     	from 'AdminPartials/Components/Inputs/InputRadioCheckBox.vue'     ;
 
@@ -116,7 +134,7 @@ export default {
 
 	} } ,
 	components : {
-	    InputString ,InputFile,InputDate,InputMultiSelect,InputRadioCheckBox,InputSelect
+	    InputString ,InputFile,InputDate,InputMultiSelect,InputRadioCheckBox,InputSelect,InputSelectEdit
 		// InputForloop
 		// InputMultiSelect
 	} ,
@@ -137,11 +155,11 @@ export default {
 		FactorySelectForloopStrings		:  [] ,
 		FactorySelectForloopStringKeys	:  [] ,
 
-		FactorySelectImage				:  [] ,
-		FactorySelectForloopImage		:  [] ,
+		FactorySelectImages				:  [] ,
+		FactorySelectForloopImages		:  [] ,
 		FactorySelectForloopImageKeys   :  [] ,
 
-
+		
 	} ,
 	watch   : {
 		value( ) {

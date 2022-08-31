@@ -4,7 +4,7 @@ namespace App\Http\Resources\Dashboard\Collections;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-use App\Http\Resources\Dashboard\ProductSubCategoryResource as ModelResource;
+use App\Http\Resources\Dashboard\ProductSubCategory\ProductSubCategoryResource as ModelResource;
 
 class ProductSubCategoryCollection  extends ResourceCollection{
 
