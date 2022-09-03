@@ -16,25 +16,32 @@
 					<span class="option__desc">
 						<span class="option__title">
 							<span > ( {{props.option.id}} ) </span>
+
+							<span v-for=" ( PropSelectImage_val , PropSelectImage_key ) in PropSelectimages" 
+									:key="PropSelectImage_key.id"
+							>
+								<img style="width:50px"  class="option__image"  :src="props.option[PropSelectImage_val]" >
+								/
+							</span>
+
 							<span v-for=" ( PropSelectForloopImage_val , PropSelectForloopImage_key ) in PropSelectForloopImages" 
-									:key="PropSelectForloopImage_key"
+									:key="PropSelectForloopImage_key.id"
 							>
 								<span  v-for=" ( Image_key_val , Image_key_key ) in PropSelectForloopImageKeys"  
-									:key="Image_key_key"
+									:key="Image_key_key.id"
 								> 
 									<img style="width:50px"  class="option__image"  :src="props.option[PropSelectForloopImage_val][Image_key_val]" >
 								-
 								</span>
 								/
-
 							</span>
 							
-							/
+							
 
 							<span v-for=" ( PropSelectForloopString_val , PropSelectForloopString_key ) in PropSelectForloopStrings" 
 									:key="PropSelectForloopString_key"
 							> 
-								<span class="option__title" v-for=" ( string_key_val , string_key_key ) in PropSelectForloopStringKeys"  
+								<span  v-for=" ( string_key_val , string_key_key ) in PropSelectForloopStringKeys"  
 									:key="string_key_key"
 								> 
 									<span class="option__title" >{{props.option[PropSelectForloopString_val][string_key_val]}}</span>
@@ -49,12 +56,19 @@
 				<template slot="option" slot-scope="props">
 					<div class="option__desc">
 						<span > ( {{props.option.id}} ) </span>
+
+						<span v-for=" ( PropSelectImage_val , PropSelectImage_key ) in PropSelectimages" 
+									:key="PropSelectImage_key.id"
+							>
+							<img style="width:50px"  class="option__image"  :src="props.option[PropSelectImage_val]" >
+							/
+						</span>
 						
 						<span v-for=" ( PropSelectForloopImage_val , PropSelectForloopImage_key ) in PropSelectForloopImages" 
-								:key="PropSelectForloopImage_key"
+								:key="PropSelectForloopImage_key.id"
 						>
 							<span  v-for=" ( Image_key_val , Image_key_key ) in PropSelectForloopImageKeys"  
-								:key="Image_key_key"
+								:key="Image_key_key.id"
 							> 
 								<img style="width:50px"  class="option__image"  :src="props.option[PropSelectForloopImage_val][Image_key_val]" >
 							-
@@ -62,13 +76,20 @@
 							/
 
 						</span>
+					
 						
-						/
+						<span v-for=" ( PropSelectString_val , PropSelectString_key ) in PropSelectStrings" 
+								:key="PropSelectString_key"
+						> 
+							<span class="option__title" >{{props.option[PropSelectString_val]}}</span>
+							/
+
+						</span>
 
 						<span v-for=" ( PropSelectForloopString_val , PropSelectForloopString_key ) in PropSelectForloopStrings" 
 								:key="PropSelectForloopString_key"
 						> 
-							<span class="option__title" v-for=" ( string_key_val , string_key_key ) in PropSelectForloopStringKeys"  
+							<span  v-for=" ( string_key_val , string_key_key ) in PropSelectForloopStringKeys"  
 								:key="string_key_key"
 							> 
 								<span class="option__title" >{{props.option[PropSelectForloopString_val][string_key_val]}}</span>
@@ -77,8 +98,6 @@
 							/
 
 						</span>
-						 
-
 
 					</div>
 				</template>
@@ -103,8 +122,7 @@ export default {
     components : { Multiselect } ,
 
     data( ) { return {
-    	data : null
-		// data : this.value ,
+		data : this.value 
     } } ,
     props   : {
     	PropLable :null,
@@ -127,13 +145,12 @@ export default {
 
     watch   : {
 
-    	// value( ) {
-    	//     this.data = this.value ;
-    	// },
+    	value( ) {
+    	    this.data = this.value ;
+    	},
 	    data(  ) {
-			console.log(  this.data,'jjjj');
             this.$emit( 'input'  ,  this.data  ) ;
-        	this.$emit( 'change' ,  this.data.id  ) ;    
+        	this.$emit( 'change' ,  this.data  ) ;    
     	}
     } ,
 

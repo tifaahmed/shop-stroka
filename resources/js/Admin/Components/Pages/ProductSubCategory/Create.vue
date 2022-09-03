@@ -144,6 +144,7 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                 this.Columns = [
                     { 
                         type: 'select',placeholder:'',header :'product category', name : 'product_category_id' ,translatable : false ,
+                        data_value : null  ,
                         validation:{required : true } ,
                         SelectOptions : AllProductCategoryData,  
                         SelectStrings: [] ,SelectForloopStrings:['title','page_url'],SelectForloopStringKeys:['en','ar'],
@@ -151,10 +152,12 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                     },
                     { 
                         type: 'string',placeholder:'title',header : this.AllProductCategoryData, name : 'title' ,translatable : true ,
+                        data_value : null  ,
                         validation:{required : false } 
                     },
                     { 
                         type: 'file',placeholder:null,header :'image', name : 'image' ,translatable : true ,
+                        data_value : null  ,
                         validation:{required : false } 
                     },
                     { 
@@ -163,18 +166,22 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                     },
                     { 
                         type: 'string',placeholder:'page tab title',header :'page tab title', name : 'page_tab_title' ,translatable : true,
+                        data_value : null  ,
                         validation:{required : false } 
                     },
                     { 
                         type: 'string',placeholder:'page title',header :'page title', name : 'page_title' ,translatable : true,
+                        data_value : null  ,
                         validation:{required : false } 
                     },
                     { 
                         type: 'string',placeholder:'page description',header :'page description', name : 'page_description' ,translatable : true,
+                        data_value : null  ,
                         validation:{required : false } 
                     },
                     { 
                         type: 'string',placeholder:'page keywords',header :'page keywords', name : 'page_keywords' ,translatable : true,
+                        data_value : null  ,
                         validation:{required : false } 
                     },
                 ];
@@ -214,10 +221,13 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                 }
                 // front end valedate
                 else{
-                    await this.SubmetRowButton();// run the form
+                    await this.HandleData();  // get id from objects
+                    this.SubmetRowButton();// run the form
                 }
             },
-
+            HandleData(){
+                this.RequestData.product_category_id = this.RequestData.product_category_id.id;
+            },
             async GetlLanguages(){
                 this.Languages  = ( await this.AllLanguages() ).data; // all languages
             },

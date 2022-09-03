@@ -35,7 +35,7 @@ class ProductSubCategoryResource extends JsonResource
         $all=[];
 
         $all += [ 'id' =>   $this->id ]  ;
-        $all += [ 'product_categry' =>  new ProductCategoryResource($this->product_category) ]  ;
+        $all += [ 'product_category' =>  new ProductCategoryResource($this->product_category) ]  ;
 
         $all += resource_translated_string($model,$lang_array,$translated_string_fields);
         $all += resource_translated_image($model,$lang_array,$translated_image_fields);
