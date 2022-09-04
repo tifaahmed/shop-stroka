@@ -45,26 +45,19 @@
                                         :Factorylable="column_val.header"  :FactoryPlaceholder="column_val.placeholder"         
                                         :FactoryType="column_val.type" :FactoryName="column_val.name"  v-model ="RequestData[column_val.name]"  
                                         :FactoryErrors="( ServerReaponse && Array.isArray( ServerReaponse.errors[column_val.name]  )  ) ?  ServerReaponse.errors[column_val.name] : null" 
+                                    
+                                        :FactorySelectOptions="column_val.type === 'select'? column_val.SelectOptions : [] "  
+
+                                        :FactorySelectStrings="column_val.type === 'select'? column_val.SelectStrings : []"   
+                                        :FactorySelectForloopStrings="column_val.type === 'select'? column_val.SelectForloopStrings : []"   
+                                        :FactorySelectForloopStringKeys="column_val.type === 'select'? column_val.SelectForloopStringKeys : []"  
+
+                                        :FactorySelectImages="column_val.type === 'select'? column_val.SelectImages : []"   
+                                        :FactorySelectForloopImages="column_val.type === 'select'? column_val.SelectForloopImages : []"  
+                                        :FactorySelectForloopImageKeys="column_val.type === 'select'? column_val.SelectForloopImageKeys : []" 
+                                    
                                     />
                             </span> 
-
-                            <InputsFactory 
-                                :Factorylable="'product category'" 
-                                :FactoryType="'select_edit'" :FactoryName="'product_category_id'"   v-model ="RequestData.product_category_id"  
-                                :FactorySelectOptions="AllProductCategoryData"   
-
-                                :FactorySelectStrings="[]"  
-                                :FactorySelectForloopStrings="['title','page_url']"  
-                                :FactorySelectForloopStringKeys="['ar','en']" 
-
-                                :FactorySelectImage="[]" 
-                                :FactorySelectForloopImage="['image']"
-                                :FactorySelectForloopImageKeys="['ar','en']" 
-
-                                :FactoryErrors="null" 
-                            />
-
-
                         </div>
                     </div>
                 </div>
@@ -108,55 +101,18 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
         components : { InputsFactory } ,
 
         mounted() {
-
             this.start();
-
-            this.GetData();
-
         },
         data( ) { return {
             TableName :'ProductSubCategory',
-            TablePageName :'ProductCategory.All',
+            TablePageName :'ProductSubCategory.All',
 
             Languages : [],
 
             hasNoneTranslatableFields : 1,
             hasTranslatableFields : 0,
             
-            Columns : [
-                { 
-                    type: 'string',placeholder:'',header :'product category', name : 'product_category_id' ,translatable : false ,
-                    validation:{required : true } 
-                },
-                { 
-                    type: 'string',placeholder:'title',header :'title', name : 'title' ,translatable : true ,
-                    validation:{required : false } 
-                },
-                { 
-                    type: 'file',placeholder:null,header :'image', name : 'image' ,translatable : true ,
-                    validation:{required : false } 
-                },
-                { 
-                    type: 'string',placeholder:'page url',header :'page url', name : 'page_url' ,translatable : true ,
-                    validation:{required : false } 
-                },
-                { 
-                    type: 'string',placeholder:'page tab title',header :'page tab title', name : 'page_tab_title' ,translatable : true,
-                    validation:{required : false } 
-                },
-                { 
-                    type: 'string',placeholder:'page title',header :'page title', name : 'page_title' ,translatable : true,
-                    validation:{required : false } 
-                },
-                { 
-                    type: 'string',placeholder:'page description',header :'page description', name : 'page_description' ,translatable : true,
-                    validation:{required : false } 
-                },
-                { 
-                    type: 'string',placeholder:'page keywords',header :'page keywords', name : 'page_keywords' ,translatable : true,
-                    validation:{required : false } 
-                },
-            ],
+            Columns : [],
 
             ServerReaponse : {
                 errors :  {},
@@ -164,12 +120,60 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
             },
 
             RequestData : {},
-            AllProductCategoryData : []
-
+            // AllProductCategoryData : [],
+            // receivedData : null,
         } } ,
         methods : {
             async start(){
                 await this.GetlLanguages();
+
+                let AllProductCategoryData = (await this.AllProductCategory()).data.data;
+                let receivedData =   await this.show( ) ;
+                this.Columns = [
+                    { 
+                        type: 'select',placeholder:'',header :'product category', name : 'product_category_id' ,translatable : false ,
+                        data_value :receivedData.product_category  ,
+                        validation:{required : false } ,
+                        SelectOptions : AllProductCategoryData, 
+                        SelectStrings: [] ,SelectForloopStrings:['title','page_url'],SelectForloopStringKeys:['en','ar'],
+                        SelectImages: [] ,SelectForloopImages:['image'],SelectForloopImageKeys:['en','ar'],
+                    },
+                    { 
+                        type: 'string',placeholder:'title',header : 'title' , name : 'title' ,translatable : true , 
+                        data_value :receivedData.title  ,
+                        validation:{required : false } 
+                    },
+                    { 
+                        type: 'file',placeholder:null,header :'image', name : 'image' ,translatable : true ,
+                        data_value :receivedData.image  ,
+                        validation:{required : false } 
+                    },
+                    { 
+                        type: 'string',placeholder:'page url',header :'page url', name : 'page_url' ,translatable : true ,
+                        data_value :receivedData.page_url  ,
+                        validation:{required : false } 
+                    },
+                    { 
+                        type: 'string',placeholder:'page tab title',header :'page tab title', name : 'page_tab_title' ,translatable : true,
+                        data_value :receivedData.page_tab_title  ,
+                        validation:{required : false } 
+                    },
+                    { 
+                        type: 'string',placeholder:'page title',header :'page title', name : 'page_title' ,translatable : true,
+                        data_value :receivedData.page_title  ,
+                        validation:{required : false } 
+                    },
+                    { 
+                        type: 'string',placeholder:'page description',header :'page description', name : 'page_description' ,translatable : true,
+                        data_value :receivedData.page_description  ,
+                        validation:{required : false } 
+                    },
+                    { 
+                        type: 'string',placeholder:'page keywords',header :'page keywords', name : 'page_keywords' ,translatable : true,
+                        data_value :receivedData.page_keywords  ,
+                        validation:{required : false } 
+                    },
+                ];
 
                 this.RequestData =  DataService.handleColumns(this.Columns,this.Languages);
                 this.ServerReaponse.errors = DataService.handleErrorColumns(this.Columns,this.Languages);
@@ -180,8 +184,9 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                         this.hasNoneTranslatableFields = 1;
                     }
                 });
-                this.AllProductCategoryData = (await this.AllProductCategory()).data.data;
-                console.log(this.AllProductCategoryData);
+
+                // this.GetData(this.receivedData);
+
             },
 
 
@@ -193,18 +198,7 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                 this.ServerReaponse.message =null;
             },
             
-            async GetData(){
-                let receivedData =   await this.show( ) ;
-                for (var key in receivedData) {
-                    if(  
-                        ( Array.isArray( receivedData[key] )  && (receivedData[key]).length > 0 ) 
-                        ||  
-                        ( !Array.isArray( receivedData[key] ) &&receivedData[key] != null) 
-                    ){
-                            this.RequestData[key] = receivedData[key];
-                    }
-                }
-            },
+
 
             async FormSubmet(){
                 //clear errors
@@ -214,8 +208,9 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                 if( check ){// if there is error from my file
                      this.ServerReaponse = check; // error from my file
                 }else{ // run the form
-
-                     this.SubmetRowButton(); // succes from file
+                        
+                    await this.HandleData();  // get id from objects
+                     this.SubmetRowButton();  // succes from file
                 }
             },
 
@@ -223,6 +218,9 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                 this.Languages  = ( await this.AllLanguages() ).data; // all languages
             },
 
+            HandleData(){
+                this.RequestData.product_category_id = this.RequestData.product_category_id.id;
+            },
 
             async SubmetRowButton(){
                 this.ServerReaponse = null;

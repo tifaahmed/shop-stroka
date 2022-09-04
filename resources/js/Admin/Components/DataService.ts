@@ -15,11 +15,11 @@ export default class DataService {
                 // [ Column : [] ]
                 for (var lang_key in Languages) {
                     Vue.set( DataService.RequestData[ Columns[key].name ]   , Languages[lang_key],1 ); 
-                    DataService.RequestData[ Columns[key].name ][Languages[lang_key]] = null;
+                    DataService.RequestData[ Columns[key].name ][Languages[lang_key]] = Columns[key].data_value[Languages[lang_key]] ;
                     // [Column : [ ar : null en : null]]
                 }
             }else{
-                DataService.RequestData[Columns[key].name] = null;
+                DataService.RequestData[Columns[key].name] = Columns[key].data_value;
                 // [ Column : null ]
             } 
 
