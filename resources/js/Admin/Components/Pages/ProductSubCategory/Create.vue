@@ -122,7 +122,6 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
 
             hasNoneTranslatableFields : 1,
             hasTranslatableFields : 1,
-            // AllProductCategoryData : [],
 
             Columns : [],
 
@@ -187,9 +186,10 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                 ];
 
 
-
                 this.RequestData =  DataService.handleColumns(this.Columns,this.Languages);
                 this.ServerReaponse.errors = DataService.handleErrorColumns(this.Columns,this.Languages);
+
+
 
                 this.Columns.forEach(element => {
                     if (element.translatable) {

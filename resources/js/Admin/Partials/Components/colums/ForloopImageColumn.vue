@@ -1,14 +1,18 @@
 <template>
     <span>
-        
-        <span  v-for="( valColumn , langkey    )  in ValueColumn" :key="langkey"   >
-                <a :href="valColumn" target="_blanck">
+        <span  v-for="( valLoop , Loopkey )  in LoopOnColumn" :key="Loopkey.id"   >
+            <span v-if="ValueColumn && ValueColumn[valLoop] && ValueColumn[valLoop] !== 'null'"> 
+
+                - <a :href="ValueColumn[valLoop]" target="_blanck"
+                >
                     <img 
-                    v-if="valColumn" 
-                    :src="valColumn" 
+                     
+                    :src="ValueColumn[valLoop]" 
                     style="width: 70px;height: 50px;cursor:pointer;">
                 </a>
-            <br> 
+                <br> 
+                
+            </span>  
         </span>  
     </span>
 
@@ -21,6 +25,7 @@ export default {
 
     props   : {
         ValueColumn :null,
+        LoopOnColumn :null,
     } ,
 
 } </script>
