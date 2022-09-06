@@ -1,11 +1,13 @@
 <template>
-   
+    <div>
         <button 
         @click="SendRowData" 
         class="btn btn-primary" 
         data-target="#modalShow" 
         data-toggle="modal" 
         v-text="ValueColumn" />
+    </div>
+
     
 </template>
 <script> 

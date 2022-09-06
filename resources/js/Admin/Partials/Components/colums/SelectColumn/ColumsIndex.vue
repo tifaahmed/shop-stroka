@@ -1,5 +1,5 @@
 <template >
-	<span>
+	<div>
 		<StringColumn
 		v-if="typeColumn == 'string'"
 		:ValueColumn= "ValueColumn"
@@ -15,7 +15,7 @@
 		:ValueColumn= "ValueColumn"
 		:LoopOnColumn =  "LoopOnColumn"
 		/>
-	</span>
+	</div>
 
 	
 

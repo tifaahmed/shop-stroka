@@ -1,16 +1,16 @@
 <template>
-    <span>
-        <span  v-for="( valLoop , Loopkey )  in LoopOnColumn" :key="Loopkey"   >
-            <span v-if="valLoop && ValueColumn  && ValueColumn[valLoop] !== 'null'"> 
+    <div>
+        <div  v-for="( valLoop , Loopkey )  in LoopOnColumn" :key="Loopkey"   >
+            <div v-if="valLoop && ValueColumn  && ValueColumn[valLoop] !== 'null'"> 
                 <ColumsIndex  
                     :ValueColumn="ValueColumn[valLoop.name]"   
                     :typeColumn="valLoop.type" 
                     :LoopOnColumn="valLoop.secondLoopOnColumn"
                 />
-            </span>
+            </div>
             <br> 
-        </span> 
-    </span>
+        </div> 
+    </div>
 </template>
 
 <script> 

@@ -116,14 +116,13 @@ export default {
                     default : null
                 } ,
                 { 
-                    type: 'SelectForloop'   ,header : 'product_category' , name : 'product_category'            , 
+                    type: 'SelectForloop'   ,header : 'product category' , name : 'product_category'            , 
                     loopOnColumn:[
                         { name : 'id' , type: 'string'   } ,
                         { name : 'image' , type: 'ForloopImage'  , secondLoopOnColumn : ['ar'] }  ,
                         { name : 'title' , type: 'Forloop'  , secondLoopOnColumn :  ['ar']} ,
                     ] ,
                 } ,
-                
                 { 
                     type: 'Forloop'   ,header : 'title'             , name : 'title'            , 
                     loopOnColumn:this.Languages ,  default : null

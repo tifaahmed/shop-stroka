@@ -13,7 +13,7 @@
                                         <ColumsIndex  
                                             :ValueColumn="TableRows[column_val.name]"   
                                             :typeColumn="column_val.type" 
-                                            :LoopOnColumn="column_val.LoopOnColumn"
+                                            :LoopOnColumn="column_val.loopOnColumn"
                                         />
                                     </td>
                                 </tr>
@@ -76,7 +76,7 @@ import ColumsIndex          from 'AdminPartials/Components/colums/ColumsIndex.vu
                     default : null
                 } ,
                 { 
-                    type: 'SelectForloop'   ,header : 'product_category' , name : 'product_category'            , 
+                    type: 'SelectForloop'   ,header : 'product category' , name : 'product_category'            , 
                     loopOnColumn:[
                         { name : 'id' , type: 'string'   } ,
                         { name : 'image' , type: 'ForloopImage'  , secondLoopOnColumn : ['ar'] }  ,

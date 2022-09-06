@@ -1,5 +1,5 @@
 <template>
-    <span>
+    <div>
         <span  v-for="( valLoop , Loopkey )  in LoopOnColumn" :key="Loopkey.id"   >
             <span v-if="ValueColumn && ValueColumn[valLoop] && ValueColumn[valLoop] !== 'null'"> 
 
@@ -14,7 +14,7 @@
                 
             </span>  
         </span>  
-    </span>
+    </div>
 
 
 </template>
