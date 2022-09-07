@@ -1,21 +1,30 @@
 <template>
-    <span>
-        
-        <span  v-for="( valColumn , langkey    )  in ValueColumn" :key="langkey"   >
-                <span v-if="valColumn != 'null'"> -{{valColumn}} </span>
+    <div>
+        <span  v-for="( valLoop , Loopkey )  in LoopOnColumn" :key="Loopkey"   >
+            <span v-if="valLoop && ValueColumn && ValueColumn[valLoop] && ValueColumn[valLoop] !== 'null'"> 
+                -{{ValueColumn[valLoop]}}   
+            </span>
             <br> 
         </span>  
-    </span>
+
+    </div>
 
 
 </template>
+
 <script> 
+
 export default {
+    name:"forloopColumn",
+    components:{
+    },
+
     data( ) { return {
-    } } ,
+     } } ,
 
     props   : {
         ValueColumn :null,
+        LoopOnColumn :[],
     } ,
 
 } </script>

@@ -1,6 +1,7 @@
 <template>
+    <div>
         <span v-text="ValueColumn"  /> 
-
+    </div>
 </template>
 <script> 
 export default {
