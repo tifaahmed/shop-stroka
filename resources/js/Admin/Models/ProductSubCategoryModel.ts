@@ -10,23 +10,23 @@ export default class ProductSubCategoryModel extends Model {
       return formData;
    }
 
-   protected async all() : Promise<any>  {  
+   protected async all( search:object ) : Promise<any>  {  
       let result : any = '';
       try {
-         result   = await (new Router).AllAxios() ;
+         result   = await (new Router).AllAxios(search) ;
       } catch (error) {
          result = Model.catch(error) ;
          Model.ErrorNotification(result.data.message) ;
       }
       return result;
    }
-   protected async collection(page : number , PerPage :number)  : Promise<Model> {  
+   protected async collection(page : number , PerPage :number , search:object)  : Promise<Model> {  
       let result : any = '';
       try {
-         result   = await (new Router).PaginateAxios(page,PerPage) ;
+         result   = await (new Router).PaginateAxios(page,PerPage,search) ;
          if(result.data.meta.to == null){
             var page = page-1;
-            result = await (new Router).PaginateAxios(page,PerPage) ;
+            result = await (new Router).PaginateAxios(page,PerPage,search) ;
          }  
          Model.SuccessNotification(result.data.message) ;
       } catch (error) {

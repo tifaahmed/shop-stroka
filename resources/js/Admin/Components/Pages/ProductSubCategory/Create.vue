@@ -147,7 +147,7 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                         validation:{required : true } ,
                         SelectOptions : AllProductCategoryData,  
                         SelectStrings: [] ,SelectForloopStrings:['title','page_url'],SelectForloopStringKeys:['en','ar'],
-                        SelectImages: [] ,SelectForloopImages:['image'],SelectForloopImageKeys:['en','ar'],
+                        SelectImages: [] ,SelectForloopImages:[],SelectForloopImageKeys:['en','ar'],
                     },
                     { 
                         type: 'string',placeholder:'title',header : this.AllProductCategoryData, name : 'title' ,translatable : true ,

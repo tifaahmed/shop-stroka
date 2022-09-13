@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-use App\Http\Resources\Dashboard\AuthResource;
+use App\Http\Resources\Dashboard\Auth\AuthResource;
 
 use Illuminate\Support\Facades\Auth;
 

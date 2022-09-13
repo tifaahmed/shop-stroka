@@ -10,11 +10,13 @@ export default class Router   {
                 'Authorization': jwt.Authorization ,
                  'Content-Type': 'multipart/form-data',
                  'localization' : 'en'
-         };          
-   responseType : any = 'json' ;
-   routerPrefix : string = '/api/dashboard/' ;
+         };   
+      responseType : any = 'json' ;
+      routerPrefix : string = '/api/dashboard/' ;    
 
-
+      page : number = null ;
+      PerPage : number = null ;
+      search : object = {} ;
 
    async IfAuth() : Promise<any>  { 
       if ( jwt.Authorization != null+ ' ' +null && !jwt.if_accessToken_expire && jwt.User) {
@@ -23,33 +25,48 @@ export default class Router   {
          return false
       }
    } 
+   async createParamsArray() { 
+      var params_array = {};
+      params_array['page'] =  this.page;
+      params_array['PerPage'] = this.PerPage;
+      for (var key in this.search) {
+         params_array[key] = this.search[key];
+      }
+      return params_array; 
+   } 
 
-
-   async AllAxios() : Promise<any>  { 
+   async AllAxios(search:object = {}) : Promise<any>  { 
+      this.search = search;
          return  await  Axios.get( 
             this.routerPrefix+this.name ,
-            { headers : this.headers , responseType : this.responseType}
+            { 
+               headers : this.headers , responseType : this.responseType,
+               params  : this.createParamsArray()
+            }
          ) ;
    }
 
-   async PaginateAxios(page : number , PerPage :number, relation_id:number = null) : Promise<any>  { 
-          return await Axios.get( 
-            this.routerPrefix+this.name+'/collection', 
-               { 
-                  headers : this.headers ,responseType : this.responseType ,       
-                  params  : { 'page':page , 'PerPage':PerPage ,'relation_id':relation_id }
-               } ,
-         ); 
+   async PaginateAxios(page : number , PerPage :number, search:object = {} ) : Promise<any>  { 
+      this.page = page;
+      this.PerPage = PerPage;
+      this.search = search;
+      return await Axios.get( 
+         this.routerPrefix+this.name+'/collection', 
+            { 
+               headers : this.headers ,responseType : this.responseType ,       
+               params  : await this.createParamsArray()
+            } ,
+      ); 
    }
-   async PaginateTrashAxios(page : number , PerPage :number, relation_id:number = null) : Promise<any>  { 
+   async PaginateTrashAxios(page : number , PerPage :number, search:object = {}) : Promise<any>  { 
       return await Axios.get( 
          this.routerPrefix+this.name+'/collection-trash', 
-           { 
-              headers : this.headers ,responseType : this.responseType ,       
-              params  : { 'page':page , 'PerPage':PerPage ,'relation_id':relation_id }
-           } ,
+         { 
+            headers : this.headers ,responseType : this.responseType ,       
+            params  : this.createParamsArray()
+         } ,
      ); 
-}
+   }
    
    async StoreAxios(formData : any) : Promise<any>  {
        return  await Axios.post( 
