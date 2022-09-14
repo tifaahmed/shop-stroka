@@ -5,11 +5,8 @@
                 class="breadcrumb-header justify-content-between" 
                 style="justify-content: space-between !important; margin-top: 80px;"
             >
-            <b-input-group prepend="filter" class="mt-3">
-                <b-form-input  v-model="search.search_name"  ></b-form-input>
-                <b-input-group-append>
-                <b-button variant="info">Button</b-button>
-                </b-input-group-append>
+            <b-input-group prepend="title" class="mt-3">
+                <b-form-input  @change="Collection()"  v-model="filter[0].title"  ></b-form-input>
             </b-input-group>
 
             </div>
@@ -98,9 +95,9 @@ export default {
     },
 
     data( ) { return {
-        search :[
-            {search_name : 'kkkk' ,product_category_id : 'ghjrt'},
-        ],
+        filter :[{
+            id : 11,title : 'sss' 
+        }],
 
         TableName :'ProductSubCategory',
         Languages : [],
@@ -182,7 +179,8 @@ export default {
 
         // model 
             Collection(page = 1){
-                return  (new Model).collection(page,this.PerPage,this.search[0])  ;
+                console.log(this.filter[0],'all');
+                return  (new Model).collection(page,this.PerPage,this.filter[0])  ;
             },
             Delete(id){
                 return (new Model).deleteRow(id)  ;
@@ -194,6 +192,8 @@ export default {
             await this.initial(page);
             this.CloseModal();
         },
+
+
 
         // modal
             AllLanguages(){
