@@ -29,10 +29,15 @@
 					</span>
 
 					<span :if="props.option[PropSelectForloop]" >
-						<span   v-for="( valLang , langkey    )  in props.option[PropSelectForloop]" :key="langkey"   >
-							<span  v-for="valColumn in PropSelectForloopColumn">
-								<span v-if="valLang[valColumn] != null">- {{valLang[valColumn]}} </span>
+						<span   v-for="( val , key    )  in props.option[PropSelectForloop]" :key="key"   >
+							<span  v-if="val != null" >
+								<span v-for="( valColumn , keyColumn    )  in PropSelectForloopColumn" :key="keyColumn"   >
+									<span v-if="val[valColumn] != null">
+										- {{val[valColumn]}} 
+									</span>
+								</span>
 							</span>
+
 							/
 						</span> 
 					</span>
@@ -103,8 +108,6 @@ export default {
         	this.$emit( 'change' ,  this.data  ) ;    
     	}
     } ,
-
-
 
 } </script>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

@@ -10,23 +10,23 @@ export default class ProductSubCategoryModel extends Model {
       return formData;
    }
 
-   protected async all() : Promise<any>  {  
+   protected async all( filter:object ) : Promise<any>  {  
       let result : any = '';
       try {
-         result   = await (new Router).AllAxios() ;
+         result   = await (new Router).AllAxios(filter) ;
       } catch (error) {
          result = Model.catch(error) ;
          Model.ErrorNotification(result.data.message) ;
       }
       return result;
    }
-   protected async collection(page : number , PerPage :number)  : Promise<Model> {  
+   protected async collection(page : number , PerPage :number , filter:object)  : Promise<Model> {  
       let result : any = '';
       try {
-         result   = await (new Router).PaginateAxios(page,PerPage) ;
+         result   = await (new Router).PaginateAxios(page,PerPage,filter) ;
          if(result.data.meta.to == null){
             var page = page-1;
-            result = await (new Router).PaginateAxios(page,PerPage) ;
+            result = await (new Router).PaginateAxios(page,PerPage,filter) ;
          }  
          Model.SuccessNotification(result.data.message) ;
       } catch (error) {
@@ -49,7 +49,6 @@ export default class ProductSubCategoryModel extends Model {
          return result;
    }
    protected async update ( id  : number ,RequestData ?: any) : Promise< any > {
-      console.log(RequestData);
       let formData = await this.handleData(RequestData);
       let result : any = '';
       try {

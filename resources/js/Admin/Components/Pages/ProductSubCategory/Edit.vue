@@ -97,7 +97,8 @@ import validation     from 'AdminValidations/ProductSubCategoryValidation';
 import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue'     ;
 
     export default {
-        name:'ProductSubCategory',
+        name:'ProductSubCategory'+'Edit',
+
         components : { InputsFactory } ,
 
         mounted() {
@@ -109,7 +110,7 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
 
             Languages : [],
 
-            hasNoneTranslatableFields : 1,
+            hasNoneTranslatableFields : 0,
             hasTranslatableFields : 0,
             
             Columns : [],
@@ -120,8 +121,7 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
             },
 
             RequestData : {},
-            // AllProductCategoryData : [],
-            // receivedData : null,
+
         } } ,
         methods : {
             async start(){
@@ -185,7 +185,6 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                     }
                 });
 
-                // this.GetData(this.receivedData);
 
             },
 

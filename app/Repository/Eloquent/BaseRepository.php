@@ -6,13 +6,15 @@ use App\Repository\EloquentRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
+use Torann\LaravelRepository\Repositories\AbstractRepository;
+use Spatie\QueryBuilder\QueryBuilder;
 
-class BaseRepository implements EloquentRepositoryInterface
+class BaseRepository implements EloquentRepositoryInterface 
 {
 	/**
 	 * @var Model
 	 */
-	protected $model;
+
 
 	/**
 	 * BaseRepository  constructor
@@ -29,8 +31,15 @@ class BaseRepository implements EloquentRepositoryInterface
 	 * @return  Collection
 	 */
 	public function all(array $columns = ['*'], array $relations = []): Collection
-	{
-		return $this->model->with($relations)->get($columns);
+	{    
+		$keyName= $this->model->getKeyName() ;
+		$fillable= $this->model->getFillable() ;
+
+		array_push($fillable,$keyName);
+
+		return QueryBuilder::for($this->model->with($relations))
+		->allowedFilters($fillable)
+		->get($columns);
 	}
 
 	/**
@@ -39,7 +48,14 @@ class BaseRepository implements EloquentRepositoryInterface
 	 */
 	public function collection(int $modelId, array $relations = []) 
 	{
-		return $this->model->latest()->with($relations)->paginate($modelId)->appends(request()->query());
+		$keyName= $this->model->getKeyName() ;
+		$fillable= $this->model->getFillable() ;
+
+		array_push($fillable,$keyName);
+
+		return QueryBuilder::for($this->model->with($relations))
+		->allowedFilters($fillable)
+		->latest()->paginate($modelId)->appends(request()->query());
 	}
 
 	public function queryPaginate($query,$itemsNumber) 

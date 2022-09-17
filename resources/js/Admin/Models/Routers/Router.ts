@@ -1,7 +1,8 @@
- 
+import Vue from 'vue'
+
 import Axios from 'axios' ;
 import jwt   from './../../../Services/jwt' ;
-import RolePermisionServices   from './../../../Services/RolePermision' ;
+// import RolePermisionServices   from './../../../Services/RolePermision' ;
 
 export default class Router   {
     name : string = '' ;
@@ -10,11 +11,13 @@ export default class Router   {
                 'Authorization': jwt.Authorization ,
                  'Content-Type': 'multipart/form-data',
                  'localization' : 'en'
-         };          
-   responseType : any = 'json' ;
-   routerPrefix : string = '/api/dashboard/' ;
+         };   
+      responseType : any = 'json' ;
+      routerPrefix : string = '/api/dashboard/' ;    
 
-
+      page : number = null ;
+      PerPage : number = null ;
+      filter : object = {} ;
 
    async IfAuth() : Promise<any>  { 
       if ( jwt.Authorization != null+ ' ' +null && !jwt.if_accessToken_expire && jwt.User) {
@@ -23,33 +26,64 @@ export default class Router   {
          return false
       }
    } 
+   async createParamsArray() { 
 
+      // var params_array = [];
+      // params_array['page'] =  this.page;
+      // // params_array['PerPage'] = this.PerPage;
+      // Vue.set( params_array ,'PerPage',this.PerPage); 
 
-   async AllAxios() : Promise<any>  { 
+      // for (var key in this.filter) {
+      //    Vue.set( params_array['filter']  ,key,this.filter[key] ); 
+      // }
+      // // params_array['filter'][key] = this.filter[key] ;
+      // console.log(params_array,'ggggggg');
+      // return params_array; 
+   } 
+
+   async AllAxios(filter:object = {} ) : Promise<any>  { 
+      this.filter = filter;
          return  await  Axios.get( 
             this.routerPrefix+this.name ,
-            { headers : this.headers , responseType : this.responseType}
+            { 
+               headers : this.headers , responseType : this.responseType,
+               params  : await this.createParamsArray()
+            }
          ) ;
    }
 
-   async PaginateAxios(page : number , PerPage :number, relation_id:number = null) : Promise<any>  { 
-          return await Axios.get( 
-            this.routerPrefix+this.name+'/collection', 
-               { 
-                  headers : this.headers ,responseType : this.responseType ,       
-                  params  : { 'page':page , 'PerPage':PerPage ,'relation_id':relation_id }
-               } ,
-         ); 
+   async PaginateAxios(page : number , PerPage :number, filter:object = {} ) : Promise<any>  { 
+      // this.page = page;
+      // this.PerPage = PerPage;
+      // this.filter = filter;
+
+      var params_array = {};
+      params_array['page'] = page;
+      params_array['PerPage'] = PerPage;
+
+      for (var key in filter) {
+         if (filter[key]) {
+            params_array['filter['+key+']'] = filter[key];
+         }
+      }
+ 
+      return await Axios.get( 
+         this.routerPrefix+this.name+'/collection', 
+            { 
+               headers : this.headers ,responseType : this.responseType ,       
+               params: params_array
+            } ,
+      ); 
    }
-   async PaginateTrashAxios(page : number , PerPage :number, relation_id:number = null) : Promise<any>  { 
+   async PaginateTrashAxios(page : number , PerPage :number, search:object = {}) : Promise<any>  { 
       return await Axios.get( 
          this.routerPrefix+this.name+'/collection-trash', 
-           { 
-              headers : this.headers ,responseType : this.responseType ,       
-              params  : { 'page':page , 'PerPage':PerPage ,'relation_id':relation_id }
-           } ,
+         { 
+            headers : this.headers ,responseType : this.responseType ,       
+            params  : await this.createParamsArray()
+         } ,
      ); 
-}
+   }
    
    async StoreAxios(formData : any) : Promise<any>  {
        return  await Axios.post( 

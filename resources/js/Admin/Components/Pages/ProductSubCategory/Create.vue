@@ -122,7 +122,6 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
 
             hasNoneTranslatableFields : 1,
             hasTranslatableFields : 1,
-            // AllProductCategoryData : [],
 
             Columns : [],
 
@@ -148,7 +147,7 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                         validation:{required : true } ,
                         SelectOptions : AllProductCategoryData,  
                         SelectStrings: [] ,SelectForloopStrings:['title','page_url'],SelectForloopStringKeys:['en','ar'],
-                        SelectImages: [] ,SelectForloopImages:['image'],SelectForloopImageKeys:['en','ar'],
+                        SelectImages: [] ,SelectForloopImages:[],SelectForloopImageKeys:['en','ar'],
                     },
                     { 
                         type: 'string',placeholder:'title',header : this.AllProductCategoryData, name : 'title' ,translatable : true ,
@@ -187,9 +186,10 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                 ];
 
 
-
                 this.RequestData =  DataService.handleColumns(this.Columns,this.Languages);
                 this.ServerReaponse.errors = DataService.handleErrorColumns(this.Columns,this.Languages);
+
+
 
                 this.Columns.forEach(element => {
                     if (element.translatable) {

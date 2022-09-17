@@ -38,7 +38,7 @@ class ProductCategory extends Model
     ];
 
     // HasMany
-    public function product_sub_category(){
+    public function product_sub_categories(){
         return $this->HasMany(ProductSubCategory::class);
     }
 }

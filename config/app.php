@@ -186,7 +186,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        \Torann\LaravelRepository\RepositoryServiceProvider::class,
         /*
          * Application Service Providers...
          */
