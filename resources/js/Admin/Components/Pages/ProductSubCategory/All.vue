@@ -6,7 +6,8 @@
                 style="justify-content: space-between !important; margin-top: 80px;"
             >
             <b-input-group prepend="title" class="mt-3">
-                <b-form-input  @change="Collection()"  v-model="filter[0].title"  ></b-form-input>
+                <b-form-input  @change="initial()"  v-model="filter.title"  ></b-form-input>
+
             </b-input-group>
 
             </div>
@@ -95,9 +96,8 @@ export default {
     },
 
     data( ) { return {
-        filter :[{
-            id : 11,title : 'sss' 
-        }],
+        filter :{  id : null ,title : null },
+
 
         TableName :'ProductSubCategory',
         Languages : [],
@@ -179,8 +179,8 @@ export default {
 
         // model 
             Collection(page = 1){
-                console.log(this.filter[0],'all');
-                return  (new Model).collection(page,this.PerPage,this.filter[0])  ;
+                return  (new Model).collection(page,this.PerPage,this.filter)  ;
+
             },
             Delete(id){
                 return (new Model).deleteRow(id)  ;

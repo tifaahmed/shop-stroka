@@ -26,7 +26,6 @@ class CreateStoreDetailsTable extends Migration
         });
 
 
-        DB::table('store_details')->insert(array('id' => '1', 'lang_id' => '1',));
     }
 
     /**

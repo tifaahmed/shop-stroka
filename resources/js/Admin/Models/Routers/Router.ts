@@ -27,18 +27,17 @@ export default class Router   {
       }
    } 
    async createParamsArray() { 
-
-      var params_array = [];
-      params_array['page'] =  this.page;
-      params_array['PerPage'] = this.PerPage;
-      params_array['filter'] = {};
+      var params_array = {};
+      params_array['page'] = this.page;
+      params_array['PerPage'] =this.PerPage
 
       for (var key in this.filter) {
-         params_array['filter'][key] = this.filter[key];
+         if (this.filter[key]) {
+            params_array['filter['+key+']'] = this.filter[key];
+         }
       }
-
-      console.log(params_array,'ggggggg');
       return params_array; 
+
    } 
 
    async AllAxios(filter:object = {}) : Promise<any>  { 
@@ -47,7 +46,7 @@ export default class Router   {
             this.routerPrefix+this.name ,
             { 
                headers : this.headers , responseType : this.responseType,
-               params  : this.createParamsArray()
+               params  : await this.createParamsArray()
             }
          ) ;
    }
@@ -57,52 +56,11 @@ export default class Router   {
       this.PerPage = PerPage;
       this.filter = filter;
 
-      var params_array = [];
-      Vue.set( params_array   , 'filter' , 1 ); 
-
-      console.log(params_array,'1');
-
-      params_array['filter'] = [];
-      Vue.set( params_array['filter']  , 'title',1 ); 
-      Vue.set( params_array['filter']  , 'ss',1 ); 
-
-      console.log(params_array,'2');
-
-      params_array['filter']['title']  =   'jjjj';
-      params_array['filter']['ss']  =   'jjjj';
-
-      console.log(params_array,3);
-
-      var params_xxx = { ...params_array };    
-
-      console.log(params_xxx,4);
-      var params_xxx = JSON.stringify(params_xxx);
-      console.log(params_xxx,4);
-
-      var params_xxx =  
-      
-            filter: {
-               title : 'llll'
-               ,
-               id : 'llll'
-            }
-      ;
-
-      console.log( JSON.stringify(params_xxx)   ,'3' );
-      console.log( params_xxx );
-
-
       return await Axios.get( 
          this.routerPrefix+this.name+'/collection', 
             { 
                headers : this.headers ,responseType : this.responseType ,       
-               
-               params:{
-                  JSON.stringify(params_xxx) 
-                  ,
-                  per_page: 10
-               }
-               
+               params: params_array
             } ,
       ); 
    }
@@ -111,7 +69,7 @@ export default class Router   {
          this.routerPrefix+this.name+'/collection-trash', 
          { 
             headers : this.headers ,responseType : this.responseType ,       
-            params  : this.createParamsArray()
+            params  : await this.createParamsArray()
          } ,
      ); 
    }
