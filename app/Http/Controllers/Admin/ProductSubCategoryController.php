@@ -44,6 +44,7 @@ class ProductSubCategoryController extends Controller
     }
 
     public function collection(Request $request){
+        return $request->filter['id'];
         try {
             $modal = $this->ModelRepository->collection( 
                 $request->per_page ? $request->per_page : $this->default_per_page

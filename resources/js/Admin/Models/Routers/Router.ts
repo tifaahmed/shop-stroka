@@ -27,21 +27,20 @@ export default class Router   {
       }
    } 
    async createParamsArray() { 
+      var params_array = {};
+      params_array['page'] = this.page;
+      params_array['PerPage'] =this.PerPage
 
-      // var params_array = [];
-      // params_array['page'] =  this.page;
-      // // params_array['PerPage'] = this.PerPage;
-      // Vue.set( params_array ,'PerPage',this.PerPage); 
+      for (var key in this.filter) {
+         if (this.filter[key]) {
+            params_array['filter['+key+']'] = this.filter[key];
+         }
+      }
+      return params_array; 
 
-      // for (var key in this.filter) {
-      //    Vue.set( params_array['filter']  ,key,this.filter[key] ); 
-      // }
-      // // params_array['filter'][key] = this.filter[key] ;
-      // console.log(params_array,'ggggggg');
-      // return params_array; 
    } 
 
-   async AllAxios(filter:object = {} ) : Promise<any>  { 
+   async AllAxios(filter:object = {}) : Promise<any>  { 
       this.filter = filter;
          return  await  Axios.get( 
             this.routerPrefix+this.name ,
@@ -53,20 +52,10 @@ export default class Router   {
    }
 
    async PaginateAxios(page : number , PerPage :number, filter:object = {} ) : Promise<any>  { 
-      // this.page = page;
-      // this.PerPage = PerPage;
-      // this.filter = filter;
+      this.page = page;
+      this.PerPage = PerPage;
+      this.filter = filter;
 
-      var params_array = {};
-      params_array['page'] = page;
-      params_array['PerPage'] = PerPage;
-
-      for (var key in filter) {
-         if (filter[key]) {
-            params_array['filter['+key+']'] = filter[key];
-         }
-      }
- 
       return await Axios.get( 
          this.routerPrefix+this.name+'/collection', 
             { 

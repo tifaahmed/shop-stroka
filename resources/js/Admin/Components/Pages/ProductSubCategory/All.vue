@@ -7,6 +7,7 @@
             >
             <b-input-group prepend="title" class="mt-3">
                 <b-form-input  @change="initial()"  v-model="filter.title"  ></b-form-input>
+
             </b-input-group>
 
             </div>
@@ -97,6 +98,7 @@ export default {
     data( ) { return {
         filter :{  id : null ,title : null },
 
+
         TableName :'ProductSubCategory',
         Languages : [],
 
@@ -178,6 +180,7 @@ export default {
         // model 
             Collection(page = 1){
                 return  (new Model).collection(page,this.PerPage,this.filter)  ;
+
             },
             Delete(id){
                 return (new Model).deleteRow(id)  ;
