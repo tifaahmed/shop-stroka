@@ -1,5 +1,16 @@
 <template>
     <div class="row row-sm">
+        <div class="container-fluid" >
+            <div 
+                class="breadcrumb-header justify-content-between" 
+                style="justify-content: space-between !important; margin-top: 80px;"
+            >
+            <b-input-group prepend="title" class="mt-3">
+                <b-form-input  @change="Collection()"  v-model="filter[0].title"  ></b-form-input>
+            </b-input-group>
+
+            </div>
+        </div>
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-body">
@@ -84,6 +95,10 @@ export default {
     },
 
     data( ) { return {
+        filter :[{
+            id : 11,title : 'sss' 
+        }],
+
         TableName :'ProductSubCategory',
         Languages : [],
 
@@ -164,7 +179,8 @@ export default {
 
         // model 
             Collection(page = 1){
-                return  (new Model).collection(page,this.PerPage)  ;
+                console.log(this.filter[0],'all');
+                return  (new Model).collection(page,this.PerPage,this.filter[0])  ;
             },
             Delete(id){
                 return (new Model).deleteRow(id)  ;
@@ -176,6 +192,8 @@ export default {
             await this.initial(page);
             this.CloseModal();
         },
+
+
 
         // modal
             AllLanguages(){

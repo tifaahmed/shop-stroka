@@ -8,7 +8,6 @@
                     :LoopOnColumn="valLoop.secondLoopOnColumn"
                 />
             </div>
-            <br> 
         </div> 
     </div>
 </template>
