@@ -5,10 +5,19 @@
                 class="breadcrumb-header justify-content-between" 
                 style="justify-content: space-between !important; margin-top: 80px;"
             >
+<<<<<<< HEAD
+                <b-input-group prepend="id"  style="width: 50%;">
+                    <b-form-input   @change="initial()"  v-model="filter.id"  ></b-form-input>
+                </b-input-group>
+                <b-input-group prepend="title"   style="width: 50%;">
+                    <b-form-input   @change="initial()"  v-model="filter.title"  ></b-form-input>
+                </b-input-group>
+=======
             <b-input-group prepend="title" class="mt-3">
                 <b-form-input  @change="initial()"  v-model="filter.title"  ></b-form-input>
 
             </b-input-group>
+>>>>>>> 1f334c802bfc6095e58482cefa22f8a49d9f7fbc
 
             </div>
         </div>
