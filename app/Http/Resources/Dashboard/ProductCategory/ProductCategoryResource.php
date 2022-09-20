@@ -4,7 +4,6 @@ namespace App\Http\Resources\dashboard\ProductCategory;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Resources\dashboard\ProductCategory\ProductSubCategoryResource;
 class ProductCategoryResource extends JsonResource
 {
     /**
@@ -34,7 +33,7 @@ class ProductCategoryResource extends JsonResource
         $all=[];
 
         $all += [ 'id' =>   $this->id ]  ;
-        $all += [ 'product_sub_categories' =>   ProductSubCategoryResource::collection($this->product_sub_categories) ]  ;
+        // $all += [ 'product_sub_categories' =>   ProductSubCategoryResource::collection($this->product_sub_categories) ]  ;
 
         $all += resource_translated_string($model,$lang_array,$translated_string_fields);
         $all += resource_translated_image($model,$lang_array,$translated_image_fields);

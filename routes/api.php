@@ -36,14 +36,14 @@ Route::group(['prefix' =>'dashboard'], fn ( ) : array => [
 
 
     // slider
-    Route::name('slider.')->prefix('/slider')->group( fn ( ) : array => [
-        Route::get('/'                          ,   'SliderController@all'                 )->name('all'),
-        Route::post(''                          ,   'SliderController@store'               )->name('store'),
-        Route::get('/{id}/show'                 ,   'SliderController@show'                )->name('show'),
-        Route::get('/collection'                ,   'SliderController@collection'          )->name('collection'),
-        Route::DELETE('/{id}'                   ,   'SliderController@destroy'             )->name('destroy'),
-        Route::post('/{id}/update'              ,   'SliderController@update'              )->name('update')
-    ]),
+    // Route::name('slider.')->prefix('/slider')->group( fn ( ) : array => [
+    //     Route::get('/'                          ,   'SliderController@all'                 )->name('all'),
+    //     Route::post(''                          ,   'SliderController@store'               )->name('store'),
+    //     Route::get('/{id}/show'                 ,   'SliderController@show'                )->name('show'),
+    //     Route::get('/collection'                ,   'SliderController@collection'          )->name('collection'),
+    //     Route::DELETE('/{id}'                   ,   'SliderController@destroy'             )->name('destroy'),
+    //     Route::post('/{id}/update'              ,   'SliderController@update'              )->name('update')
+    // ]),
 
     // product-category
     Route::name('product-category.')->prefix('/product-category')->group( fn ( ) : array => [
@@ -60,5 +60,34 @@ Route::group(['prefix' =>'dashboard'], fn ( ) : array => [
         Route::get('/{id}/show-trash'           ,   'ProductCategoryController@show_trash'          )->name('show_trash'),
     ]),
 
+    // product-category
+    Route::name('product-item.')->prefix('/product-item')->group( fn ( ) : array => [
+        Route::get('/'                          ,   'ProductItemsController@all'                 )->name('all'),
+        Route::post(''                          ,   'ProductItemsController@store'               )->name('store'),
+        Route::get('/{id}/show'                 ,   'ProductItemsController@show'                )->name('show'),
+        Route::get('/collection'                ,   'ProductItemsController@collection'          )->name('collection'),
+        Route::DELETE('/{id}'                   ,   'ProductItemsController@destroy'             )->name('destroy'),
+        Route::post('/{id}/update'              ,   'ProductItemsController@update'              )->name('update'),
+        
+        Route::get('/{id}/restore'              ,   'ProductItemsController@restore'             )->name('restore'),
+        Route::DELETE('premanently-delete/{id}' ,   'ProductItemsController@premanently_delete'  )->name('premanently_delete'),
+        Route::get('/collection-trash'          ,   'ProductItemsController@collection_trash'    )->name('collection_trash'),
+        Route::get('/{id}/show-trash'           ,   'ProductItemsController@show_trash'          )->name('show_trash'),
+    ]),
+
+    // product-category
+    Route::name('store.')->prefix('/store')->group( fn ( ) : array => [
+        Route::get('/'                          ,   'StoreController@all'                 )->name('all'),
+        Route::post(''                          ,   'StoreController@store'               )->name('store'),
+        Route::get('/{id}/show'                 ,   'StoreController@show'                )->name('show'),
+        Route::get('/collection'                ,   'StoreController@collection'          )->name('collection'),
+        Route::DELETE('/{id}'                   ,   'StoreController@destroy'             )->name('destroy'),
+        Route::post('/{id}/update'              ,   'StoreController@update'              )->name('update'),
+        
+        Route::get('/{id}/restore'              ,   'StoreController@restore'             )->name('restore'),
+        Route::DELETE('premanently-delete/{id}' ,   'StoreController@premanently_delete'  )->name('premanently_delete'),
+        Route::get('/collection-trash'          ,   'StoreController@collection_trash'    )->name('collection_trash'),
+        Route::get('/{id}/show-trash'           ,   'StoreController@show_trash'          )->name('show_trash'),
+    ]),
 ]);
     

@@ -13,8 +13,8 @@ use App\Repository\SliderRepositoryInterface;
 use App\Repository\Eloquent\ProductCategoryRepository;
 use App\Repository\ProductCategoryRepositoryInterface;
 
-use App\Repository\Eloquent\ProductSubCategoryRepository;
-use App\Repository\ProductSubCategoryRepositoryInterface;
+use App\Repository\Eloquent\ProductItemRepository;
+use App\Repository\ProductItemRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -27,8 +27,9 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->bind(EloquentRepositoryInterface::class,BaseRepository::class);
         $this->app->bind(SliderRepositoryInterface::class,SliderRepository::class);
+
         $this->app->bind(ProductCategoryRepositoryInterface::class,ProductCategoryRepository::class);
-        $this->app->bind(ProductSubCategoryRepositoryInterface::class,ProductSubCategoryRepository::class);
+        $this->app->bind(ProductItemRepositoryInterface::class,ProductItemRepository::class);
     }
 
     /**
