@@ -26,8 +26,8 @@ return new class extends Migration
             $table->text('title'); // [note: "translatable , car title"]
             $table->text('description'); // [note: "translatable , car description"]
 
-            $table->string('latitude'); 
-            $table->string('longitude'); 
+            $table->string('latitude')->nullable() ;
+            $table->string('longitude')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
