@@ -49,7 +49,6 @@ class Controller extends BaseController
                 }
             }        
         }
-
         return $all;
 
     }

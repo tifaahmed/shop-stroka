@@ -2,10 +2,10 @@
 
 namespace App\Repository\Eloquent;
 
-use App\Models\ProductSubCategory as ModelName;
-use App\Repository\ProductSubCategoryRepositoryInterface;
+use App\Models\ProductItem as ModelName;
+use App\Repository\ProductItemRepositoryInterface;
 
-class ProductSubCategoryRepository extends BaseRepository implements ProductSubCategoryRepositoryInterface
+class ProductItemRepository extends BaseRepository implements ProductItemRepositoryInterface
 {
 
 	/**

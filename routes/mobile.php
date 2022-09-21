@@ -39,7 +39,12 @@ Route::group(['middleware' => ['LocalizationMiddleware']], fn ( ) : array => [
         Route::get('/'                          ,   'ProductCategoryController@all'                 )->name('all'),
         Route::get('/{id}/show'                 ,   'ProductCategoryController@show'                )->name('show'),
         Route::get('/collection'                ,   'ProductCategoryController@collection'          )->name('collection'),
-  ]),
-   
+    ]),
+    // product-category
+    Route::name('product-item.')->prefix('/product-item')->group( fn ( ) : array => [
+        Route::get('/'                          ,   'ProductItemsController@all'                 )->name('all'),
+        Route::get('/{id}/show'                 ,   'ProductItemsController@show'                )->name('show'),
+        Route::get('/collection'                ,   'ProductItemsController@collection'          )->name('collection'),
+    ]),
 ])
 ]);
