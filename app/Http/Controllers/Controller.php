@@ -54,24 +54,7 @@ class Controller extends BaseController
     }
 
 
-    public function update_files($old_model,$request,$folder_name,$file_columns){
-        $all = [ ];
-        foreach ($file_columns as $file_column) {
-    
-            if ( $request->hasFile( $file_column ) ) { 
-                $old_path = $old_model->$file_column;
-                $this->Deletefile($old_path); 
-                $old_folder_location = $this->GetFolderDirectory($old_path); 
-    
-                $folder_location = $old_folder_location ? $old_folder_location : $folder_name;
-    
-                $path =   $this->HelperStorage($folder_location,$request->$file_column) ;
-    
-                $all += array( $file_column =>  $path );
-            }
-        }
-        return $all;
-    }
+
 
     public function store_translated_files($request,$folder_name,$translated_file_columns){
    
@@ -94,7 +77,25 @@ class Controller extends BaseController
         }
         return $all;
     }
-
+    public function update_files($old_model,$request,$folder_name,$file_columns){
+        $all = [ ];
+        foreach ($file_columns as $file_column) {
+            if ( $request->hasFile( $file_column ) ) { 
+                $old_path = $old_model->$file_column;
+                $old_folder_location = null;
+                if ($old_path) {
+                    $this->Deletefile($old_path); 
+                    $old_folder_location = $this->GetFolderDirectory($old_path); 
+                }
+                $folder_location = $old_folder_location ? $old_folder_location : $folder_name;
+    
+                $path =   $this->HelperStorage($folder_location,$request->$file_column) ;
+    
+                $all += array( $file_column =>  $path );
+            }
+        }
+        return $all;
+    }
     public function update_translated_files($old_model,$request,$folder_name,$translated_file_columns){
         $all = [ ];
         foreach ($translated_file_columns as $translated_file_column) {

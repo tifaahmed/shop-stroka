@@ -23,13 +23,7 @@ if (!function_exists('resource_translated_image')) {
             foreach ($lang_array as $lang) {
                 $temp_file_arr += [
                     $lang=>  
-                        $model->getTranslation($translated_image_field, $lang)
-                            &&
-                        Storage::disk('public')->exists( $model->getTranslation($translated_image_field, $lang) ) 
-                            ? 
-                        asset(Storage::url( $model->getTranslation($translated_image_field, $lang)  ) )  
-                            : 
-                        null
+                    check_image($model->getTranslation($translated_image_field, $lang))
                 ];
             }
             $all += [ $translated_image_field => $temp_file_arr];
@@ -60,18 +54,14 @@ if (!function_exists('resource_image')) {
         $all=[];
         foreach ($image_fields as $image_field) {
             $all += [   
-                $image_field=>  
-                    $model->$image_field
-                        &&
-                    Storage::disk('public')->exists( $model->$image_field) 
-                        ? 
-                    asset( Storage::url( $model->$image_field ) )  
-                        : 
-                    null
+                $image_field=> 
+                check_image($model->$image_field)
             ];
         }
         return $all;
     }
+}  
+if (!function_exists('resource_date')) {
     function resource_date($model,$date_fields)
     {
         $all=[];
@@ -80,8 +70,15 @@ if (!function_exists('resource_image')) {
         }
         return $all;
     }
-    
-
-
-
+}
+if (!function_exists('check_image')) {
+    function check_image($image)
+    {
+        return 
+        ( $image && Storage::disk('public')->exists( $image) ) 
+            ? 
+        asset( Storage::url( $image ) )  
+            : 
+        null;
+    }
 }

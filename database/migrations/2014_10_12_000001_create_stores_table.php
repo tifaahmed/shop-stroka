@@ -17,20 +17,20 @@ return new class extends Migration
             $table->increments('id');
 
 
-            $table->integer('user_id')->nullable()->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->enum('status', ['pending', 'accepted', 'rejected' ,'canceled']);
 
-            $table->string('image')->nullable(); // [note: "store logo  pizza"]
+            $table->string('image'); // [note: "store logo  pizza"]
 
             $table->text('title'); // [note: "translatable"]
             $table->text('description'); // [note: "translatable"]
 
             $table->string('phone'); 
 
-            $table->string('latitude'); 
-            $table->string('longitude'); 
+            $table->string('latitude')->nullable() ;
+            $table->string('longitude')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

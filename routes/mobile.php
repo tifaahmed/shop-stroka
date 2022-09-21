@@ -46,5 +46,11 @@ Route::group(['middleware' => ['LocalizationMiddleware']], fn ( ) : array => [
         Route::get('/{id}/show'                 ,   'ProductItemsController@show'                )->name('show'),
         Route::get('/collection'                ,   'ProductItemsController@collection'          )->name('collection'),
     ]),
+    // store
+    Route::name('store.')->prefix('store')->group( fn ( ) : array => [
+        Route::get('/'                          ,   'StoreController@all'                 )->name('all'),
+        Route::get('/{id}/show'                 ,   'StoreController@show'                )->name('show'),
+        Route::get('/collection'                ,   'StoreController@collection'          )->name('collection'),
+    ]),
 ])
 ]);

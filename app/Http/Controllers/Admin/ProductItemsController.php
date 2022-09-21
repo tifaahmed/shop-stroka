@@ -82,7 +82,7 @@ class ProductItemsController extends Controller
     public function update(modelUpdateRequest $request ,$id) {
         try {
             $old_model =  $this->ModelRepository->findById($id)  ;
-            $all = $this->update_translated_files(
+            $all = $this->update_files(
                 $old_model,
                 $request,
                 $this->folder_name,
@@ -178,7 +178,7 @@ class ProductItemsController extends Controller
                 $this->deleteAlltranslatableFiles($model,$this->translated_file_columns);
             }
             if (count($this->file_columns)) {
-                $this->deleteAllFiles($model,$this->translated_file_columns);
+                $this->deleteAllFiles($model,$this->file_columns);
             }
             
             $this->ModelRepository->PremanentlyDeleteById($id);
