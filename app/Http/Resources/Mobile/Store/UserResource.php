@@ -17,9 +17,7 @@ class UserResource extends JsonResource
 
         $all=[];
         $all += [ 'id' =>   $this->id ]  ;
-        $all += [ 'title' =>   $this->title ]  ;
-        $all += [ 'description' =>   $this->description ]  ;
-        $all += [ 'status' =>   $this->status ]  ;
+
         $all += [ 'phone' =>   $this->phone ]  ;
         $all += [ 'latitude' =>   $this->latitude ]  ;
         $all += [ 'longitude' =>   $this->longitude ]  ;
