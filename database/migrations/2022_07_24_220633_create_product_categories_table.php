@@ -18,14 +18,6 @@ return new class extends Migration
 
             $table->text('title');
 
-            $table->text('image')->nullable();
-
-            $table->text('page_url')->nullable();
-            $table->text('page_tab_title')->nullable();
-            $table->text('page_title')->nullable();
-            $table->text('page_description')->nullable();
-            $table->text('page_keywords')->nullable();
-
             $table->timestamps();
             $table->softDeletes();
         });
