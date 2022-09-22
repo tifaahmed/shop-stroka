@@ -8,24 +8,24 @@ use Illuminate\Http\Response ;
 use Illuminate\Support\Str;
 
 // Resource
-use App\Http\Resources\Dashboard\Collections\ProductCategoryCollection as ModelCollection;
-use App\Http\Resources\dashboard\ProductCategory\ProductCategoryResource as ModelResource;
+use App\Http\Resources\Dashboard\Collections\UserCollection as ModelCollection;
+use App\Http\Resources\dashboard\User\UserResource as ModelResource;
 
 // lInterfaces
-use App\Repository\ProductCategoryRepositoryInterface as ModelInterface;
+use App\Repository\UserRepositoryInterface as ModelInterface;
 
 // Requests
-use App\Http\Requests\Api\Dashboard\ProductCategory\ProductCategoryStoreApiRequest as modelInsertRequest;
-use App\Http\Requests\Api\Dashboard\ProductCategory\ProductCategoryUpdateApiRequest as modelUpdateRequest;
+use App\Http\Requests\Api\Dashboard\User\UserStoreApiRequest as modelInsertRequest;
+use App\Http\Requests\Api\Dashboard\User\UserUpdateApiRequest as modelUpdateRequest;
 
-class ProductCategoryController extends Controller
+class UserController extends Controller
 {
     private $Repository;
     public function __construct(ModelInterface $Repository)
     {
         $this->ModelRepository = $Repository;
-        $this->folder_name = 'ProductCategory/'.Str::random(10).time();
-        $this->file_columns = [];
+        $this->folder_name = 'user/'.date('Y-m-d-h-i-s');
+        $this->file_columns = ['avatar'];
         $this->translated_file_columns = [];
         $this->default_per_page = 10;
     }
@@ -58,8 +58,26 @@ class ProductCategoryController extends Controller
 
     public function store(modelInsertRequest $request) {
         try {
-            
-            $model = $this->ModelRepository->create( Request() ) ;
+            $except_array = [] ;
+            $all  = [] ;
+            if (count($this->translated_file_columns) > 0) {
+                $except_array = $this->translated_file_columns;
+                $all += $this->store_translated_files(
+                    $request,
+                    $this->folder_name,
+                    $this->translated_file_columns
+                );
+            }
+            if (count($this->file_columns) > 0) {
+                $except_array = $this->file_columns;
+                $all += $this->store_files(
+                    $request,
+                    $this->folder_name,
+                    $this->file_columns
+                );
+            }
+
+            $model = $this->ModelRepository->create( Request()->except($this->translated_file_columns)+$all ) ;
             return $this -> MakeResponseSuccessful( 
                 [ new ModelResource ( $model ) ],
                 'Successful'               ,
@@ -76,8 +94,36 @@ class ProductCategoryController extends Controller
 
     public function update(modelUpdateRequest $request ,$id) {
         try {
-            
-            $this->ModelRepository->update( $id,Request() ) ;
+            $old_model =  $this->ModelRepository->findById($id)  ;
+
+            $except_array = [] ;
+            $all  = [] ;
+            if (count($this->translated_file_columns) > 0) {
+                $except_array = $this->translated_file_columns;
+                $all += $this->update_translated_files(
+                    $old_model,
+                    $request,
+                    $this->folder_name,
+                    $this->translated_file_columns
+                );
+            }
+            if (count($this->file_columns) > 0) {
+                $except_array = $this->file_columns;
+                $all += $this->update_files(
+                    $old_model,
+                    $request,
+                    $this->folder_name,
+                    $this->file_columns
+                );
+            }
+            $all = $this->update_files(
+                $old_model,
+                $request,
+                $this->folder_name,
+                $this->translated_file_columns
+            );
+
+            $this->ModelRepository->update( $id,Request()->except($this->except_array)+$all) ;
             $model =  $this->ModelRepository->findById($id) ;
 
             return $this -> MakeResponseSuccessful( 
