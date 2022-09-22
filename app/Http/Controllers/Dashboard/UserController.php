@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 // Resource
 use App\Http\Resources\Dashboard\Collections\UserCollection as ModelCollection;
-use App\Http\Resources\dashboard\User\UserResource as ModelResource;
+use App\Http\Resources\Dashboard\User\UserResource as ModelResource;
 
 // lInterfaces
 use App\Repository\UserRepositoryInterface as ModelInterface;
@@ -116,14 +116,9 @@ class UserController extends Controller
                     $this->file_columns
                 );
             }
-            $all = $this->update_files(
-                $old_model,
-                $request,
-                $this->folder_name,
-                $this->translated_file_columns
-            );
 
-            $this->ModelRepository->update( $id,Request()->except($this->except_array)+$all) ;
+
+            $this->ModelRepository->update( $id,Request()->except($except_array)+$all) ;
             $model =  $this->ModelRepository->findById($id) ;
 
             return $this -> MakeResponseSuccessful( 

@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
         User::query()->forceDelete();
 
         $admin= User::create( [
-            'name' => 'super admin',
+            'first_name' => 'super admin',
             'email' => 'admin@admin.com',
             // 'phone' => '01000011000',
             'password' => Hash::make('12345678'),

@@ -20,6 +20,9 @@ use App\Repository\Eloquent\StoreRepository;
 use App\Repository\StoreRepositoryInterface;
 
 
+use App\Repository\Eloquent\UserRepository;
+use App\Repository\UserRepositoryInterface;
+
 class RepositoryServiceProvider extends ServiceProvider
 {
     /**
@@ -36,7 +39,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ProductItemRepositoryInterface::class,ProductItemRepository::class);
 
         $this->app->bind(StoreRepositoryInterface::class,StoreRepository::class);
-
+        $this->app->bind(UserRepositoryInterface::class,UserRepository::class);
+        
     }
 
     /**

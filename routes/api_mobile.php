@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 Route::group(['prefix' =>'mobile'], fn ( ) : array => [
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-}),
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// }),
 
 Route::group(['middleware' => ['LocalizationMiddleware']], fn ( ) : array => [
 
@@ -51,6 +51,13 @@ Route::group(['middleware' => ['LocalizationMiddleware']], fn ( ) : array => [
         Route::get('/'                          ,   'StoreController@all'                 )->name('all'),
         Route::get('/{id}/show'                 ,   'StoreController@show'                )->name('show'),
         Route::get('/collection'                ,   'StoreController@collection'          )->name('collection'),
+    ]),
+
+    // user
+    Route::name('user.')->prefix('user')->group( fn ( ) : array => [
+        Route::get('/'                          ,   'UserController@all'                 )->name('all'),
+        Route::get('/{id}/show'                 ,   'UserController@show'                )->name('show'),
+        Route::get('/collection'                ,   'UserController@collection'          )->name('collection'),
     ]),
 ])
 ]);

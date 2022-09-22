@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api\Dashboard\User;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UserStoreApiRequest extends FormRequest
 {
@@ -27,13 +28,29 @@ class UserStoreApiRequest extends FormRequest
         
         $all=[];
 
+        $all += [ 'first_name'               =>  [ 'required'  ] ]  ;
+        $all += [ 'last_name'               =>  [  'sometimes'  ] ]  ;
+
+        $all += [ 'email'               =>  [ 'required' ,'unique:users' ,'email' ] ]  ;
+        $all += [ 'password'               =>  [   'required' ] ]  ;
+        $all += [ 'gender'               =>  [   'required' , Rule::in(['girl','boy']) ] ] ;
+
+        $all += [ 'phone'               =>  [  'sometimes'   ] ]  ;
+
+        $all += [ 'birthdate'               =>  [   'date'  ] ]  ;
+        
+        $all += [ 'avatar'               =>  [ 'sometimes','max:50000','mimes:jpg,jpeg,webp,bmp,png' ] ]  ;
+        
+        $all += [ 'pin_code'               =>  [  'integer', 'unique:users' ] ]  ;
+        
+        $all += [ 'fcm_token'               =>  [  'sometimes'  ] ]  ;
+
+        $all += [ 'latitude'               =>  [  'sometimes'  ] ]  ;
+        $all += [ 'longitude'               =>  [  'sometimes'  ] ]  ;
+
+        $all += [ 'email_verified_at'       =>  ['date' ] ]  ;
 
 
-
-        foreach ($lang_array as $key => $value) {
-            $all += [ 'title.'.$value                 =>  [ 'required'  ] ]  ;
-            $all += [ 'image.'.$value                  =>  [ 'sometimes' ,'max:50000'] ]  ;
-        }
         return $all;
     }
 }

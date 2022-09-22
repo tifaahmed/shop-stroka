@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api\Dashboard\User;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UserUpdateApiRequest extends FormRequest
 {
@@ -26,26 +27,30 @@ class UserUpdateApiRequest extends FormRequest
         $lang_array = config('app.lang_array') ;
         
         $all=[];
-        $all += [ 'first_name'                 =>  [ 'required'  ] ]  ;
-        $all += [ 'last_name'                  =>  [    ] ]  ;
 
-        $all += [ 'email'                 =>  [ 'required'  ] ]  ;
-        $all += [ 'password'                 =>  [ 'required'  ] ]  ;
+        $all += [ 'first_name'               =>  [ 'required'  ] ]  ;
+        $all += [ 'last_name'               =>  [  'sometimes'  ] ]  ;
 
-        $all += [ 'gender'                =>  [ 'required'  ] ]  ;  // enum / 'girl','boy' / default: boy
-        $all += [ 'phone'                 =>  [    ] ]  ;
-        $all += [ 'birthdate'                =>  [ 'sometimes','date' ] ]  ;
-        $all += [ 'email_verified_at'                =>  [ 'required'  ] ]  ;
-        $all += [ 'avatar'                 =>  [ 'sometimes' ,'max:50000' ] ]  ;
-        $all += [ 'pin_code'                =>  [ 'integer'  ] ]  ; // unique
-        $all += [ 'fcm_token'                =>  [ 'string'  ] ]  ; // unique
-        $all += [ 'latitude'                =>  [ 'string'  ] ]  ; // unique
-        $all += [ 'longitude'                =>  [ 'string'  ] ]  ; // unique
-   
+        $all += [ 'email'               =>  [ 'required' ,'unique:users,email,'.$this->id ,'email' ] ]  ;
+        $all += [ 'password'               =>  [   'required' ] ]  ;
+        $all += [ 'gender'               =>  [   'required' , Rule::in(['girl','boy']) ] ] ;
+
+        $all += [ 'phone'               =>  [  'sometimes'   ] ]  ;
+
+        $all += [ 'birthdate'               =>  [   'date'  ] ]  ;
+        
+        $all += [ 'avatar'               =>  [ 'sometimes','max:50000','mimes:jpg,jpeg,webp,bmp,png' ] ]  ;
+        
+        $all += [ 'pin_code'               =>  [  'integer', 'unique:users' ] ]  ;
+        
+        $all += [ 'fcm_token'               =>  [  'sometimes'  ] ]  ;
+
+        $all += [ 'latitude'               =>  [  'sometimes'  ] ]  ;
+        $all += [ 'longitude'               =>  [  'sometimes'  ] ]  ;
+
+        $all += [ 'email_verified_at'       =>  ['date' ] ]  ;
 
 
- 
- 
  
   
     
