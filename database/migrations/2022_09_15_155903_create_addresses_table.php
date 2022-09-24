@@ -18,16 +18,20 @@ return new class extends Migration
 
             $table->integer('user_id')->nullable()->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
-            $table->text('address'); 
-
+            
             $table->integer('city_id')->nullable()->unsigned();
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
+            
+            $table->text('address'); 
+            $table->string('department')->nullable();  
+            $table->string('house')->nullable();  
+            $table->string('street')->nullable();  
+            $table->text('note')->nullable(); 
+            $table->enum('type', ['home', 'work', 'rest' ,'mosque'])->default('home');
 
-    
-      
-            $table->string('latitude'); 
-            $table->string('longitude'); 
+            
+            $table->string('latitude')->nullable();   
+            $table->string('longitude')->nullable();   
 
 
             $table->timestamps();
