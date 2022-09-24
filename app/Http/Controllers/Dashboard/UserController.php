@@ -77,7 +77,7 @@ class UserController extends Controller
                 );
             }
 
-            $model = $this->ModelRepository->create( Request()->except($this->translated_file_columns)+$all ) ;
+            $model = $this->ModelRepository->create( Request()->except($except_array)+$all ) ;
             return $this -> MakeResponseSuccessful( 
                 [ new ModelResource ( $model ) ],
                 'Successful'               ,

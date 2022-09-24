@@ -18,12 +18,12 @@
                                     <div class="">
 
                                         <span v-for="( column_val , column_key ) in Columns" :key="column_key" >
-                                                <InputsFactory 
-                                                    v-if="RequestData[column_val.name] && column_val.translatable"
-                                                    :Factorylable="column_val.header + ' ('+ lang_val +') '+( column_val.validation.required ? '*' : ''  )"  :FactoryPlaceholder="column_val.placeholder"         
-                                                    :FactoryType="column_val.type" :FactoryName="column_val.name+'['+lang_val+']'"  v-model ="RequestData[column_val.name][lang_val]"  
-                                                    :FactoryErrors="( ServerReaponse && Array.isArray( ServerReaponse.errors[column_val.name+'.'+lang_val]  )  ) ?  ServerReaponse.errors[column_val.name+'.'+lang_val] : null" 
-                                                />
+                                            <InputsFactory 
+                                                v-if="column_val.translatable"
+                                                :Factorylable="column_val.header + ' ('+ lang_val +') '+( column_val.validation.required ? '*' : ''  )"  :FactoryPlaceholder="column_val.placeholder"         
+                                                :FactoryType="column_val.type" :FactoryName="column_val.name+'['+lang_val+']'"  v-model ="RequestData[column_val.name][lang_val]"  
+                                                :FactoryErrors="( ServerReaponse && Array.isArray( ServerReaponse.errors[column_val.name+'.'+lang_val]  )  ) ?  ServerReaponse.errors[column_val.name+'.'+lang_val] : null" 
+                                            />
                                         </span> 
 
                                     </div>
@@ -41,10 +41,20 @@
                         <div class="">
                             <span v-for="( column_val , column_key ) in Columns" :key="column_key" >
                                     <InputsFactory 
-                                        v-if="RequestData[column_val.name] && !column_val.translatable"
+                                        v-if="!column_val.translatable"
                                         :Factorylable="column_val.header"  :FactoryPlaceholder="column_val.placeholder"         
                                         :FactoryType="column_val.type" :FactoryName="column_val.name"  v-model ="RequestData[column_val.name]"  
                                         :FactoryErrors="( ServerReaponse && Array.isArray( ServerReaponse.errors[column_val.name]  )  ) ?  ServerReaponse.errors[column_val.name] : null" 
+                                    
+                                        :FactorySelectOptions="column_val.SelectOptions ? column_val.SelectOptions : [] "  
+
+                                        :FactorySelectStrings="column_val.type === 'select'? column_val.SelectStrings : []"   
+                                        :FactorySelectForloopStrings="column_val.type === 'select'? column_val.SelectForloopStrings : []"   
+                                        :FactorySelectForloopStringKeys="column_val.type === 'select'? column_val.SelectForloopStringKeys : []"  
+
+                                        :FactorySelectImages="column_val.type === 'select'? column_val.SelectImages : []"   
+                                        :FactorySelectForloopImages="column_val.type === 'select'? column_val.SelectForloopImages : []"  
+                                        :FactorySelectForloopImageKeys="column_val.type === 'select'? column_val.SelectForloopImageKeys : []" 
                                     />
                             </span> 
                         </div>
@@ -85,16 +95,12 @@ import validation     from 'AdminValidations/ProductCategoryValidation';
 import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue'     ;
 
     export default {
-        name:'ProductCategoryEdit',
+        name:'ProductCategory'+'Edit',
+
         components : { InputsFactory } ,
 
         mounted() {
-
-            this.GetlLanguages();
             this.start();
-
-            this.GetData();
-
         },
         data( ) { return {
             TableName :'ProductCategory',
@@ -105,36 +111,7 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
             hasNoneTranslatableFields : 0,
             hasTranslatableFields : 0,
             
-            Columns : [
-            { 
-                    type: 'string',placeholder:'title',header :'title', name : 'title' ,translatable : true ,
-                    validation:{required : true } 
-                },
-                { 
-                    type: 'file',placeholder:null,header :'image', name : 'image' ,translatable : true ,
-                    validation:{required : false } 
-                },
-                { 
-                    type: 'string',placeholder:'page url',header :'page url', name : 'page_url' ,translatable : true ,
-                    validation:{required : false } 
-                },
-                { 
-                    type: 'string',placeholder:'page tab title',header :'page tab title', name : 'page_tab_title' ,translatable : true,
-                    validation:{required : false } 
-                },
-                { 
-                    type: 'string',placeholder:'page title',header :'page title', name : 'page_title' ,translatable : true,
-                    validation:{required : false } 
-                },
-                { 
-                    type: 'string',placeholder:'page description',header :'page description', name : 'page_description' ,translatable : true,
-                    validation:{required : false } 
-                },
-                { 
-                    type: 'string',placeholder:'page keywords',header :'page keywords', name : 'page_keywords' ,translatable : true,
-                    validation:{required : false } 
-                },
-            ],
+            Columns : [],
 
             ServerReaponse : {
                 errors :  {},
@@ -145,7 +122,19 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
 
         } } ,
         methods : {
-            start(){
+            async start(){
+                 await this.GetlLanguages();
+
+                let receivedData =   await this.show( ) ;
+                this.Columns = [
+                   { 
+                        type: 'string',placeholder:'title',header : 'title', name : 'title' ,
+                        translatable : true ,
+                        data_value : receivedData.title  ,
+                        validation:{required : true } 
+                    },
+                ];
+
                 this.RequestData =  DataService.handleColumns(this.Columns,this.Languages);
                 this.ServerReaponse.errors = DataService.handleErrorColumns(this.Columns,this.Languages);
                 this.Columns.forEach(element => {
@@ -155,7 +144,11 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                         this.hasNoneTranslatableFields = 1;
                     }
                 });
+
+
             },
+
+
 
             DeleteErrors(){
                 for (var key in this.ServerReaponse.errors) {
@@ -164,20 +157,7 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                 this.ServerReaponse.message =null;
             },
             
-            async GetData(){
-                let receivedData =   await this.show( ) ;
-                console.log(receivedData);
-                console.log(this.RequestData);
-                for (var key in receivedData) {
-                    if(  
-                        ( Array.isArray( receivedData[key] )  && (receivedData[key]).length > 0 ) 
-                        ||  
-                        ( !Array.isArray( receivedData[key] ) &&receivedData[key] != null) 
-                    ){
-                            this.RequestData[key] = receivedData[key];
-                    }
-                }
-            },
+
 
             async FormSubmet(){
                 //clear errors
@@ -187,8 +167,9 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                 if( check ){// if there is error from my file
                      this.ServerReaponse = check; // error from my file
                 }else{ // run the form
-
-                     this.SubmetRowButton(); // succes from file
+                        
+                    await this.HandleData();  // get id from objects
+                     this.SubmetRowButton();  // succes from file
                 }
             },
 
@@ -196,6 +177,8 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                 this.Languages  = ( await this.AllLanguages() ).data; // all languages
             },
 
+            HandleData(){
+            },
 
             async SubmetRowButton(){
                 this.ServerReaponse = null;

@@ -1,9 +1,13 @@
 <template >
 	<div>
 		<StringColumn
-		v-if="typeColumn == 'string'"
+		v-if="typeColumn == 'String'"
 		:ValueColumn= "ValueColumn"
 		@SendRowData= "SendRowData" 
+		/>
+		<ImageColumn
+		v-else-if= "typeColumn == 'Image'"
+		:ValueColumn= "ValueColumn"
 		/>
 		<ForloopColumn
 		v-else-if= "typeColumn == 'Forloop'"
@@ -22,6 +26,8 @@
 </template>
 <script> 
 import StringColumn     from './../StringColumn.vue'     ;
+import ImageColumn     from './../ImageColumn.vue'     ;
+
 import ForloopColumn     from './../ForloopColumn.vue'     ;
 import ForloopImageColumn     from './../ForloopImageColumn.vue'     ;
 
@@ -31,7 +37,7 @@ export default {
 
     } } ,
     components : {
-		StringColumn ,ForloopColumn,ForloopImageColumn
+		StringColumn ,ForloopColumn,ForloopImageColumn,ImageColumn
     } ,
     props   : {ValueColumn :null,LoopOnColumn:null,typeColumn :String} ,
     methods : {

@@ -4,6 +4,9 @@ import Welcome from 'AdminViews/Welcome';
 import SliderRoutes from './SliderRoutes';
 import ProductCategoryRoutes from './ProductCategoryRoutes';
 import ProductSubCategoryRoutes from './ProductSubCategoryRoutes';
+import UserRoutes from './UserRoutes';
+import StoreRoutes from './StoreRoutes';
+import ProductItemRoutes from './ProductItemRoutes';
 
 
 export default {
@@ -17,5 +20,8 @@ export default {
         SliderRoutes,
         ProductCategoryRoutes,
         ProductSubCategoryRoutes,
+        UserRoutes,
+        StoreRoutes,
+        ProductItemRoutes
     ]
 }

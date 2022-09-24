@@ -111,30 +111,6 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                     type: 'string',placeholder:'title',header :'title', name : 'title' ,translatable : true ,
                     validation:{required : true } 
                 },
-                { 
-                    type: 'file',placeholder:null,header :'image', name : 'image' ,translatable : true ,
-                    validation:{required : false } 
-                },
-                { 
-                    type: 'string',placeholder:'page url',header :'page url', name : 'page_url' ,translatable : true ,
-                    validation:{required : false } 
-                },
-                { 
-                    type: 'string',placeholder:'page tab title',header :'page tab title', name : 'page_tab_title' ,translatable : true,
-                    validation:{required : false } 
-                },
-                { 
-                    type: 'string',placeholder:'page title',header :'page title', name : 'page_title' ,translatable : true,
-                    validation:{required : false } 
-                },
-                { 
-                    type: 'string',placeholder:'page description',header :'page description', name : 'page_description' ,translatable : true,
-                    validation:{required : false } 
-                },
-                { 
-                    type: 'string',placeholder:'page keywords',header :'page keywords', name : 'page_keywords' ,translatable : true,
-                    validation:{required : false } 
-                },
             ],
 
 

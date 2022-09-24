@@ -64,7 +64,7 @@ export default {
     components : {
         RouterColumn ,StringColumn,ImageColumn,DateColumn,ForloopColumn,LinkColumn,ObjectColumn,ForloopImageColumn,SelectForloopColumn
     } ,
-    props   : {ValueColumn :null,LoopOnColumn:null,typeColumn :String} ,
+    props   : {ValueColumn :null,LoopOnColumn:[],typeColumn :String} ,
     methods : {
         SendRowData( ) {
             this.$emit( 'SendRowData') ;

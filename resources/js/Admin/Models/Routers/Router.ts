@@ -60,7 +60,7 @@ export default class Router   {
          this.routerPrefix+this.name+'/collection', 
             { 
                headers : this.headers ,responseType : this.responseType ,       
-               params: params_array
+               params: await this.createParamsArray()
             } ,
       ); 
    }
