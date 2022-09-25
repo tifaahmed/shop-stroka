@@ -115,30 +115,6 @@ export default {
                     loopOnColumn:this.Languages ,  default : null
                 } ,
                 { 
-                    type: 'ForloopImage'   ,header : 'image'        , name : 'image'              ,
-                    loopOnColumn:this.Languages , default : null
-                } ,
-                { 
-                    type: 'Forloop'   ,header : 'page url'          , name : 'page_url'           ,
-                    loopOnColumn:this.Languages , default : null
-                } ,
-                { 
-                    type: 'Forloop'   ,header : 'page tab title'    , name : 'page_tab_title'     ,
-                    invisible : true , loopOnColumn:this.Languages , default : null
-                } ,
-                { 
-                    type: 'Forloop'   ,header : 'page title'        , name : 'page_title'         ,
-                    invisible : true , loopOnColumn:this.Languages , default : null
-                } ,
-                { 
-                    type: 'Forloop'   ,header : 'page description'  , name : 'page_description'   ,
-                    invisible : true , loopOnColumn:this.Languages , default : null
-                } ,
-                { 
-                    type: 'Forloop'   ,header : 'page_keywords'     , name : 'page_keywords'      ,
-                    invisible : true , loopOnColumn:this.Languages , default : null
-                } ,
-                { 
                     type: 'Date'      ,header : 'created'            , name : 'created_at'        ,
                      default : null
                 } ,
@@ -165,8 +141,8 @@ export default {
 
         // modal
             AllLanguages(){
-                    return  (new LanguageModel).all()  ;
-                },
+                return  (new LanguageModel).all()  ;
+            },
             SendRowData(row){
                 this.Columns.forEach(function (SingleRow) {
                     SingleRow.value = row[SingleRow.name] ;

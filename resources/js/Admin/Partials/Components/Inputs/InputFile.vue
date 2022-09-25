@@ -1,10 +1,16 @@
 <template>
 		<div class="form-group">
 		    <label :for="PropName">{{PropLable}}</label>
-		    <img :src="data" style="max-width:100px" />
+
+		    <img :src="dataPropPlaceholder" style="max-width:100px" />
+
 		    <button v-if="data" @click="removeImage">Remove image</button>
 
-		    <input :type="PropType"     @change="AvatarInput($event)" class="form-control" :id="PropName"  :name="PropName"  />
+		    <input 
+            :type="PropType" @change="AvatarInput($event)" class="form-control" :id="PropName"  
+            :name="PropName"  
+            :key="'avatar'"
+            />
 		    
         <b-alert show variant="danger" v-for="err in PropErrors" :key="err"  >
             {{ err }}
@@ -17,7 +23,7 @@
 export default {
     data( ) { return {
     	data : this.value,
-
+      dataPropPlaceholder : this.PropPlaceholder,
     } } ,
     props   : {
     	PropLable :null,
@@ -50,17 +56,18 @@ export default {
 
          var reader = new FileReader();
           reader.onload = (e) => {
-            this.data = e.target.result;
+            this.dataPropPlaceholder = e.target.result;
           };
           reader.readAsDataURL(file);
          },
 
         removeImage: function (e) {
+
+          this.dataPropPlaceholder = this.PropPlaceholder;
           this.data = null;
           this.$emit( 'input'  ,  null ) ;
           this.$emit( 'change' ,  null  ) ; 
-          this.readerAvatarInput(null)
-          console.log(this.data);
+          console.log(this.PropPlaceholder);
         }
 
 

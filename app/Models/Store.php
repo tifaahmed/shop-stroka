@@ -33,8 +33,8 @@ class Store extends Model
         'description'           
     ];
  
-
-    // HasMany
     public function user(){
-        return $this->HasOne(User::class);
-    }}
+        return $this->belongsTo(User::class,'user_id');
+    }
+    // HasMany
+}

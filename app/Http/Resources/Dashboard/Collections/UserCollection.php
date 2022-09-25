@@ -4,7 +4,7 @@ namespace App\Http\Resources\Dashboard\Collections;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-use App\Http\Resources\Dashboard\ProductCategory\UserResource as ModelResource;
+use App\Http\Resources\Dashboard\User\UserResource as ModelResource;
 
 class UserCollection  extends ResourceCollection{
 

@@ -4,6 +4,10 @@ namespace App\Http\Resources\dashboard\ProductItem;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
+
+use App\Http\Resources\dashboard\ProductItem\StoreResource;
+use App\Http\Resources\dashboard\ProductItem\ProductCategoryResource;
+
 class ProductItemResource extends JsonResource
 {
     /**
@@ -18,7 +22,7 @@ class ProductItemResource extends JsonResource
         $model = $this;
         $lang_array = config('app.lang_array') ;
 
-        $string_fields = ['products_status','price'];
+        $string_fields = ['status','price','discount'];
         $translated_string_fields = [
             'title','description', 
 
@@ -33,8 +37,8 @@ class ProductItemResource extends JsonResource
         $all=[];
 
         $all += [ 'id' =>   $this->id ]  ;
-        // $all += [ 'store_id' =>   ProductSubCategoryResource::collection($this->product_sub_categories) ]  ;
-        // $all += [ 'product_category_id' =>   ProductSubCategoryResource::collection($this->product_sub_categories) ]  ;
+        $all += [ 'store' =>   new StoreResource ($this->store) ]  ;
+        $all += [ 'product_category' => new  ProductCategoryResource($this->product_category) ]  ;
 
         $all += resource_translated_string($model,$lang_array,$translated_string_fields);
         // $all += resource_translated_image($model,$lang_array,$translated_image_fields);

@@ -33,9 +33,10 @@ class ProductItemUpdateApiRequest extends FormRequest
         $all += [ 'store_id'   =>  [ 'required' ,'integer','exists:stores,id'] ] ;
         $all += [ 'product_category_id'   =>  [ 'required' ,'integer','exists:product_categories,id'] ] ;
 
-        $all += [ 'price'                  =>  [ 'required' ,'numeric','between:0,99.99'] ]  ;
+        $all += [ 'price'                  =>  [ 'sometimes' ,'numeric','between:0,99.99'] ]  ;
+        $all += [ 'discount'                  =>  [ 'sometimes' ,'numeric','between:0,100.00'] ]  ;
 
-        $all += [ 'products_status'     =>  [ 'sometimes' ,Rule::in([
+        $all += [ 'status'     =>  [ 'sometimes' ,Rule::in([
             'request_as_new','request_as_edit','active','deactivate','out_of_stock'
         ]), ] ] ;
 

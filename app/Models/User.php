@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Auth;
+use App\Models\Store;              // HasOne
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -74,5 +75,9 @@ class User extends Authenticatable
         'updated_at_token'  =>  $token -> updated_at ,
         'created_at_token'  =>  $token -> created_at ,
         ] ; 
+    }
+
+    public function store(){
+        return $this->hasOne(Store::class);
     }
 }

@@ -6,17 +6,16 @@
                     <div class="table-responsive">
                         <table class="table table-hover mb-0 text-md-nowrap">
                             <tbody>
-                                <tr  v-for="( column , key    )  in Columns" :key="key" class="teeee" >
-                                    <th class="never-hide"> {{column.header}}  </th>
+                                <tr  v-for="( column_val , key    )  in Columns" :key="key" class="teeee" >
+                                    <th class="never-hide"> {{column_val.header}}  </th>
                                     <td class="never-hide"> 
                                         <ColumsIndex  
-                                            :ValueColumn="column.value"   
-                                            :typeColumn="column.type" 
-                                            :LoopOnColumn="column.LoopOnColumn"
+                                            :ValueColumn="TableRows[column_val.name]"   
+                                            :typeColumn="column_val.type" 
+                                            :LoopOnColumn="column_val.loopOnColumn"
                                         />
                                     </td>
                                 </tr>
-                                
                             </tbody>
                         </table>
                         <router-link style="color:#fff" 
@@ -38,53 +37,76 @@
 </template>
 <script>
 import Model     from 'AdminModels/ProductCategoryModel';
+import LanguageModel    from 'AdminModels/LanguageModel';
+
 import ColumsIndex          from 'AdminPartials/Components/colums/ColumsIndex.vue'     ;
 
-    export default {
-        name:"ProductCategory"+"TrashShow",
+export default {
+    name:"ProductCategory"+"TrashShow",
 
-        mounted() {
-            this.initial();
-        },
-        components:{
-            ColumsIndex
-        },
-        data( ) { return {
-            TableName :'ProductCategory',
+    mounted() {
+        this.initial();
+        this.tableColumns();
+    },
+    components:{
+        ColumsIndex
+    },
+    data( ) { return {
+        TableName :'',
+        TablePageName :'ProductCategory.All',
 
-
-            Columns :  [
-            { type: 'Router'    ,header : 'id'                  , name : 'id'          , value : null  } ,
-                { type: 'Forloop'   ,header : 'title'              , name : 'title'    , value : null  } ,
-                { type: 'ForloopImage'   ,header : 'image'              , name : 'image'    , value : null  } ,
-                
-                { type: 'Forloop'   ,header : 'page url'              , name : 'page_url' , value : null  } ,
-                { type: 'Forloop'   ,header : 'page tab title'              , name : 'page_tab_title' , value : null  } ,
-                { type: 'Forloop'   ,header : 'page title'              , name : 'page_title' , value : null  } ,
-                { type: 'Forloop'   ,header : 'page description'              , name : 'page_description' , value : null  } ,
-                { type: 'Forloop'   ,header : 'page_keywords'              , name : 'page_keywords' , value : null  } ,
-
-                { type: 'Date'      ,header : 'deleted'     , name : 'deleted_at'   , value : null  } ,
-            ], 
-        } 
-        } ,
-        methods : {
+        Columns :  [],
+        TableRows : [],
+    } 
+    } ,
+    methods : {
+        // get data
             async initial( ) {
-                var TableRows  = ( await this.Show(this.$route.params.id) ) .data.data[0] ;
-                this.SendRowData(TableRows)
-
+                this.TableRows  = ( await this.Show(this.$route.params.id) ) .data.data[0] ;
             },
-            // modal
-                async Show(id) {
-                    return await ( (new Model).TrashShow(id) )
-                },
-            // modal
-            SendRowData(row){
-                this.Columns.forEach(function (SingleRow) {
-                    SingleRow.value = row[SingleRow.name] ;
-                });
+            async GetlLanguages(){
+                this.Languages  = ( await this.AllLanguages() ).data; // all languages ['ar','en']
             },
+        // get data
 
-        }
+        async tableColumns(){
+            await this.GetlLanguages();
+
+            this.Columns = [
+                { 
+                    type: 'Router'    ,header : 'id'                , name : 'id'               ,
+                    default : null
+                } ,
+                { 
+                    type: 'Forloop'   ,header : 'title'             , name : 'title'            , 
+                    loopOnColumn:this.Languages ,  default : null
+                } ,
+                { 
+                    type: 'Date'      ,header : 'created'            , name : 'created_at'        ,
+                     default : null
+                } ,
+                { 
+                    type: 'Date'      ,header : 'updated'            , name : 'updated_at'        ,
+                    default : null
+                } ,
+                { 
+                    type: 'Date'      ,header : 'deleted'            , name : 'deleted_at'        ,
+                    default : null
+                } ,
+            ];
+        },
+
+
+        // modal
+            AllLanguages(){
+                return  (new LanguageModel).all()  ;
+            },
+            async Show(id) {
+                return  ( (new Model).TrashShow(id) )
+            },
+        // modal
+ 
+
     }
+}
 </script>

@@ -22,7 +22,7 @@ export default class Model {
 			return  err.response.data;
 		}
 	}
-	// normal data ony
+	// normal data only
 	static getformData (formData ,RequestData ?: any) {
 	for (var key in RequestData) {
 	   formData.append(key, RequestData[key]);
@@ -35,11 +35,7 @@ export default class Model {
 	// return formData;
 	static getformDataTranslatedOrNot (formData ,RequestData ?: any) {
 	for (var RequestDataKey in RequestData) {  
-		if ( 
-			typeof RequestData[RequestDataKey] === 'object' && RequestData[RequestDataKey] !== null 
-			|| 
-			Array.isArray(RequestData[RequestDataKey]) 
-			) 
+		if ( Array.isArray(RequestData[RequestDataKey]) ) 
 		{	// Column2 : [ ar : data1 , en : data2]
 			for (var key in RequestData[RequestDataKey]) { // [ ar : data1 , en : data2]
 
@@ -47,7 +43,9 @@ export default class Model {
 			}
 		}else
 		{ // Column1 : data 
-			formData.append(RequestDataKey, RequestData[RequestDataKey]);  // Column1 : data1
+			if (RequestData[RequestDataKey]) {
+				formData.append(RequestDataKey, RequestData[RequestDataKey]);  // Column1 : data1
+			}
 		}
 	}
 	return  formData;

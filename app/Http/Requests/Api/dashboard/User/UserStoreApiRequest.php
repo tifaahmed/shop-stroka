@@ -41,7 +41,7 @@ class UserStoreApiRequest extends FormRequest
         
         $all += [ 'avatar'               =>  [ 'sometimes','max:50000','mimes:jpg,jpeg,webp,bmp,png' ] ]  ;
         
-        $all += [ 'pin_code'               =>  [  'integer', 'unique:users' ] ]  ;
+        $all += [ 'pin_code'               =>  [  'numeric', 'unique:users' ] ]  ;
         
         $all += [ 'fcm_token'               =>  [  'sometimes'  ] ]  ;
 

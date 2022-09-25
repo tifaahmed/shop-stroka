@@ -1,7 +1,22 @@
 <template>
 	<div>
 		 <InputString
-		 	v-if= "FactoryType === 'string' || FactoryType === 'number' || FactoryType === 'email' || FactoryType === 'password'"
+		 	v-if= "
+				FactoryType === 'string' || 
+				FactoryType === 'number' || 
+				FactoryType === 'email' || 
+				FactoryType === 'password'
+			"
+		     :PropLable = "Factorylable"
+		     :PropPlaceholder = "FactoryPlaceholder"
+		     :PropType = "FactoryType"
+		     :PropName = "FactoryName"
+		     :PropErrors = "FactoryErrors"
+		     @change      = "change"
+		     v-model      = "data"
+		 />
+		<InputTextarea
+		 	v-if= "FactoryType === 'textarea'"
 		     :PropLable = "Factorylable"
 		     :PropPlaceholder = "FactoryPlaceholder"
 		     :PropType = "FactoryType"
@@ -67,10 +82,10 @@
 			:PropSelectForloopImages= "FactorySelectForloopImages"
 			:PropSelectForloopImageKeys = "FactorySelectForloopImageKeys"
 		/> 
+		
 
-
-		<!-- <InputRadioCheckBox
-		 	v-if= "FactoryType === 'radio'"
+		<InputRadioCheckBox
+		 	v-if= "FactoryType === 'Radio'"
 		     :PropLable = "Factorylable"
 		     :PropType = "FactoryType"
 		     :PropName = "FactoryName"
@@ -78,7 +93,7 @@
 		     @change      = "change"
 		     v-model      = "data"
 			 :PropSelectOptions = "FactorySelectOptions"
-		/>  -->
+		/> 
 		<!-- <InputForloop
 		 	v-if= "FactoryType === 'Forloop'"
 		     :PropLable = "Factorylable"
@@ -99,6 +114,7 @@
 
 <script>
 import InputString     from 'AdminPartials/Components/Inputs/InputString.vue'     ;
+import InputTextarea     	from 'AdminPartials/Components/Inputs/InputTextarea.vue'     ;
 import InputFile     	from 'AdminPartials/Components/Inputs/InputFile.vue'     ;
 // import InputForloop     	from 'AdminPartials/Components/Inputs/InputForloop.vue'     ;
 import InputDate     	from 'AdminPartials/Components/Inputs/InputDate.vue'     ;
@@ -115,7 +131,7 @@ export default {
 
 	} } ,
 	components : {
-	    InputString ,InputFile,InputDate,InputMultiSelect,InputRadioCheckBox,InputSelect
+	    InputString ,InputFile,InputDate,InputMultiSelect,InputRadioCheckBox,InputSelect,InputTextarea
 		// InputForloop
 		// InputMultiSelect
 	} ,

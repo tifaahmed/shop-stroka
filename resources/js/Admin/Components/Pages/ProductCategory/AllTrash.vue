@@ -7,21 +7,26 @@
                         <table class="table mg-b-0 text-md-nowrap">
                             <thead> 
                                 <tr> 
+                                    <!-- eslint-disable -->
                                     <th 
-                                        v-for="( Column , key    ) in Columns    " 
+                                        v-for="( column , key    ) in Columns    " 
                                         :key="key   " 
-                                        v-text="Column.header" 
+                                        v-if="!column.invisible"
+                                        v-text="column.header" 
                                     /> 
+                                    <!-- eslint-disable -->
                                     <th  v-text="'controller'" />
                                 </tr> 
                             </thead>
                             <tbody>
                                 <tr v-for="( row    , rowkey ) in TableRows.data " :key="rowkey" >
-                                    <td  v-for="( column , key    )  in Columns" :key="key" class="teeee" >
+                                    <td  v-for="( column , key    )  in Columns" :key="key" class="teeee" 
+                                        v-if="!column.invisible"
+                                    >
                                         <ColumsIndex  
                                             :ValueColumn="row[column.name]"   
                                             :typeColumn="column.type" 
-                                            :LoopOnColumn="column.LoopOnColumn"
+                                            :LoopOnColumn="column.loopOnColumn"
                                             @SendRowData ="SendRowData(row)"  
                                         />
                                     </td>
@@ -65,6 +70,7 @@
 
 <script>
 import Model     from 'AdminModels/ProductCategoryModel';
+import LanguageModel    from 'AdminModels/LanguageModel';
 
 import pagination           from 'laravel-vue-pagination';
 import ModalIndex           from 'AdminPartialsModal/MainModel.vue'     ;
@@ -78,36 +84,64 @@ export default {
     },
 
     data( ) { return {
-        TableName :'ProductCategory',
+        filter :{  id : null  },
+
+
+        TableName :'ProductCategory'+'Trash',
+        Languages : [],
 
         TableRows  : {},
-        Columns :  [
-                { type: 'Router'    ,header : 'id'                  , name : 'id'          , value : null  } ,
-                { type: 'Forloop'   ,header : 'title'              , name : 'title'    , value : null  } ,
-                { type: 'ForloopImage'   ,header : 'image'              , name : 'image'    , value : null  } ,
-                
-                { type: 'Forloop'   ,header : 'page url'              , name : 'page_url' , value : null  } ,
-                { type: 'Forloop'   ,header : 'page tab title'              , name : 'page_tab_title' , value : null  } ,
-                { type: 'Forloop'   ,header : 'page title'              , name : 'page_title' , value : null  } ,
-                { type: 'Forloop'   ,header : 'page description'              , name : 'page_description' , value : null  } ,
-                { type: 'Forloop'   ,header : 'page_keywords'              , name : 'page_keywords' , value : null  } ,
-
-                { type: 'Date'      ,header : 'deleted'     , name : 'deleted_at'   , value : null  } ,
-            ],
+        Columns :  [],       
+        controller   : [
+            { type: 'edit'    ,  invisible : true } ,
+            { type: 'delete'  ,  invisible : true } ,
+            { type: 'show'    ,  invisible : true } ,
+        ] ,
         PerPage  : 10
     } },
-
     mounted() {
         this.initial( this.$route.query.CurrentPage );
-        
+        this.tableColumns();
     },
 
     methods : {
         async initial(page){
             this.TableRows  = ( await this.Collection(page) ).data
         },
-
+        async GetlLanguages(){
+            this.Languages  = ( await this.AllLanguages() ).data; // all languages ['ar','en']
+        },
+        async tableColumns(){
+            await this.GetlLanguages();
+            this.Columns = [
+                { 
+                    type: 'Router'    ,header : 'id'                , name : 'id'               ,
+                    default : null
+                } ,
+                
+                { 
+                    type: 'Forloop'   ,header : 'title'             , name : 'title'            , 
+                    loopOnColumn:this.Languages ,  default : null
+                } ,
+                
+                { 
+                    type: 'Date'      ,header : 'created'            , name : 'created_at'        ,
+                    default : null
+                } ,
+                { 
+                    type: 'Date'      ,header : 'updated'            , name : 'updated_at'        ,
+                    default : null
+                } ,
+                { 
+                    type: 'Date'      ,header : 'deleted'            , name : 'deleted_at'        ,
+                    default : null
+                } ,
+            ];
+        },
         // model 
+            AllLanguages(){
+                return  (new LanguageModel).all()  ;
+            },
             Collection(page = 1){
                 return  (new Model).CollectionTrash(page,this.PerPage)  ;
             },

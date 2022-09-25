@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -58,8 +58,7 @@ class ProductCategoryController extends Controller
 
     public function store(modelInsertRequest $request) {
         try {
-            
-            $model = $this->ModelRepository->create( Request() ) ;
+            $model = $this->ModelRepository->create( $request->all() ) ;
             return $this -> MakeResponseSuccessful( 
                 [ new ModelResource ( $model ) ],
                 'Successful'               ,
@@ -77,7 +76,7 @@ class ProductCategoryController extends Controller
     public function update(modelUpdateRequest $request ,$id) {
         try {
             
-            $this->ModelRepository->update( $id,Request() ) ;
+            $this->ModelRepository->update( $id, $request->all() ) ;
             $model =  $this->ModelRepository->findById($id) ;
 
             return $this -> MakeResponseSuccessful( 
