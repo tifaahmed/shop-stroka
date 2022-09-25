@@ -1,14 +1,15 @@
 import Vue from 'vue'
 
 import Axios from 'axios' ;
-import jwt   from './../../../Services/jwt' ;
+// import jwt   from './../../../Services/jwt' ;
 // import RolePermisionServices   from './../../../Services/RolePermision' ;
 
 export default class Router   {
     name : string = '' ;
     headers  : object = 
+   //  jwt.Authorization
          { 
-                'Authorization': jwt.Authorization ,
+                'Authorization':  '',
                  'Content-Type': 'multipart/form-data',
                  'localization' : 'en'
          };   
@@ -19,13 +20,13 @@ export default class Router   {
       PerPage : number = null ;
       filter : object = {} ;
 
-   async IfAuth() : Promise<any>  { 
-      if ( jwt.Authorization != null+ ' ' +null && !jwt.if_accessToken_expire && jwt.User) {
-         return true
-      }else{
-         return false
-      }
-   } 
+   // async IfAuth() : Promise<any>  { 
+   //    if ( jwt.Authorization != null+ ' ' +null && !jwt.if_accessToken_expire && jwt.User) {
+   //       return true
+   //    }else{
+   //       return false
+   //    }
+   // } 
    async createParamsArray() { 
       var params_array = {};
       params_array['page'] = this.page;
