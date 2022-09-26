@@ -7,6 +7,7 @@ import ProductSubCategoryRoutes from './ProductSubCategoryRoutes';
 import UserRoutes from './UserRoutes';
 import StoreRoutes from './StoreRoutes';
 import ProductItemRoutes from './ProductItemRoutes';
+import SiteSettingRoutes from './SiteSettingRoutes';
 
 
 export default {
@@ -22,6 +23,7 @@ export default {
         ProductSubCategoryRoutes,
         UserRoutes,
         StoreRoutes,
-        ProductItemRoutes
+        ProductItemRoutes,
+        SiteSettingRoutes,
     ]
 }

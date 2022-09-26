@@ -43,6 +43,7 @@
                                     </td>
                                     <td>
                                         <TableControllers 
+                                            :controller_buttons = "controller_buttons"
                                             :RowId="row.id" 
                                             :CurrentPage="TableRows.meta ? TableRows.meta.current_page : 1" 
                                             @SendRowData="SendRowData(row)"
@@ -98,11 +99,7 @@ export default {
 
         TableRows  : {},
         Columns :  [],       
-        controller   : [
-            { type: 'edit'    ,  invisible : true } ,
-            { type: 'delete'  ,  invisible : true } ,
-            { type: 'show'    ,  invisible : true } ,
-        ] ,
+        controller_buttons   : [ 'edit','delete','show' ] ,
         PerPage  : 10
     } },
     mounted() {

@@ -23,6 +23,13 @@ use App\Repository\StoreRepositoryInterface;
 use App\Repository\Eloquent\UserRepository;
 use App\Repository\UserRepositoryInterface;
 
+use App\Repository\Eloquent\SiteSettingRepository;
+use App\Repository\SiteSettingRepositoryInterface;
+
+use App\Repository\Eloquent\CountryRepository;
+use App\Repository\CountryRepositoryInterface;
+
+
 class RepositoryServiceProvider extends ServiceProvider
 {
     /**
@@ -40,7 +47,9 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $this->app->bind(StoreRepositoryInterface::class,StoreRepository::class);
         $this->app->bind(UserRepositoryInterface::class,UserRepository::class);
-        
+        $this->app->bind(SiteSettingRepositoryInterface::class,SiteSettingRepository::class);
+        $this->app->bind(CountryRepositoryInterface::class,CountryRepository::class);
+
     }
 
     /**
