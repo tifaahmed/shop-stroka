@@ -15,7 +15,14 @@ return new class extends Migration
     {
         Schema::create('governments', function (Blueprint $table) {
             $table->id();
+
+            $table->integer('country_id')->unsigned();
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
+            $table->string('name')->unique();  //  [unique,note:'translatable']
+
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 

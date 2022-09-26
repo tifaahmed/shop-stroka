@@ -44,7 +44,28 @@ Route::group(['prefix' =>'dashboard'], fn ( ) : array => [
     //     Route::DELETE('/{id}'                   ,   'SliderController@destroy'             )->name('destroy'),
     //     Route::post('/{id}/update'              ,   'SliderController@update'              )->name('update')
     // ]),
+    
+    Route::name('country.')->prefix('/country')->group( fn ( ) : array => [
+        Route::get('/'                          ,   'CountryController@all'                 )->name('all'),
+        Route::post(''                          ,   'CountryController@store'               )->name('store'),
+        Route::get('/{id}/show'                 ,   'CountryController@show'                )->name('show'),
+        Route::get('/collection'                ,   'CountryController@collection'          )->name('collection'),
+        Route::DELETE('/{id}'                   ,   'CountryController@destroy'             )->name('destroy'),
+        Route::post('/{id}/update'              ,   'CountryController@update'              )->name('update'),
+        
+        Route::get('/{id}/restore'              ,   'CountryController@restore'             )->name('restore'),
+        Route::DELETE('premanently-delete/{id}' ,   'CountryController@premanently_delete'  )->name('premanently_delete'),
+        Route::get('/collection-trash'          ,   'CountryController@collection_trash'    )->name('collection_trash'),
+        Route::get('/{id}/show-trash'           ,   'CountryController@show_trash'          )->name('show_trash'),
+    ]),
 
+    // Site-Setting
+    Route::name('site-setting.')->prefix('/site-setting')->group( fn ( ) : array => [
+        Route::get('/'                          ,   'SiteSettingController@all'                 )->name('all'),
+        Route::get('/{id}/show'                 ,   'SiteSettingController@show'                )->name('show'),
+        Route::get('/collection'                ,   'SiteSettingController@collection'          )->name('collection'),
+        Route::post('/{id}/update'              ,   'SiteSettingController@update'              )->name('update'),
+    ]),
     // product-category
     Route::name('product-category.')->prefix('/product-category')->group( fn ( ) : array => [
         Route::get('/'                          ,   'ProductCategoryController@all'                 )->name('all'),

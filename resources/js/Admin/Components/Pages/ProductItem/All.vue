@@ -1,7 +1,7 @@
 <template>
     <div class="row row-sm">
 
-        <div class="container-fluid row" >
+        <!-- <div class="container-fluid row" >
             <b-row align-v="stretch" align-h="around">
                 <b-col  xs="12" sm="6" md="5" lg="4" xl="3">
                     <b-input-group prepend="id"   class="">
@@ -9,7 +9,7 @@
                     </b-input-group>
                 </b-col>
             </b-row>
-        </div>
+        </div> -->
 
         <div class="col-xl-12">
             <div class="card">
@@ -43,6 +43,7 @@
                                     </td>
                                     <td>
                                         <TableControllers 
+                                            :controller_buttons = "controller_buttons"
                                             :RowId="row.id" 
                                             :CurrentPage="TableRows.meta ? TableRows.meta.current_page : 1" 
                                             @SendRowData="SendRowData(row)"
@@ -99,11 +100,7 @@ export default {
 
         TableRows  : {},
         Columns :  [],       
-        // Controller   : [
-        //     { type: 'edit'    ,  invisible : true } ,
-        //     { type: 'delete'  ,  invisible : true } ,
-        //     { type: 'show'    ,  invisible : true } ,
-        // ] ,
+        controller_buttons   : [ 'edit','delete','show' ] ,
         PerPage  : 10
     } },
     mounted() {

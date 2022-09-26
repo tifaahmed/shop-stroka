@@ -35,11 +35,10 @@ class ProductItem extends Model
         'description',            
     ];
     // belongsTo
-    public function product_category(){
-        return $this->belongsTo(ProductCategory::class,'product_category_id');
-    }
-    // belongsTo
-    public function store(){
-        return $this->belongsTo(Store::class,'store_id');
-    }
+        public function product_category(){
+            return $this->belongsTo(ProductCategory::class,'product_category_id');
+        }
+        public function store(){
+            return $this->belongsTo(Store::class,'store_id');
+        }
 }
