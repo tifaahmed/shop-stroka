@@ -33,7 +33,7 @@ class ProductItemStoreApiRequest extends FormRequest
         $all += [ 'store_id'   =>  [ 'required' ,'integer','exists:stores,id'] ] ;
         $all += [ 'product_category_id'   =>  [ 'required' ,'integer','exists:product_categories,id'] ] ;
 
-        $all += [ 'price'                  =>  [ 'sometimes' ,'numeric','between:0,99.99'] ]  ;
+        $all += [ 'price'                  =>  [ 'sometimes' ,'numeric'] ]  ;
         $all += [ 'discount'                  =>  [ 'sometimes' ,'numeric','between:0,100.00'] ]  ;
         
         $all += [ 'status'     =>  [ 'required' ,Rule::in([

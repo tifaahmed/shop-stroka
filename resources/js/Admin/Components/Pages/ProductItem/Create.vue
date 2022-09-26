@@ -44,7 +44,7 @@
                             <span v-for="( column_val , column_key ) in Columns" :key="column_key" >
                                 <InputsFactory 
                                     v-if="column_val.translatable == false"
-                                    :Factorylable="column_val.header"  :FactoryPlaceholder="column_val.placeholder"         
+                                    :Factorylable="column_val.header +( column_val.validation.required ? '*' : ''  )"   :FactoryPlaceholder="column_val.placeholder"         
                                     :FactoryType="column_val.type" :FactoryName="column_val.name"  v-model ="RequestData[column_val.name]"  
                                     :FactoryErrors="( ServerReaponse && Array.isArray( ServerReaponse.errors[column_val.name]  )  ) ?  ServerReaponse.errors[column_val.name] : null" 
                                     
@@ -152,7 +152,7 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                         type: 'select',placeholder:'',header :'store', name : 'store_id' ,
                         translatable : false ,
                         data_value :null  ,
-                        validation:{required : false } ,
+                        validation:{required : true } ,
                         SelectOptions : this.all_stores, 
                         SelectStrings: [] ,SelectForloopStrings:['title'],SelectForloopStringKeys:['ar','en'],
                         SelectImages: ['image'] ,SelectForloopImages:[],SelectForloopImageKeys:[],
@@ -161,7 +161,7 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                         type: 'select',placeholder:'',header :'product_category', name : 'product_category_id' ,
                         translatable : false ,
                         data_value :null  ,
-                        validation:{required : false } ,
+                        validation:{required : true } ,
                         SelectOptions : this.all_product_categories, 
                         SelectStrings: [] ,SelectForloopStrings:['title'],SelectForloopStringKeys:['ar','en'],
                         SelectImages: [] ,SelectForloopImages:[],SelectForloopImageKeys:[],
@@ -181,11 +181,10 @@ import InputsFactory     from 'AdminPartials/Components/Inputs/InputsFactory.vue
                     { 
                         type: 'Radio',placeholder:'status',header : 'status', name : 'status' ,
                         translatable : false , 
-                        SelectOptions :['pending','accepted','rejected','canceled'],
+                        SelectOptions :['request_as_new','request_as_edit','active','deactivate','out_of_stock'],
                         data_value :null  ,
                         validation:{required : true } 
                     },
-                    
                     { 
                         type: 'file',placeholder:null,header :'image', name : 'image' ,
                         translatable : false ,

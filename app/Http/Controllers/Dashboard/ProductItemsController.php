@@ -10,7 +10,6 @@ use Illuminate\Support\Str;
 // Resource
 use App\Http\Resources\Dashboard\Collections\ProductItemCollection as ModelCollection;
 use App\Http\Resources\Dashboard\ProductItem\ProductItemResource as ModelResource;
-
 // lInterfaces
 use App\Repository\ProductItemRepositoryInterface as ModelInterface;
 

@@ -55,7 +55,7 @@ class BaseRepository implements EloquentRepositoryInterface
 
 		return QueryBuilder::for($this->model->with($relations))
 		->allowedFilters($fillable)
-		->latest()->paginate($modelId)->appends(request()->query());
+		->latest('id')->paginate($modelId)->appends(request()->query());
 	}
 
 	public function queryPaginate($query,$itemsNumber) 
