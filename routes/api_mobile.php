@@ -32,7 +32,12 @@ Route::group(['middleware' => ['LocalizationMiddleware']], fn ( ) : array => [
         // Route::post( '/login-social' ,   'AuthController@loginSocial'  ) -> name( 'loginSocial' ) ,
         // Route::post( '/register' ,  'AuthController@register' )  -> name( 'register' ) ,    
     // ]),
-
+    // country
+    Route::name('country.')->prefix('/country')->group( fn ( ) : array => [
+        Route::get('/'                          ,   'CountryController@all'                 )->name('all'),
+        Route::get('/{id}/show'                 ,   'CountryController@show'                )->name('show'),
+        Route::get('/collection'                ,   'CountryController@collection'          )->name('collection'),
+    ]),
 
     // product-category
     Route::name('product-category.')->prefix('/product-category')->group( fn ( ) : array => [

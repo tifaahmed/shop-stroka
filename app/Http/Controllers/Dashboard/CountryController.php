@@ -57,13 +57,25 @@ class CountryController extends Controller
 
     public function store(modelInsertRequest $request) {
         try {
-            $all = $this->store_files(
-                $request,
-                $this->folder_name,
-                $this->file_columns
-            );
-
-            $model = $this->ModelRepository->create( Request()->except($this->file_columns)+$all ) ;
+            $except = [];
+            $all = [];
+            if ($this->file_columns) {
+                $all += $this->store_files(
+                    $request,
+                    $this->folder_name,
+                    $this->file_columns
+                );
+                $except += $this->file_columns;
+            }
+            if ($this->translated_file_columns) {
+                $all += $this->store_translated_files(
+                    $request,
+                    $this->folder_name,
+                    $this->translated_file_columns
+                );
+                $except += $this->translated_file_columns;
+            }
+            $model = $this->ModelRepository->create( Request()->except($except)+$all ) ;
             return $this -> MakeResponseSuccessful( 
                 [ new ModelResource ( $model ) ],
                 'Successful'               ,

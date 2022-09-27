@@ -15,7 +15,14 @@ return new class extends Migration
     {
         Schema::create('cities', function (Blueprint $table) {
             $table->increments('id');
+
+            $table->integer('government_id')->unsigned();
+            $table->foreign('government_id')->references('id')->on('governments')->onDelete('cascade');
+            $table->string('name')->unique();  //  [unique,note:'translatable']
+
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 
