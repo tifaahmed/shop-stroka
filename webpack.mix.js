@@ -20,6 +20,8 @@ mix
         resolve: {
             extensions: ['*', '.js', '.jsx', '.vue', '.ts', '.tsx'],
             alias: {
+                vue: "vue/dist/vue.esm-bundler.js",
+
                 '@': path.resolve(__dirname, 'resources/js'),
                 MainServices: path.resolve(__dirname, 'resources/js/Services'),
 
