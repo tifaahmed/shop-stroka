@@ -44,6 +44,15 @@ Route::group(['prefix' =>'dashboard'], fn ( ) : array => [
     //     Route::DELETE('/{id}'                   ,   'SliderController@destroy'             )->name('destroy'),
     //     Route::post('/{id}/update'              ,   'SliderController@update'              )->name('update')
     // ]),
+    // ExtraCategory
+    Route::name('extra-category.')->prefix('/extra-category')->group( fn ( ) : array => [
+        Route::get('/'                          ,   'ExtrasCategoryController@all'                 )->name('all'),
+        Route::post(''                          ,   'ExtrasCategoryController@store'               )->name('store'),
+        Route::get('/{id}/show'                 ,   'ExtrasCategoryController@show'                )->name('show'),
+        Route::get('/collection'                ,   'ExtrasCategoryController@collection'          )->name('collection'),
+        Route::DELETE('/{id}'                   ,   'ExtrasCategoryController@destroy'             )->name('destroy'),
+        Route::post('/{id}/update'              ,   'ExtrasCategoryController@update'              )->name('update'),
+    ]),
     // country
     Route::name('country.')->prefix('/country')->group( fn ( ) : array => [
         Route::get('/'                          ,   'CountryController@all'                 )->name('all'),
