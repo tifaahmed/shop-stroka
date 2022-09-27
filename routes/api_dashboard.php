@@ -44,7 +44,7 @@ Route::group(['prefix' =>'dashboard'], fn ( ) : array => [
     //     Route::DELETE('/{id}'                   ,   'SliderController@destroy'             )->name('destroy'),
     //     Route::post('/{id}/update'              ,   'SliderController@update'              )->name('update')
     // ]),
-    
+    // country
     Route::name('country.')->prefix('/country')->group( fn ( ) : array => [
         Route::get('/'                          ,   'CountryController@all'                 )->name('all'),
         Route::post(''                          ,   'CountryController@store'               )->name('store'),
@@ -58,7 +58,34 @@ Route::group(['prefix' =>'dashboard'], fn ( ) : array => [
         Route::get('/collection-trash'          ,   'CountryController@collection_trash'    )->name('collection_trash'),
         Route::get('/{id}/show-trash'           ,   'CountryController@show_trash'          )->name('show_trash'),
     ]),
-
+    // government
+    Route::name('government.')->prefix('/government')->group( fn ( ) : array => [
+        Route::get('/'                          ,   'GovernmentController@all'                 )->name('all'),
+        Route::post(''                          ,   'GovernmentController@store'               )->name('store'),
+        Route::get('/{id}/show'                 ,   'GovernmentController@show'                )->name('show'),
+        Route::get('/collection'                ,   'GovernmentController@collection'          )->name('collection'),
+        Route::DELETE('/{id}'                   ,   'GovernmentController@destroy'             )->name('destroy'),
+        Route::post('/{id}/update'              ,   'GovernmentController@update'              )->name('update'),
+        
+        Route::get('/{id}/restore'              ,   'GovernmentController@restore'             )->name('restore'),
+        Route::DELETE('premanently-delete/{id}' ,   'GovernmentController@premanently_delete'  )->name('premanently_delete'),
+        Route::get('/collection-trash'          ,   'GovernmentController@collection_trash'    )->name('collection_trash'),
+        Route::get('/{id}/show-trash'           ,   'GovernmentController@show_trash'          )->name('show_trash'),
+    ]),
+    // government
+    Route::name('city.')->prefix('/city')->group( fn ( ) : array => [
+        Route::get('/'                          ,   'CityController@all'                 )->name('all'),
+        Route::post(''                          ,   'CityController@store'               )->name('store'),
+        Route::get('/{id}/show'                 ,   'CityController@show'                )->name('show'),
+        Route::get('/collection'                ,   'CityController@collection'          )->name('collection'),
+        Route::DELETE('/{id}'                   ,   'CityController@destroy'             )->name('destroy'),
+        Route::post('/{id}/update'              ,   'CityController@update'              )->name('update'),
+        
+        Route::get('/{id}/restore'              ,   'CityController@restore'             )->name('restore'),
+        Route::DELETE('premanently-delete/{id}' ,   'CityController@premanently_delete'  )->name('premanently_delete'),
+        Route::get('/collection-trash'          ,   'CityController@collection_trash'    )->name('collection_trash'),
+        Route::get('/{id}/show-trash'           ,   'CityController@show_trash'          )->name('show_trash'),
+    ]),
     // Site-Setting
     Route::name('site-setting.')->prefix('/site-setting')->group( fn ( ) : array => [
         Route::get('/'                          ,   'SiteSettingController@all'                 )->name('all'),

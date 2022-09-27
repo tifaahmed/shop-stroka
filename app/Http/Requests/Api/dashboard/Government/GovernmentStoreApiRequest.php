@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Api\Dashboard\Country;
+namespace App\Http\Requests\Api\Dashboard\Government;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-
-class CountryStoreApiRequest extends FormRequest
+use App\Rules\UniqueRule;
+class GovernmentStoreApiRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,12 +28,13 @@ class CountryStoreApiRequest extends FormRequest
         
         $all=[];
 
-        $all += [ 'image'                  =>  [ 'required' ,'file','max:50000'] ]  ;
-        $all += [ 'phone_code'                 =>  [ 'required','numeric','unique:countries'  ] ]  ;
+        $all += [ 'country_id'                 =>  [ 'required','integer','exists:countries,id'  ] ]  ;
+        // $all += [ 'name'                =>  [ 'required','unique:governments,name' ] ]  ;
 
         foreach ($lang_array as $key => $value) {
-            $all += [ 'name.'.$value                 =>  [ 'required','unique:countries'  ] ]  ;
+            $all += [ 'name.'.$value                 =>  [ 'required','unique:governments,name'  , new UniqueRule('governments') ] ]  ;
         }
+        
         return $all;
     }
 }
