@@ -25,7 +25,7 @@ class Country extends Model
     ];
 
     // HasMany
-    public function government(){
+    public function governments(){
         return $this->HasMany(Government::class);
     }
 }

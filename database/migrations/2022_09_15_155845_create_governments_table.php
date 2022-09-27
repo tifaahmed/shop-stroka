@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('governments', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
 
             $table->integer('country_id')->unsigned();
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');

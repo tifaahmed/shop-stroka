@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Api\Dashboard\Country;
+namespace App\Http\Requests\Api\Dashboard\City;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class CountryStoreApiRequest extends FormRequest
+class CityUpdateApiRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,11 +28,10 @@ class CountryStoreApiRequest extends FormRequest
         
         $all=[];
 
-        $all += [ 'image'                  =>  [ 'required' ,'file','max:50000'] ]  ;
-        $all += [ 'phone_code'                 =>  [ 'required','numeric','unique:countries'  ] ]  ;
+        $all += [ 'government_id'                 =>  [ 'required','integer','exists:governments,id'  ] ]  ;
 
         foreach ($lang_array as $key => $value) {
-            $all += [ 'name.'.$value                 =>  [ 'required','unique:countries'  ] ]  ;
+            $all += [ 'name.'.$value                 =>  [ 'required','unique:cities,name,'.$this->id  ] ]  ;
         }
         return $all;
     }

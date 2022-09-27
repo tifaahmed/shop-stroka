@@ -29,6 +29,12 @@ use App\Repository\SiteSettingRepositoryInterface;
 use App\Repository\Eloquent\CountryRepository;
 use App\Repository\CountryRepositoryInterface;
 
+use App\Repository\Eloquent\GovernmentRepository;
+use App\Repository\GovernmentRepositoryInterface;
+
+use App\Repository\Eloquent\CityRepository;
+use App\Repository\CityRepositoryInterface;
+
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -47,9 +53,12 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $this->app->bind(StoreRepositoryInterface::class,StoreRepository::class);
         $this->app->bind(UserRepositoryInterface::class,UserRepository::class);
-        $this->app->bind(SiteSettingRepositoryInterface::class,SiteSettingRepository::class);
-        $this->app->bind(CountryRepositoryInterface::class,CountryRepository::class);
 
+        $this->app->bind(SiteSettingRepositoryInterface::class,SiteSettingRepository::class);
+
+        $this->app->bind(CountryRepositoryInterface::class,CountryRepository::class);
+        $this->app->bind(GovernmentRepositoryInterface::class,GovernmentRepository::class);
+        $this->app->bind(CityRepositoryInterface::class,CityRepository::class);
     }
 
     /**
