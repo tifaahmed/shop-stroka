@@ -24,7 +24,7 @@ class ProductItemsController extends Controller
     public function __construct(ModelInterface $Repository)
     {
         $this->ModelRepository = $Repository;
-        $this->folder_name = 'Product-item/'.Str::random(10).time();
+        $this->folder_name = 'Product-item/'.date('Y-m-d-h-i-s');
         $this->file_columns = ['image'];
         $this->translated_file_columns = [];
         $this->default_per_page = 10;

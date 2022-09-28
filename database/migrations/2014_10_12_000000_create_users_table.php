@@ -21,9 +21,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
 
-
-
-
+            
+            $table->enum('login_type',['google','facebook','normal'])->default('normal');
             $table->enum('gender',['girl','boy'])->default('boy');
             $table->string('phone')->nullable();
             $table->date('birthdate')->nullable();

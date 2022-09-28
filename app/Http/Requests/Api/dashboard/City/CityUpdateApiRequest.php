@@ -5,6 +5,9 @@ namespace App\Http\Requests\Api\Dashboard\City;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
+use  App\Rules\SpatieUniqueRule;
+use  App\Models\City;
+use  App\Models\Government;
 class CityUpdateApiRequest extends FormRequest
 {
     /**
@@ -28,10 +31,10 @@ class CityUpdateApiRequest extends FormRequest
         
         $all=[];
 
-        $all += [ 'government_id'                 =>  [ 'required','integer','exists:governments,id'  ] ]  ;
+        $all += [ 'government_id'                 =>  [ 'required','integer','exists:'.Government::class.',id'  ] ]  ;
 
         foreach ($lang_array as $key => $value) {
-            $all += [ 'name.'.$value                 =>  [ 'required','unique:cities,name,'.$this->id  ] ]  ;
+            $all += [ 'name.'.$value                 =>  [ 'required' , new SpatieUniqueRule(new City,'name',$value,$this->id) ] ]  ;
         }
         return $all;
     }

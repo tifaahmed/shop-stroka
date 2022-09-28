@@ -8,8 +8,8 @@ use Illuminate\Http\Response ;
 use Illuminate\Support\Str;
 
 // Resource
-use App\Http\Resources\Mobile\Collections\ProductCategoryCollection as ModelCollection;
-use App\Http\Resources\Mobile\ProductCategory\ProductCategoryResource as ModelResource;
+use App\Http\Resources\Mobile\Collections\ProductItemCollection as ModelCollection;
+use App\Http\Resources\Mobile\ProductItem\ProductItemResource as ModelResource;
 
 // lInterfaces
 use App\Repository\ProductItemRepositoryInterface as ModelInterface;

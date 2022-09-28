@@ -21,7 +21,7 @@ class UserResource extends JsonResource
         $string_fields = [
             'first_name',// string
             'last_name', // string / nullable
-
+            'login_type',  // enum / 'google','facebook','normal; / default: normal
             'email', // string / unique
             'password', // string
             'gender',   // enum / 'girl','boy' / default: boy
