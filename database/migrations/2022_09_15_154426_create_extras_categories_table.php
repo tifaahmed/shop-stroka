@@ -13,8 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('extras_categories', function (Blueprint $table) {
-            $table->id();
+        Schema::create('extra_categories', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title')->unique(); // [note: "translatable"]
+            $table->enum('type', ['radio', 'checkbox']);
             $table->timestamps();
         });
     }
