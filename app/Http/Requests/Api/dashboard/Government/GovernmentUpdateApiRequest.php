@@ -4,7 +4,10 @@ namespace App\Http\Requests\Api\Dashboard\Government;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use App\Rules\UniqueRule;
+use App\Rules\SpatieUniqueRule;
+use  App\Models\Government;
+use  App\Models\Country;
+
 class GovernmentUpdateApiRequest extends FormRequest
 {
     /**
@@ -28,10 +31,11 @@ class GovernmentUpdateApiRequest extends FormRequest
         
         $all=[];
 
-        $all += [ 'country_id'                 =>  [ 'required','integer','exists:countries,id'  ] ]  ;
+        $all += [ 'country_id'                 =>  [ 'required','integer','exists:'.Country::class.',id'  ] ]  ;
 
         foreach ($lang_array as $key => $value) {
-            $all += [ 'name.'.$value                 =>  [ 'required','unique:governments,name,'.$this->id ] ]  ;
+            $all += [ 'name.'.$value                 =>  [ 'required' , new SpatieUniqueRule(new Government,'name',$value,$this->id) ] ]  ;
+
         }
         return $all;
     }

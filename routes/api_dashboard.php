@@ -19,8 +19,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
+Route::group(['prefix' =>'dashboard','middleware' => ['LocalizationMiddleware']], fn ( ) : array => [
 
-Route::group(['prefix' =>'dashboard'], fn ( ) : array => [
 
     Route::name('language.')->prefix('/language')->group( fn ( ) : array => [
         Route::get('/'                          ,   'LanguageController@all'                 )->name('all'),
