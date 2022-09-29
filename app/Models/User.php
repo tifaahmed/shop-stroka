@@ -2,15 +2,25 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+
+use Illuminate\Auth\Notifications\ResetPassword;
+use App\Models\Permission;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+// Notification
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\ResetPasswordNotification;
+use App\Notifications\ActiveEmailNotification;
+
 use Auth;
+
 use App\Models\Store;              // HasOne
 
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
@@ -32,7 +42,7 @@ class User extends Authenticatable
         'gender',   // enum / 'girl','boy' / default: boy
         'phone',    // string  / nullable
         'birthdate', //  date  / nullable
-        'email_verified_at',  // date   / nullable
+        'email_verified_at',  // datetime   / nullable
 
         'avatar', // string(file) / nullable
 
@@ -43,43 +53,87 @@ class User extends Authenticatable
         'longitude', // string / nullable
 
         'token', // string / nullable / unique
-        'rememberToken'
+        'remember_token'
     ];
- 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
+
     protected $hidden = [
         'password',
         'remember_token',
     ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
+    
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
-    public function getToken( ) : array { 
+    protected static function boot()
+    {
+        parent::boot();
+        User::creating(function ($model) {
+            $model->pin_code = rand(111111,999999);
+        });
+        User::updating(function ($model) {
+            $model->pin_code = rand(111111,999999);
+        });
+    }
 
-        $token = $this -> createToken( $this->remember_token ?  $this->remember_token : '' )->accessToken;
+
+
+    //relations
+        // HasOne
+            public function store(){
+                return $this->hasOne(Store::class);
+            }
+    //relations
+
+
+    
+
+    public function getToken( ) : array { // sanctum
+        $token = $this -> createToken( $this->remember_token ??  $this->remember_token   )  ; 
         return [
-        'token_type'        =>  'Bearer' ,
-        'expires_in'        =>  $token -> expires_in ,
-        'name_token'        =>  $token -> name,
-        'access_token'      =>  $token -> token ,
-        'refresh_token'     =>  null ,
-        'updated_at_token'  =>  $token -> updated_at ,
-        'created_at_token'  =>  $token -> created_at ,
+            'token_type'        =>  'Bearer' ,
+            'expires_in'        =>  null ,
+            'name_token'        =>  null,
+            'access_token'      =>  $token ->plainTextToken ,
+            'refresh_token'     =>  null ,
+            'updated_at_token'  =>  null ,
+            'created_at_token'  =>  null ,
         ] ; 
     }
+    // public function getToken( ) : array {   // passport
 
-    public function store(){
-        return $this->hasOne(Store::class);
-    }
+    //     $token = $this -> createToken( $this->remember_token ?  $this->remember_token : '' )->accessToken;
+    //     return [
+    //     'token_type'        =>  'Bearer' ,
+    //     'expires_in'        =>  $token -> expires_in ,
+    //     'name_token'        =>  $token -> name,
+    //     'access_token'      =>  $token -> token ,
+    //     'refresh_token'     =>  null ,
+    //     'updated_at_token'  =>  $token -> updated_at ,
+    //     'created_at_token'  =>  $token -> created_at ,
+    //     ] ; 
+    // }
+
+
+    // Notification
+
+        public function sendPasswordResetNotification($token)
+        {
+            $url = asset('api/auth/reset-password?token='.$token);
+
+            $data = [] ;
+            $data += ['url' => $url];
+            $data += ['pin_code' => $this->pin_code];
+
+            $this->notify(new ResetPasswordNotification($data));
+        }
+        public function sendActiveEmailNotification()
+        {
+            $data = ['pin_code' => $this->pin_code];
+
+            $this->notify(new ActiveEmailNotification($data));
+            
+        }
+    //Notifications
+    
 }
