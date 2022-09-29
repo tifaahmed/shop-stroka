@@ -19,7 +19,15 @@ class ProductItemResource extends JsonResource
 
         $all += [ 'id' =>   $this->id ]  ;
         $all += [ 'title' =>   $this->title ]  ;
+        $all += [ 'status' =>   $this->status ]  ;
+        $all += [ 'price' =>   $this->price ]  ;
+        $all += [ 'discount' =>   $this->discount ]  ;
+        $all += [ 'description' =>   $this->description ]  ;
+        $all += [ 'image' =>   check_image($this->image)]  ;
+   
 
+        // $all += [ 'store' =>   new StoreResource ($this->store) ]  ;
+        // $all += [ 'product_category' => new  ProductCategoryResource($this->product_category) ]  ;
 
         return $all;
     }

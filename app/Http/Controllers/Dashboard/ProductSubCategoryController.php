@@ -25,7 +25,7 @@ class ProductSubCategoryController extends Controller
     public function __construct(ModelInterface $Repository)
     {
         $this->ModelRepository = $Repository;
-        $this->folder_name = 'ProductCategory/'.Str::random(10).time();
+        $this->folder_name = 'ProductCategory/'.date('Y-m-d-h-i-s');
         $this->file_columns = [];
         $this->translated_file_columns = ['image'];
         $this->default_per_page = 10;

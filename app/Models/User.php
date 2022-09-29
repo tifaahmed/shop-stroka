@@ -27,6 +27,8 @@ class User extends Authenticatable
 
         'email', // string / unique
         'password', // string
+        
+        'login_type',   // enum / 'google','facebook','normal; / default: normal
         'gender',   // enum / 'girl','boy' / default: boy
         'phone',    // string  / nullable
         'birthdate', //  date  / nullable
