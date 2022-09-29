@@ -1,6 +1,7 @@
 import layout from './layout';
 import AuthRoutes from './Admin/Routes/AuthRoutes';
 import AdminRoutes from './Admin/Routes/Routes';
+console.log('main rout');
 
 export default {
     mode: 'history',

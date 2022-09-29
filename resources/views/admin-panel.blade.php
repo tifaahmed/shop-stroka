@@ -7,8 +7,7 @@
 
         <link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <script>window.laravel={csrfToken: '{{ csrf_token() }}'}</script>
-
+ 
 
         <!-- Favicon -->
         <link rel="icon" href="{{asset('dashboard/asset/img/brand/favicon.png')}}" type="image/x-icon"/>
@@ -32,6 +31,7 @@
 
         <!--- Animations css-->
         <link href="{{asset('dashboard/asset/css/animate.css')}}" rel="stylesheet">
+        @vite('resources/css/app.css')
 
     </head>
 
@@ -134,90 +134,12 @@
         <div id="app" class="page">
             <layout></layout>
         </div>
-        <script src="{{asset('js/app.js')}}"></script>
+        @vite('resources/js/app.js')
 
 
-        <!-- Loader -->
-        <div id="global-loader">
-            <img src="{{asset('dashboard/asset/img/loader.svg')}}" class="loader-img" alt="Loader">
-        </div>
-        <!-- /Loader -->
-
- 
- 
-
- 
- 
-        <!-- Back-to-top -->
-        <a href="#top" id="back-to-top"><i class="las la-angle-double-up"></i></a>
+   
 
 
 
-        <!-- JQuery min js -->
-        <script src="{{asset('dashboard/asset/plugins/jquery/jquery.min.js')}}"></script>
-
-        <!-- Bootstrap Bundle js -->
-        <script src="{{asset('dashboard/asset/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-
-        <!-- Ionicons js -->
-        <script src="{{asset('dashboard/asset/plugins/ionicons/ionicons.js')}}"></script>
-
-        <!-- Moment js -->
-        <script src="{{asset('dashboard/asset/plugins/moment/moment.js')}}"></script>
-
-        <!-- Eva-icons js -->
-        <script src="{{asset('dashboard/asset/js/eva-icons.min.js')}}"></script>
-
-        
-
-        <!-- Sticky js -->
-        <script src="{{asset('dashboard/asset/js/sticky.js')}}"></script>
-        <script src="{{asset('dashboard/asset/js/modal-popup.js')}}"></script>
-
-        <!-- Rating js-->
-
-        <!-- Left-menu js-->
-        <script src="{{asset('dashboard/asset/plugins/side-menu/sidemenu.js')}}"></script>
-
-        <!-- Right-sidebar js -->
-        <script src="{{asset('dashboard/asset/plugins/sidebar/sidebar.js')}}"></script>
-        <script src="{{asset('dashboard/asset/plugins/sidebar/sidebar-custom.js')}}"></script>
-
-        <!-- eva-icons js -->
-        <script src="{{asset('dashboard/asset/js/eva-icons.min.js')}}"></script>
-
-        <!-- custom js -->
-        <script src="{{asset('dashboard/asset/js/custom.js')}}"></script>
-
-
-
-        <!--Internal  Chat js -->
-        <!-- <script src=" asset('asset/js/chat.js') "></script> -->
-        <!-- <script src="https://js.pusher.com/7.0/pusher.min.js"></script> -->
-
-           <!-- <script> -->
-                <!-- // Enable pusher logging - don't include this in production
-                // Pusher.logToConsole = true;
-
-                // var pusher = new Pusher('f9bfb3bde63faacfba04', {
-                //     cluster: 'eu',
-                //     authEndpoint: "/channels/authorize",
-                //     auth: { headers: { "X-CSRF-Token": "{{csrf_token()}}" } }
-                // });
-                // var channel = pusher.subscribe('chat.7');
-
-                // //pending-order event
-                // channel.bind('SentMessageEvent', function(data) {
-                //        console.log('SentMessageEvent')   
-                // }); -->
-           <!-- </script> -->
-        <!-- <script>
-         
-          window.Laravel = {!! json_encode([
-            'csrfToken' => csrf_token(),
-            'user' => Auth::user(),
-            'pusherKey' => config('broadcasting.connections.pusher.key'),
-          ]) !!};
-        </script> -->
     </body>
 </html>

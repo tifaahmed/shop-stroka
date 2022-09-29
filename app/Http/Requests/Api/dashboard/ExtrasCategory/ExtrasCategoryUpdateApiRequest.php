@@ -4,7 +4,9 @@ namespace App\Http\Requests\Api\Dashboard\ExtrasCategory;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use App\Rules\UniqueRule;
+
+use App\Rules\SpatieUniqueRule;
+use App\Models\ExtraCategory;
 class ExtrasCategoryUpdateApiRequest extends FormRequest
 {
     /**
@@ -32,9 +34,9 @@ class ExtrasCategoryUpdateApiRequest extends FormRequest
             'radio','checkbox' 
         ]), ] ] ;
         foreach ($lang_array as $key => $value) {
-            $all += [ 'title.'.$value =>  [ 'required','unique:extra_categories,title,'.$this->id ] ]  ;
+            $all += [ 'title.'.$value                 =>  [ 'required',new SpatieUniqueRule(new ExtraCategory,'title',$value,$this->id)  ] ]  ;
         }
-        
+
         return $all;
     }
 }
