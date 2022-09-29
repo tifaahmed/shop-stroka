@@ -86,7 +86,7 @@
 <!-- main-sidebar -->
 
 <script>
-import jwt   from './../../Services/jwt' ;
+// import jwt   from './../../Services/jwt' ;
 // jwt.User
     export default {
 
@@ -95,7 +95,7 @@ import jwt   from './../../Services/jwt' ;
             // console.log( jwt.User )
         },
         data( ) { return {
-            User :jwt.User ,
+            // User :jwt.User ,
             logo: ''
 
         } } ,

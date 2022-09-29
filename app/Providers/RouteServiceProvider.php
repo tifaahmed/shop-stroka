@@ -17,7 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+    public const HOME = '/dashboard';
     protected $name_space_site    = 'App\\Http\\Controllers\\Site';
     protected $name_space_admin   = 'App\\Http\\Controllers\\Dashboard';
     protected $name_space_profile = 'App\\Http\\Controllers\\Profile';
